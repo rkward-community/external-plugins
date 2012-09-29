@@ -1,0 +1,72 @@
+<!DOCTYPE rkplugin>
+<document>
+	<!-- this code was generated using the rkwarddev package.
+		perhaps don't make changes here, but in the rkwarddev script instead! -->
+	<code file="MPTinR2.js" />
+	<help file="MPTinR2.rkh" />
+	<include file="../rk.MPT.pluginmap" />
+	<logic>
+		<convert id="lgc_drpMdlfr" sources="drp_Modlfrmt.string" mode="equals" standard="file" />
+		<connect governor="lgc_drpMdlfr" client="brw_Modelfil.visible" />
+		<connect governor="lgc_drpMdlfr" client="drp_Modeltyp.visible" />
+		<connect governor="lgc_drpMdlfr.not" client="vrsl_Mdlbmptm.visible" />
+		<script>
+			<![CDATA[ gui.addChangeCommand("brw_Modelfil.selection", "modelChanged()");
+						// this function is called whenever the model file name was changed
+						modelChanged = function(){
+								var modelName = gui.getValue("brw_Modelfil.selection");
+								if(modelName.match(/.*\.eqn|.*\.EQN/)){
+									gui.setValue("drp_Modeltyp.string", "eqn");
+								} else {}
+							} ]]>
+		</script>
+	</logic>
+	<dialog label="Multinomial Processing Trees: MPTinR2">
+		<tabbook>
+			<tab label="Model" id="tab_Model">
+				<row id="row_vSSDDSMMRO">
+					<varselector id="vrs_Selectdt" label="Select data" />
+					<column id="clm_vDDSMMROMM">
+						<varslot id="vrsl_Dtvctrmt" label="Data (vector, matrix or data.frame)" source="vrs_Selectdt" classes="vector data.frame matrix" required="true" />
+						<dropdown id="drp_Modlfrmt" label="Model format">
+							<option label="Read model from file" value="file" checked="true" />
+							<option label="Object of class bmpt.model or mpt.model" value="object" />
+						</dropdown>
+						<varslot id="vrsl_Mdlbmptm" label="Model (bmpt.model or mpt.model)" source="vrs_Selectdt" classes="bmpt.model mpt.model" required="true" />
+						<browser label="Model file" type="file" id="brw_Modelfil" />
+						<dropdown id="drp_Modeltyp" label="Model type">
+							<option label="Easy" value="easy" checked="true" />
+							<option label="EQN" value="eqn" />
+							<option label="EQN2" value="eqn2" />
+						</dropdown>
+						<browser label="Restrictions file" type="file" id="brw_Rstrctns" required="false" />
+						<stretch />
+						<saveobject label="Save results to workspace" checkable="true" initial="MPTinR2.result" id="svb_Svrsltst" />
+					</column>
+				</row>
+			</tab>
+			<tab label="Options" id="tab_Options">
+				<row id="row_cNN51NN51C">
+					<column id="clm_fNN51NN51C">
+						<frame id="frm_rNN51NN51C">
+							<row id="row_cNN51NN51C">
+								<column id="clm_spnbxlNN51">
+									<spinbox label="Number of optimization runs" id="spn_Nmbrfptm" initial="5" min="1" type="integer" />
+								</column>
+								<column id="clm_spCC950100">
+									<spinbox label="Confidence interval" id="spn_Cnfdncnt" initial="95" min="0" max="100" type="integer" />
+								</column>
+							</row>
+						</frame>
+						<frame label="Show in output" id="frm_Showntpt">
+							<checkbox id="chc_Paramtrs" label="Parameters" value="true" checked="true" />
+							<checkbox id="chc_Gdnssfft" label="Goodness of fit" value="true" checked="true" />
+							<checkbox id="chc_Infrmtnc" label="Information criteria" value="true" checked="true" />
+						</frame>
+						<stretch />
+					</column>
+				</row>
+			</tab>
+		</tabbook>
+	</dialog>
+</document>

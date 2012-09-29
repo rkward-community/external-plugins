@@ -1,0 +1,27 @@
+<!DOCTYPE rkplugin>
+<document>
+	<!-- this code was generated using the rkwarddev package.
+		perhaps don't make changes here, but in the rkwarddev script instead! -->
+	<code file="CohensKappa.js" />
+	<help file="CohensKappa.rkh" />
+	<include file="../rk.CohenKappa.pluginmap" />
+	<logic>
+		<!-- <convert id="!edit!" sources="!edit!" mode="equals" standard="!edit!" /> -->
+		<!-- <connect governor="!edit!" client="!edit!.enabled" /> -->
+	</logic>
+	<dialog label="Cohen's Kappa">
+		<row id="row_vSSD2D2SWW">
+			<varselector id="vrs_Selectdt" label="Select data" />
+			<column id="clm_vD2D2SWWSN">
+				<varslot id="vrsl_Dtmtrxr2" label="Data (matrix or data.frame, 2*n or p*p)" source="vrs_Selectdt" classes="data.frame matrix" required="true" />
+				<varslot id="vrsl_Wghtmtrx" label="Weight matrix (p*p)" source="vrs_Selectdt" classes="matrix" />
+				<stretch />
+				<frame id="frm_sNN0AA0050">
+					<spinbox label="Number of observations (if data is a square matrix)" id="spn_Nmbrfbsr" min="0" type="integer" />
+					<spinbox label="Alpha value for confidence interval" id="spn_Alphvlfr" initial="0.05" min="0" max="1" />
+				</frame>
+				<saveobject label="Save results to workspace" checkable="true" initial="kappa.result" id="svb_Svrsltst" />
+			</column>
+		</row>
+	</dialog>
+</document>

@@ -1,0 +1,40 @@
+<!DOCTYPE rkplugin>
+<document>
+	<!-- this code was generated using the rkwarddev package.
+			perhaps don't make changes here, but in the rkwarddev script instead! -->
+	<code file="ParallelanalysisHorn.js" />
+	<help file="ParallelanalysisHorn.rkh" />
+	<logic>
+		<!-- <convert id="!edit!" sources="!edit!" mode="equals" standard="!edit!" /> -->
+		<!-- <connect governor="!edit!" client="!edit!.enabled" /> -->
+	</logic>
+	<dialog label="Parallel analysis">
+		<row id="row_vSSDDSMMPA">
+			<varselector id="vrs_Slctdtfr" label="Select data.frame/matrix" />
+			<column id="clm_vDDSMMPASP">
+				<varslot id="vrsl_Data" label="Data" source="vrs_Slctdtfr" required="true" />
+				<input label="Main title" id="inp_Maintitl" initial="Parallel Analysis Scree Plots" />
+				<radio id="rad_ShwEgnvl" label="Show Eigen values for">
+					<option label="Factors and components" value="both" />
+					<option label="Factors only" value="fa" />
+					<option label="Prinicipal components only" value="pc" />
+				</radio>
+				<dropdown id="drp_prll_factmeth" label="Factoring method">
+					<option label="Minimum residual (ULS)" value="minres" checked="true" />
+					<option label="Weighted least squares (WLS)" value="wls" />
+					<option label="Generalized weighted least squares (GLS)" value="gls" />
+					<option label="Principal axis" value="pa" />
+					<option label="Maximum likelihood" value="ml" />
+				</dropdown>
+				<spinbox label="Number of observations (0 implies raw data)" id="spn_Nmbrfbs0" min="0" type="integer" />
+				<spinbox label="Number of iterations" id="spn_Nmbrftrt" initial="20" min="2" type="integer" />
+				<checkbox id="chc_EstmtSMC" label="Estimate communalities by SMCs" value="true" />
+				<checkbox id="chc_Pltrrrbr" label="Plot error bars" value="true" />
+				<checkbox id="chc_Showlgnd" label="Show legend" value="true" checked="true" />
+				<stretch />
+				<saveobject label="Save data to workspace" checkable="true" initial="parallel.data" id="svb_Svdttwrk" />
+				<preview />
+			</column>
+		</row>
+	</dialog>
+</document>

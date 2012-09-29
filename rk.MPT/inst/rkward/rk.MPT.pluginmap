@@ -1,0 +1,68 @@
+<!DOCTYPE rkpluginmap>
+<document 
+	namespace="rkward"
+	id="MPTinR2_rkward"
+>
+	<!-- 
+		this code was generated using the rkwarddev package.
+		perhaps don't make changes here, but in the rkwarddev script instead! 
+	-->
+	<about 
+		name="rk.MPT"
+		shortinfo="RKWard GUI for multinomial processing tree (MPT) models"
+		longinfo="RKWard GUI for multinomial processing tree (MPT) models"
+		version="0.01-2"
+		releasedate="2012-04-07"
+		url="http://rkward.sf.net"
+		license="GPL (&gt;= 3)"
+	>
+		<author 
+			given="Meik"
+			family="Michalke"
+			email="meik.michalke@hhu.de"
+			role="aut, cre"
+		 />
+		<dependencies rkward_min_version="0.5.6">
+			<package name="MPTinR2" />
+			<!-- 
+				If this plugin depends on other pluginmaps, edit this part to your needs: 
+				 				<pluginmap 
+									name="CHANGE_ME_OR_DELETE_ME"
+									url="CHANGE_ME_OR_DELETE_ME"
+								 /> 
+			-->
+		</dependencies>
+	</about>
+	<!-- 
+		<require file="path/file.pluginmap" /> 
+	-->
+	<components>
+		<component 
+			id="cmp_MPTinR2MPTinR2"
+			label="MPTinR2"
+			type="standard"
+			file="plugins/MPTinR2.xml"
+		 />
+	</components>
+	<hierarchy>
+		<menu 
+			id="analysis"
+			label.analysis="Analysis"
+		>
+			<menu 
+				id="MPT"
+				label="MPT"
+			>
+				<entry component="cmp_MPTinR2MPTinR2" />
+			</menu>
+		</menu>
+	</hierarchy>
+	<!-- 
+		<context id="x11">
+				</context> 
+	-->
+	<!-- 
+		<context id="import">
+				</context> 
+	-->
+</document>

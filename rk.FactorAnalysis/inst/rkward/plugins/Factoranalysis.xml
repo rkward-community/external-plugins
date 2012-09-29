@@ -1,0 +1,179 @@
+<!DOCTYPE rkplugin>
+<document>
+	<!-- this code was generated using the rkwarddev package.
+			perhaps don't make changes here, but in the rkwarddev script instead! -->
+	<code file="Factoranalysis.js" />
+	<help file="Factoranalysis.rkh" />
+	<include file="../rk.FactorAnalysis.pluginmap" />
+	<logic>
+		<convert id="lgc_rdFctPCA" sources="rad_Fctrngmt.string" mode="equals" standard="PCA" />
+		<convert id="lgc_rdCrrltn" sources="rad_Crrltnmt.string" mode="equals" standard="fa" />
+		<convert id="lgc_lgcFPCAC" sources="lgc_rdFctPCA.not;lgc_rdCrrltn" mode="and" />
+		<convert id="lgc_lgcFPCAC" sources="lgc_rdFctPCA;lgc_rdCrrltn" mode="or" />
+		<connect governor="lgc_rdFctPCA" client="drp_PCA_rotate.visible" />
+		<connect governor="lgc_rdFctPCA.not" client="drp_EFA_rotate.visible" />
+		<connect governor="lgc_rdFctPCA.not" client="drp_EFA_factmeth.enabled" />
+		<connect governor="lgc_rdFctPCA.not" client="rad_Intlcmmn.enabled" />
+		<connect governor="lgc_lgcFPCAC" client="rad_Mtrxtfct.enabled" />
+		<connect governor="lgc_lgcFPCAC" client="chc_Shwrsdls.enabled" />
+		<connect governor="lgc_rdFctPCA.not" client="rad_Mtrxtscr.enabled" />
+		<connect governor="lgc_rdFctPCA" client="frm_Fndcmpnn.visible" />
+		<connect governor="lgc_rdFctPCA.not" client="drp_Mthdtfnd.visible" />
+		<connect governor="lgc_lgcFPCAC" client="drp_Mthdtfnd.enabled" />
+		<connect governor="lgc_rdFctPCA.not" client="radio_missings_EFA.visible" />
+		<connect governor="lgc_rdFctPCA.not" client="frm_Prfrmbts.enabled" />
+		<connect governor="lgc_rdFctPCA.not" client="rad_Crrltnmt.enabled" />
+	</logic>
+	<dialog label="Factor analysis">
+		<tabbook id="tbbk_Fctrnlys" label="Factor analysis">
+			<tab label="Data" id="tab_Data">
+				<row id="row_vSSCCSCCSF">
+					<varselector id="vrs_Selectdt" label="Select data" />
+					<column id="clm_fCCSCCSFFP">
+						<frame id="frm_vrsltdvCCS">
+							<varslot id="vrsl_Crrltnmt" label="Correlation matrix (or raw data matrix)" source="vrs_Selectdt" required="true" />
+						</frame>
+						<frame id="frm_rFFPPCAEEF">
+							<radio id="rad_Fctrngmt" label="Factoring method">
+								<option label="Principal component analysis" value="PCA" />
+								<option label="Exploratory factor analysis" value="EFA" checked="true" />
+							</radio>
+						</frame>
+						<frame id="frm_rddrdCrCPP">
+							<radio id="rad_Crrltnmt" label="Correlation method">
+								<option label="Pearson product-moment (numeric data)" value="fa" checked="true" />
+								<option label="Polychoric (polytomous data)" value="fa.poly" />
+							</radio>
+						</frame>
+						<spinbox label="Number of factors to extract" id="spn_Nmbrffct" initial="1" min="1" type="integer" />
+						<stretch />
+						<saveobject label="Save results to workspace" checkable="true" initial="FA.results" id="svb_Svrsltst" />
+					</column>
+				</row>
+			</tab>
+			<tab label="Options" id="tab_Options">
+				<row id="row_cPCAREFARN">
+					<column id="clm_rPCAREFARN">
+						<row id="row_cPCAREFARN">
+							<column id="clm_dPCAREFARN">
+								<dropdown id="drp_PCA_rotate" label="Rotation method">
+									<option label="none" value="none" />
+									<option label="varimax (orthogonal)" value="varimax" checked="true" />
+									<option label="quatimax (orthogonal)" value="quatimax" />
+									<option label="promax" value="promax" />
+									<option label="oblimin" value="oblimin" />
+									<option label="simplimax" value="simplimax" />
+									<option label="cluster" value="cluster" />
+								</dropdown>
+								<dropdown id="drp_EFA_rotate" label="Rotation method">
+									<option label="None" value="none" />
+									<option label="Varimax (orthogonal)" value="varimax" />
+									<option label="Quatimax (orthogonal)" value="quatimax" />
+									<option label="BentlerT (orthogonal)" value="bentlerT" />
+									<option label="GeominT (orthogonal)" value="geominT" />
+									<option label="Bifactor (orthogonal)" value="bifactor" />
+									<option label="Promax" value="promax" />
+									<option label="Oblimin" value="oblimin" checked="true" />
+									<option label="Simplimax" value="simplimax" />
+									<option label="BentlerQ" value="bentlerQ" />
+									<option label="GeominQ" value="geominQ" />
+									<option label="Biquartimin" value="biquartimin" />
+									<option label="Cluster" value="cluster" />
+								</dropdown>
+							</column>
+							<column id="clm_dEFAFMULSW">
+								<dropdown id="drp_EFA_factmeth" label="Factoring method">
+									<option label="Minimum residual (ULS)" value="minres" checked="true" />
+									<option label="Weighted least squares (WLS)" value="wls" />
+									<option label="Generalized weighted least squares (GLS)" value="gls" />
+									<option label="Principal axis" value="pa" />
+									<option label="Maximum likelihood" value="ml" />
+								</dropdown>
+							</column>
+						</row>
+						<row id="row_cIIS1IIS1M">
+							<column id="clm_rddrdInIS1">
+								<radio id="rad_Intlcmmn" label="Initial communality estimate">
+									<option label="Squared multiple correlations" value="true" checked="true" />
+									<option label="1" value="false" />
+								</radio>
+							</column>
+							<column id="clm_rddrdMtMFF">
+								<radio id="rad_Mtrxtfct" label="Matrix to factor">
+									<option label="Factor correlation matrix" value="false" checked="true" />
+									<option label="Factor covariance matrix" value="true" />
+								</radio>
+							</column>
+							<column id="clm_rddrdMtMSS">
+								<radio id="rad_Mtrxtscr" label="Matrix to score">
+									<option label="Scores based on structure matrix (oblique)" value="true" checked="true" />
+									<option label="Scores based on pattern matrix" value="false" />
+								</radio>
+							</column>
+						</row>
+						<frame id="frm_rSSSSAKAKA">
+							<row id="row_cSSSSAKAKA">
+								<column id="clm_chckbxdcSS">
+									<checkbox id="chc_Shwrsdls" label="Show residuals" value="true" />
+								</column>
+								<column id="clm_chckbxAKAK">
+									<checkbox id="chc_ApplyKsr" label="Apply Kaiser normalization" value="true" />
+								</column>
+							</row>
+						</frame>
+						<frame label="Find component scores" checkable="true" checked="false" id="frm_Fndcmpnn">
+							<dropdown id="radio_missings_PCA" label="Dealing with missing values">
+								<option label="Don't impute missing values" value="none" checked="true" />
+								<option label="Replace with median" value="median" />
+								<option label="Replace with mean" value="mean" />
+							</dropdown>
+						</frame>
+						<row id="row_cMMRSTTBBA">
+							<column id="clm_dMMRSTTBBA">
+								<dropdown id="drp_Mthdtfnd" label="Method to find factor scores">
+									<option label="Regression" value="regression" checked="true" />
+									<option label="Simple regression (Thurstone)" value="Thurstone" />
+									<option label="correlation preserving (ten Berge)" value="tenBerge" />
+									<option label="Anderson" value="Anderson" />
+									<option label="Bartlett" value="Bartlett" />
+								</dropdown>
+							</column>
+							<column id="clm_drpEFADDRR">
+								<dropdown id="radio_missings_EFA" label="Dealing with missing values">
+									<option label="Don't impute missing values" value="none" checked="true" />
+									<option label="Replace with median" value="median" />
+									<option label="Replace with mean" value="mean" />
+								</dropdown>
+							</column>
+						</row>
+						<spinbox label="Number of observations to find the correlation matrix (GoF statistics)" id="spn_NmbrfbGF" min="0" type="integer" />
+						<frame label="Perform bootstrap iterations" checkable="true" checked="false" id="frm_Prfrmbts">
+							<row id="row_cNN22NN22U">
+								<column id="clm_spnbxlNN22">
+									<spinbox label="Number of iterations" id="spn_Nmbrftrt" initial="2" min="2" type="integer" />
+								</column>
+								<column id="clm_sUU0001104">
+									<spinbox label="Until change in communalities is less than" id="spn_Untlchng" initial="0.001" min="1e-04" />
+								</column>
+								<column id="clm_spnbxMM502">
+									<spinbox label="Maximum number of iterations" id="spn_Mxmmnmbr" initial="50" min="2" type="integer" />
+								</column>
+							</row>
+						</frame>
+						<stretch />
+						<frame label="Output" id="frm_Output">
+							<row id="row_cMM01MM01S">
+								<column id="clm_spnbxlMM01">
+									<spinbox label="Marker item threshold (cut-off)" id="spn_Mrkrtmth" initial="0.1" />
+								</column>
+								<column id="clm_spnbSS3020">
+									<spinbox label="Show decimals" id="spn_Shwdcmls" initial="3" min="0" max="20" type="integer" />
+								</column>
+							</row>
+						</frame>
+					</column>
+				</row>
+			</tab>
+		</tabbook>
+	</dialog>
+</document>

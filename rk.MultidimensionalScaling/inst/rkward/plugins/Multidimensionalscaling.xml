@@ -1,0 +1,121 @@
+<!DOCTYPE rkplugin>
+<document>
+	<!-- this code was generated using the rkwarddev package.
+			perhaps don't make changes here, but in the rkwarddev script instead! -->
+	<code file="Multidimensionalscaling.js" />
+	<help file="Multidimensionalscaling.rkh" />
+	<include file="../rk.MultidimensionalScaling.pluginmap" />
+	<logic>
+		<connect governor="current_object" client="vrsl_Dtdtfrmm.available" />
+		<connect governor="vrsl_Dtdtfrmm.available" client="vrs_Selectdt.root" />
+		<convert id="lgc_vrslDtdt" sources="vrsl_Dtdtfrmm.available" mode="notequals" />
+		<connect governor="lgc_vrslDtdt" client="frm_Usnlysbs.enabled" />
+		<script>
+			<![CDATA[ 
+				gui.addChangeCommand("vrsl_Dtdtfrmm.available", "dataChanged()");
+									// this function is called whenever the data was changed
+									dataChanged = function(){
+											var prepareFrame = "true";
+											var selectFrame = "true";
+											var thisObject = makeRObject(gui.getValue("vrsl_Dtdtfrmm.available"));
+											if(thisObject.classes()){
+												if(!thisObject.isDataFrame()){
+													selectFrame = "false";
+													if(thisObject.classes().indexOf("dist") != -1){
+														prepareFrame = "false";
+													} else {}
+												} else {}
+											} else {}
+											gui.setValue("frm_Usnlysbs.enabled", selectFrame);
+											gui.setValue("frm_Dtprprtn.enabled", prepareFrame);
+										} 
+			]]>
+		</script>
+		<convert id="lgc_drpCmptt" sources="drp_Cmpttnmt.string" mode="equals" standard="minkowski" />
+		<connect governor="lgc_drpCmptt" client="spn_PwrfMnkw.enabled" />
+		<connect governor="chc_Pltrslts.state" client="row_cPPOTT08TT.enabled" />
+		<convert id="lgc_frmDtprp" sources="frm_Dtprprtn.enabled" mode="equals" standard="true" />
+		<connect governor="lgc_frmDtprp" client="frm_Dstncmtr.enabled" />
+		<set id="emb_Optnsrkw.color.string" to="red" />
+	</logic>
+	<dialog label="Multidimensional scaling">
+		<tabbook>
+			<tab label="Data" id="tab_Data">
+				<row id="row_vSSDDSUUSS">
+					<varselector id="vrs_Selectdt" label="Select data" />
+					<column id="clm_vDDSUUSSSD">
+						<varslot id="vrsl_Dtdtfrmm" label="Data (data.frame, matrix or dist)" source="vrs_Selectdt" classes="data.frame matrix dist" required="true" />
+						<frame label="Use only a subset of variables" checkable="true" checked="false" id="frm_Usnlysbs">
+							<varslot id="vrsl_Slctdvrb" label="Selected variables" source="vrs_Selectdt" multi="true" />
+						</frame>
+						<frame label="Data preparation" id="frm_Dtprprtn">
+							<row id="row_clRRRRSSSS">
+								<column id="clm_chckbxdcRR">
+									<checkbox id="chc_Rmvmssng" label="Remove missing values" value="true" checked="true" />
+								</column>
+								<column id="clm_chckbxdcSS">
+									<checkbox id="chc_Stdrdzvl" label="Stadardize values" value="true" />
+								</column>
+							</row>
+						</frame>
+						<stretch />
+						<saveobject label="Save results to workspace" checkable="true" initial="mds.result" id="svb_Svrsltst" />
+					</column>
+					<column id="clm_fMM2MM2DDC">
+						<frame id="frm_spnbxlbMM2">
+							<spinbox label="Maximum dimensions" id="spn_Mxmmdmns" min="2" type="integer" />
+						</frame>
+						<stretch />
+						<frame label="Distance matrix" id="frm_Dstncmtr">
+							<dropdown id="drp_Cmpttnmt" label="Computation method">
+								<option label="Euclidean" value="euclidean" checked="true" />
+								<option label="Maximum" value="maximum" />
+								<option label="Manhattan (city block)" value="manhattan" />
+								<option label="Canberra" value="canberra" />
+								<option label="Binary" value="binary" />
+								<option label="Minkowski" value="minkowski" />
+							</dropdown>
+							<spinbox label="Power of Minkowski distance" id="spn_PwrfMnkw" initial="2" min="1" type="integer" />
+						</frame>
+						<frame label="Advanced options" id="frm_Advncdpt">
+							<dropdown id="drp_Sclngmth" label="Scaling method">
+								<option label="Classical (metric)" value="cmdscale" checked="true" />
+								<option label="Kruskal (non-metric)" value="isoMDS" />
+								<option label="Sammon (non-linear)" value="sammon" />
+							</dropdown>
+							<row id="row_cMM101MM10">
+								<column id="clm_spnbxMM101">
+									<spinbox label="Maximum number of iterations" id="spn_Mxmmnmbr" initial="10" min="1" type="integer" />
+								</column>
+								<column id="clm_spnbxlII11">
+									<spinbox label="Initial random set of centers" id="spn_Intlrndm" initial="1" min="1" type="integer" />
+								</column>
+							</row>
+							<checkbox id="chc_Pltrslts" label="Plot results" value="true" checked="true" />
+						</frame>
+					</column>
+				</row>
+			</tab>
+			<tab label="Plot" id="tab_Plot">
+				<row id="row_cPPOTT08TT">
+					<column id="clm_fPPOTT08TT">
+						<frame label="Plot labels (from row names of data)" checkable="true" id="frm_Pltlblsf">
+							<embed component="rkward::color_chooser" id="emb_Optnsrkw" />
+							<spinbox label="Text size" id="spn_Textsize" initial="0.8" />
+							<dropdown id="drp_Textpstn" label="Text position">
+								<option label="Instead of point" value="0" />
+								<option label="Below point" value="1" checked="true" />
+								<option label="Left to point" value="2" />
+								<option label="Above point" value="3" />
+								<option label="Right to point" value="4" />
+							</dropdown>
+						</frame>
+						<stretch />
+						<embed component="rkward::plot_options" as_button="true" label="Generic plot options" id="emb_Gnrcpltp" />
+						<preview />
+					</column>
+				</row>
+			</tab>
+		</tabbook>
+	</dialog>
+</document>

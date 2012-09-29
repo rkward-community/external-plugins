@@ -1,0 +1,48 @@
+<!DOCTYPE rkplugin >
+<document>
+	<!-- this code was generated using the rkwarddev package.
+		perhaps don't make changes here, but in the rkwarddev script instead! -->
+	<code file="MPTinR.js" />
+	<help file="MPTinR.rkh" />
+	<include file="../rk.MPT.pluginmap" />
+	<logic>
+		<script>
+			<![CDATA[ gui.addChangeCommand("brw_Modelfil.selection", "modelChanged()");
+						// this function is called whenever the model file name was changed
+						modelChanged = function(){
+								var modelName = gui.getValue("brw_Modelfil.selection");
+								if(modelName.match(/.*\.eqn|.*\.EQN/)){
+									gui.setValue("drp_Modeltyp.string", "eqn");
+								} else {}
+							} ]]>
+		</script>
+	</logic>
+	<dialog label="Multinomial Processing Trees: MPTinR">
+		<row id="row_vSSDDSMMMM">
+			<varselector id="vrs_Selectdt" label="Select data" />
+			<column id="clm_vDDSMMMMEE">
+				<varslot id="vrsl_Dtvctrmt" label="Data (vector, matrix or data.frame)" source="vrs_Selectdt" classes="vector data.frame matrix" required="true" />
+				<browser label="Model file" type="file" id="brw_Modelfil" />
+				<dropdown id="drp_Modeltyp" label="Model type">
+					<option label="Easy" value="easy" checked="true" />
+					<option label="EQN" value="eqn" />
+					<option label="EQN2" value="eqn2" />
+				</dropdown>
+				<browser label="Restrictions file" type="file" id="brw_Rstrctns" required="false" />
+				<stretch />
+				<frame label="Estimate Fisher Information Approximation" checkable="true" checked="false" id="frm_EstmtFIA">
+					<spinbox label="Number of random Monte Carlo samples" id="spn_NmbrfrMC" initial="20000" min="1" type="integer" />
+					<checkbox id="chc_FllFIArs" label="Full FIA results in output" value="true" />
+				</frame>
+				<frame id="frm_sNN51FFCC9">
+					<spinbox label="Number of optimization runs" id="spn_Nmbrfptm" initial="5" min="1" type="integer" />
+					<checkbox id="chc_Fllptmrs" label="Full optim results in output" value="true" />
+					<spinbox label="Confidence interval" id="spn_Cnfdncnt" initial="95" min="0" max="100" type="integer" />
+				</frame>
+				<checkbox id="chc_Enfrcnql" label="Enforce inequality restrictions" value="true" checked="true" />
+				<checkbox id="chc_Srtprmtr" label="Sort parameters alphabetically in parameter table" value="true" checked="true" />
+				<saveobject label="Save results to workspace" checkable="true" initial="MPTinR.result" id="svb_Svrsltst" />
+			</column>
+		</row>
+	</dialog>
+</document>

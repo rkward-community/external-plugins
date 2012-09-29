@@ -1,0 +1,22 @@
+Package: rk.FactorAnalysis
+Type: Package
+Title: RKWard GUI to conduct principal component and factor analysis
+Version: 0.01-8
+Date: 2012-09-29
+Author: Meik Michalke <meik.michalke@hhu.de>
+Maintainer: Meik Michalke <meik.michalke@hhu.de>
+Depends:
+    rkward (>= 0.5.6)
+Suggests:
+    psych (>= 1.1.10)
+Enhances: rkward
+Description: RKWard GUI to conduct principal component and factor analysis
+    (using the psych package). Also includes dialogs for scree plots,
+    correlation plots, and parallel analysis.
+License: GPL (>= 3)
+LazyLoad: yes
+URL: http://rkward.sf.net
+Authors@R: person(given="Meik", family="Michalke",
+    email="meik.michalke@hhu.de", role=c("aut", "cre"))
+Collate:
+    'rk.FactorAnalysis-package.R'

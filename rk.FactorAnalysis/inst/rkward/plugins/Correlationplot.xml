@@ -1,0 +1,40 @@
+<!DOCTYPE rkplugin>
+<document>
+	<!-- this code was generated using the rkwarddev package.
+			perhaps don't make changes here, but in the rkwarddev script instead! -->
+	<code file="Correlationplot.js" />
+	<help file="Correlationplot.rkh" />
+	<logic>
+		<!-- <convert id="!edit!" sources="!edit!" mode="equals" standard="!edit!" /> -->
+		<!-- <connect governor="!edit!" client="!edit!.enabled" /> -->
+	</logic>
+	<dialog label="Correlation plot">
+		<row id="row_vSSDDSCCRB">
+			<varselector id="vrs_Selectdt" label="Select data" />
+			<column id="clm_vDDSCCRBGR">
+				<varslot id="vrsl_Dtcrrltn" label="Data (correaltaion/factor matrix)" source="vrs_Selectdt" required="true" />
+				<radio id="rad_Colors" label="Colors">
+					<option label="Red to Blue" value="true" checked="true" />
+					<option label="Greyscale" value="false" />
+				</radio>
+				<frame label="Range of correlation values to color" id="frm_Rngfcrrl">
+					<row id="row_c111111111">
+						<column id="clm_spnbxlb111">
+							<spinbox label="from" id="spn_from" initial="-1" min="-1" max="1" />
+						</column>
+						<column id="clm_spnbxlb111">
+							<spinbox label="to" id="spn_to" initial="1" min="-1" max="1" />
+						</column>
+					</row>
+				</frame>
+				<spinbox label="Number of shades" id="spn_Nmbrfshd" initial="51" min="2" type="integer" />
+				<stretch />
+				<input label="Main title" id="inp_Maintitl" initial="Correlation plot" />
+				<frame label="Show legend" checkable="true" id="frm_Showlgnd">
+					<spinbox label="Number of categories in legend" id="spn_Nmbrfctg" initial="10" min="1" type="integer" />
+				</frame>
+				<preview />
+			</column>
+		</row>
+	</dialog>
+</document>

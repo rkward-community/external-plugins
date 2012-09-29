@@ -1,0 +1,14 @@
+bibentry("Manual",
+		title="rk.CohenKappa: RKWard GUI to calculate Cohen's Kappa",
+		author="Meik Michalke",
+		year="2012",
+		note="(Version 0.01-3)",
+		url="http://rkward.sf.net",
+
+		textVersion =
+		paste("Michalke, M. (2012). ",
+				"rk.CohenKappa: RKWard GUI to calculate Cohen's Kappa (Version 0.01-3). ",
+				"Available from http://rkward.sf.net",
+				sep=""),
+
+		mheader = "To cite rk.CohenKappa in publications use:")

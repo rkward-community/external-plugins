@@ -1,0 +1,10 @@
+ChangeLog for package rk.MultidimensionalScaling
+
+changes in version 0.01-4 (2012-09-29)
+fixed:
+  - added generic pre/post plot options
+
+changes in version 0.01-3 (2012-04-07)
+changes:
+  - added a ChangeLog file
+  - rebuild package for R 2.15

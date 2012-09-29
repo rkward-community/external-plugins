@@ -1,0 +1,20 @@
+Package: rk.MPT
+Type: Package
+Title: RKWard GUI for multinomial processing tree (MPT) models
+Version: 0.01-2
+Date: 2012-04-07
+Author: Meik Michalke <meik.michalke@hhu.de>
+Maintainer: Meik Michalke <meik.michalke@hhu.de>
+Depends:
+    rkward (>= 0.5.6)
+Suggests:
+    MPTinR2
+Enhances: rkward
+Description: RKWard GUI for multinomial processing tree (MPT) models
+License: GPL (>= 3)
+LazyLoad: yes
+URL: http://rkward.sf.net
+Authors@R: person(given="Meik", family="Michalke",
+    email="meik.michalke@hhu.de", role=c("aut", "cre"))
+Collate:
+    'rk.MPT-package.R'

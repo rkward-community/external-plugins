@@ -1,0 +1,14 @@
+bibentry("Manual",
+		title="rk.MPT: RKWard GUI for multinomial processing tree (MPT) models",
+		author="Meik Michalke",
+		year="2012",
+		note="(Version 0.01-2)",
+		url="http://rkward.sf.net",
+
+		textVersion =
+		paste("Michalke, M. (2012). ",
+				"rk.MPT: RKWard GUI for multinomial processing tree (MPT) models (Version 0.01-2). ",
+				"Available from http://rkward.sf.net",
+				sep=""),
+
+		mheader = "To cite rk.MPT in publications use:")
