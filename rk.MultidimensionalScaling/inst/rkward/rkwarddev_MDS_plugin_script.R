@@ -33,9 +33,8 @@ mds.pre.frame <- rk.XML.frame(
 	),
 	label="Data preparation")
 
-generic.plot.options <- rk.XML.embed(component="rkward::plot_options", button=TRUE, label="Generic plot options")
-js.po.printout <- rk.JS.vars(generic.plot.options, modifiers="code.printout", check.modifiers=FALSE)
-plot.text.color <- rk.XML.embed(component="rkward::color_chooser", button=FALSE)
+generic.plot.options <- rk.plotOptions()
+plot.text.color <- rk.plotOptions(embed="rkward::color_chooser", button=FALSE)
 
 ############
 ## classical multidimensional scaling
@@ -197,19 +196,19 @@ mds.js.calc <- rk.paste.JS(
 mds.js.plot <- rk.paste.JS(
 	js.frm.labels <- rk.JS.vars(mds.plot.frame.labels, modifiers="checked"),
 	ite(mds.plot.cbox.plot, rk.paste.JS(echo("\n"),
+		plot.text.color,
 		rk.paste.JS.graph(
 			rk.comment("label text color:"),
-			js.po.label.color <- rk.JS.vars(plot.text.color, modifiers="code.printout", check.modifiers=FALSE),
 			echo("\t\tplot(mds.result"),
 			ite(id(mds.drop.meth, " == \"isoMDS\" || ", mds.drop.meth, " == \"sammon\""), echo("[[\"points\"]]")),
-			ite(id("!", js.po.printout, ".match(/main\\s*=/)"),
+			ite(id("!", generic.plot.options, ".match(/main\\s*=/)"),
 				echo(",\n\t\t\tmain=\"Multidimensional scaling\"")),
-			ite(id("!", js.po.printout, ".match(/sub\\s*=/)"),
+			ite(id("!", generic.plot.options, ".match(/sub\\s*=/)"),
 				echo(",\n\t\t\tsub=\"Solution with ", mds.spin.ndim, " dimensions (", mds.drop.meth, ")\"")),
 			# turn off points if labels should replace them
 			ite(id(js.frm.labels, " && ", mds.plot.spin.label.pos, " == 0"), echo(",\n\t\t\ttype=\"n\"")),
 			# generic plot options go here
-			id("echo(", js.po.printout, ".replace(/, /g, \",\\n\\t\\t\\t\"));"),
+			id("echo(", generic.plot.options, ".replace(/, /g, \",\\n\\t\\t\\t\"));"),
 			echo(")"),
 			ite(js.frm.labels, rk.paste.JS(
 				echo("\n\t\ttext(mds.result"),
@@ -219,9 +218,8 @@ mds.js.plot <- rk.paste.JS(
 					),
 				ite(id(mds.plot.spin.label.cex, " != 1"), echo(",\n\t\t\tcex=", mds.plot.spin.label.cex)),
 				ite(id(mds.plot.spin.label.pos, " != 0"), echo(",\n\t\t\tpos=", mds.plot.spin.label.pos)),
-				echo(js.po.label.color, ")"), level=4)),
-			plotOpts=generic.plot.options,
-			printoutObj=js.po.printout
+				echo(plot.text.color, ")"), level=4)),
+			plotOpts=generic.plot.options
 		), level=3)
 	),
 	ite("full", rk.paste.JS(echo("\nrk.print(mds.result)\n"),
