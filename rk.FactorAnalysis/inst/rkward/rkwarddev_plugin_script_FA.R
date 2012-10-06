@@ -5,7 +5,7 @@
 
 local({
 # set the output directory to overwrite the actual plugin
-output.dir <- "/home/m/daten/R/rkward_plugins"#tempdir()
+output.dir <- tempdir()
 overwrite <- TRUE
 
 require(rkwarddev)
@@ -16,7 +16,7 @@ about.info <- rk.XML.about(
 		person(given="Meik", family="Michalke",
 			email="meik.michalke@hhu.de", role=c("aut","cre"))),
 	about=list(desc="RKWard GUI to conduct principal component and factor analysis",
-		version="0.01-8", url="http://rkward.sf.net", long.desc="RKWard GUI to conduct principal component and factor analysis (using the psych package). Also includes dialogs for scree plots, correlation plots, and parallel analysis."),
+		version="0.01-9", url="http://rkward.sf.net", long.desc="RKWard GUI to conduct principal component and factor analysis (using the psych package). Also includes dialogs for scree plots, correlation plots, VSS/MAP and parallel analysis."),
 	dependencies=list(rkward.min="0.5.6"),
 	package=list(c(name="psych", min="1.1.10"))
 	)
@@ -390,8 +390,8 @@ scree.component <- rk.plugin.component("Scree plot",
 		dialog=scree.full.dialog),
 	js=list(
 		require="psych",
- 		doPrintout=scree.js.print),
-	hierarchy=list("plots", "Factor analysis"),
+		doPrintout=scree.js.print),
+	hierarchy=list("analysis", "Factor analysis","Number of factors"),
 	create=c("xml", "js"))
 
 
@@ -477,8 +477,111 @@ prll.component <- rk.plugin.component("Parallel analysis (Horn)",
 		dialog=prll.full.dialog),
 	js=list(
 		require="psych",
- 		doPrintout=prll.js.print),
-	hierarchy=list("plots", "Factor analysis"),
+		doPrintout=prll.js.print),
+	hierarchy=list("analysis", "Factor analysis","Number of factors"),
+	create=c("xml", "js"))
+
+############
+## VSS & MAP
+############
+# vss(x, n = 8, rotate = "varimax", diagonal = FALSE, fm = "minres", n.obs=NULL,plot=TRUE,title="Very Simple Structure",...)
+
+vss.var.select <- rk.XML.varselector(label="Select data.frame/matrix")
+vss.var.data <- rk.XML.varslot(label="Data", source=vss.var.select, required=TRUE)
+
+# minres, ml, uls, wls, gls, pa
+vss.factmeth <- rk.XML.dropdown("Factoring method", options=list(
+		"Minimum residual (ULS)"=c(val="minres", chk=TRUE),
+		"Principal Components"=c(val="pc"),
+		"Principal axis"=c(val="pa"),
+		"Maximum likelihood"=c(val="ml")
+	), id.name="drp_vss_factmeth")
+
+vss.drp.rotation <- rk.XML.dropdown("Rotation method", options=list(
+		"None"=c(val="none"),
+		"Varimax (orthogonal)"=c(val="varimax", chk=TRUE),
+		"Promax"=c(val="promax"),
+		"Oblimin"=c(val="oblimin")
+	), id.name="drp_vss_rotate")
+
+vss.spin.nfactors <- rk.XML.spinbox("Number of factors to extract", min=1, initial=8, real=FALSE)
+
+vss.main <- rk.XML.input(label="Main title", initial="Very Simple Structure")
+
+vss.spin.nobs <- rk.XML.spinbox("Number of observations (0 implies raw data)", min=0, initial=0, real=FALSE)
+
+vss.cbox.diag <- rk.XML.cbox("Fit the diagonal as well")
+
+# plot options
+vss.cbox.line <- rk.XML.cbox("Connect different complexities")
+vss.preview <- rk.XML.preview()
+vss.frame.plot <- rk.XML.frame(
+	vss.main,
+	vss.cbox.line,
+	vss.preview, label="Plot results", checkable=TRUE)
+
+vss.save.results <- rk.XML.saveobj("Save data to workspace", initial="VSS.data")
+
+vss.full.dialog <- rk.XML.dialog(
+	rk.XML.row(
+		vss.var.select,
+		rk.XML.col(
+			vss.var.data,
+			vss.factmeth,
+			vss.drp.rotation,
+			vss.spin.nobs,
+			vss.cbox.diag,
+			rk.XML.stretch(),
+			vss.frame.plot,
+			vss.save.results
+		)
+	)
+, label="VSS/MAP")
+
+## JavaScript
+vss.js.calc <- rk.paste.JS(
+	echo("\t\tVSS.data <- VSS("),
+	ite(vss.var.data, echo("\n\t\t\t", vss.var.data)),
+	ite(id(vss.spin.nobs, " != 0"), echo(",\n\t\t\tn.obs=", vss.spin.nobs)), # NULL
+	ite(id(vss.factmeth, " != \"minres\""), echo(",\n\t\t\tfm=\"", vss.factmeth, "\"")),
+	ite(id(vss.drp.rotation, " != \"varimax\""), echo(",\n\t\t\trotate=\"", vss.drp.rotation, "\"")),
+	tf(vss.cbox.diag, opt="diagonal", level=4), # FALSE
+	echo(",\n\t\t\tplot=FALSE)\n"),
+	echo("\n\t\tvss.stat.vars <- c(\"dof\",\"chisq\",\"prob\",\"sqresid\",\"fit\",\"cfit.1\",\"cfit.2\")\n",
+	"\n\t\tvss.stat.results <- as.data.frame(cbind(Factors=1:length(VSS.data[[\"map\"]]), MAP=VSS.data[[\"map\"]], VSS.data[[\"vss.stats\"]][,vss.stat.vars]))\n",
+	"\t\tcolnames(vss.stat.results)[3:9] <- paste(\"VSS\", vss.stat.vars, sep=\".\")\n\n",
+	"\t\tmin.MAP <- which.min(VSS.data[[\"map\"]])\n",
+	"\t\tmin.VSS1 <- which.min(VSS.data[[\"cfit.1\"]])\n",
+	"\t\tmin.VSS2 <- which.min(VSS.data[[\"cfit.2\"]])\n\n")
+)
+
+vss.js.print <- rk.paste.JS(
+	vss.js.frame.plot <- rk.JS.vars(vss.frame.plot, modifiers="checked"),
+#  	echo("rk.print(VSS.data[[\"call\"]])\n"),
+	ite(vss.js.frame.plot, rk.paste.JS.graph(
+		echo("\t\tVSS.plot(VSS.data"),
+		ite(id(vss.main, " != \"Very Simple Structure\""), echo(",\n\t\t\ttitle=\"", vss.main, "\"")),
+		tf(vss.cbox.line, opt="line", level=4),
+		echo(")")
+	)),
+	echo("rk.header(\"Very Simple Structure\", level=4)\n",
+	"rk.print(paste(\"VSS complexity 1 achieves a maximimum of \", round(VSS.data[[\"cfit.1\"]][min.VSS1], digits=3), \" with \", min.VSS1, \" factors.\", sep=\"\"))\n",
+	"rk.print(paste(\"VSS complexity 2 achieves a maximimum of \", round(VSS.data[[\"cfit.2\"]][min.VSS2], digits=3), \" with \", min.VSS2, \" factors.\", sep=\"\"))\n",
+	"rk.header(\"Minimum Average Partial\", level=4)\n",
+	"rk.print(paste(\"The Velicer MAP criterion achieves a minimum of \", round(VSS.data[[\"map\"]][min.MAP], digits=3), \" with \", min.MAP, \" factors.\", sep=\"\"))\n",
+	"rk.header(\"Statistics\", level=4)\n",
+	"rk.results(vss.stat.results)\n\n")
+)
+
+## make a whole component
+vss.component <- rk.plugin.component("Very Simple Structure/Minimum Average Partial",
+	xml=list(
+		dialog=vss.full.dialog),
+	js=list(
+		require="psych",
+		calculate=vss.js.calc,
+		doPrintout=vss.js.print),
+	hierarchy=list("analysis", "Factor analysis","Number of factors"),
 	create=c("xml", "js"))
 
 
@@ -573,7 +676,11 @@ rk.FactorAnalysis.dir <<- rk.plugin.skeleton(
 		calculate=js.calc,
 		printout=js.print),
 	pluginmap=list(name="Factor analysis", hierarchy=list("analysis", "Factor analysis")),
-	components=list(scree.component, crplt.component, prll.component),
+	components=list(
+		scree.component,
+		crplt.component,
+		prll.component,
+		vss.component),
 	create=c("pmap", "xml", "js", "desc"),
 	overwrite=overwrite,
 	tests=FALSE,

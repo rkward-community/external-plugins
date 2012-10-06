@@ -1,0 +1,40 @@
+<!DOCTYPE rkplugin>
+<document>
+	<!-- this code was generated using the rkwarddev package.
+			perhaps don't make changes here, but in the rkwarddev script instead! -->
+	<code file="VerySimpleStructureMinimumAveragePartial.js" />
+	<help file="VerySimpleStructureMinimumAveragePartial.rkh" />
+	<logic>
+		<!-- <convert id="!edit!" sources="!edit!" mode="equals" standard="!edit!" /> -->
+		<!-- <connect governor="!edit!" client="!edit!.enabled" /> -->
+	</logic>
+	<dialog label="VSS/MAP">
+		<row id="row_vSSDDSFMUL">
+			<varselector id="vrs_Slctdtfr" label="Select data.frame/matrix" />
+			<column id="clm_vDDSFMULSP">
+				<varslot id="vrsl_Data" label="Data" source="vrs_Slctdtfr" required="true" />
+				<dropdown id="drp_vss_factmeth" label="Factoring method">
+					<option label="Minimum residual (ULS)" value="minres" checked="true" />
+					<option label="Principal Components" value="pc" />
+					<option label="Principal axis" value="pa" />
+					<option label="Maximum likelihood" value="ml" />
+				</dropdown>
+				<dropdown id="drp_vss_rotate" label="Rotation method">
+					<option label="None" value="none" />
+					<option label="Varimax (orthogonal)" value="varimax" checked="true" />
+					<option label="Promax" value="promax" />
+					<option label="Oblimin" value="oblimin" />
+				</dropdown>
+				<spinbox label="Number of observations (0 implies raw data)" id="spn_Nmbrfbs0" min="0" type="integer" />
+				<checkbox id="chc_Ftthdgnl" label="Fit the diagonal as well" value="true" />
+				<stretch />
+				<frame label="Plot results" checkable="true" id="frm_Pltrslts">
+					<input label="Main title" id="inp_Maintitl" initial="Very Simple Structure" />
+					<checkbox id="chc_Cnnctdff" label="Connect different complexities" value="true" />
+					<preview />
+				</frame>
+				<saveobject label="Save data to workspace" checkable="true" initial="VSS.data" id="svb_Svdttwrk" />
+			</column>
+		</row>
+	</dialog>
+</document>

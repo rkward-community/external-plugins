@@ -1,5 +1,11 @@
 ChangeLog for package rk.FactorAnalysis
 
+changes in version 0.01-9 (2012-10-06)
+added:
+  - added VSS/MAP dialog
+changed:
+  - moved parallel analysis and scree plot from "plots" to "analysis"
+
 changes in version 0.01-8 (2012-09-29)
 fixed:
   - added generic pre/post plot options

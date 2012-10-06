@@ -10,9 +10,9 @@
 	<about 
 		name="rk.FactorAnalysis"
 		shortinfo="RKWard GUI to conduct principal component and factor analysis"
-		longinfo="RKWard GUI to conduct principal component and factor analysis (using the psych package). Also includes dialogs for scree plots, correlation plots, and parallel analysis."
-		version="0.01-8"
-		releasedate="2012-09-29"
+		longinfo="RKWard GUI to conduct principal component and factor analysis (using the psych package). Also includes dialogs for scree plots, correlation plots, VSS/MAP and parallel analysis."
+		version="0.01-9"
+		releasedate="2012-10-06"
 		url="http://rkward.sf.net"
 		license="GPL (&gt;= 3)"
 	>
@@ -58,6 +58,12 @@
 			file="plugins/ParallelanalysisHorn.xml"
 		 />
 		<component 
+			id="cmp_FctrnlyssVrySmplStrctrMAP"
+			label="Very Simple Structure/Minimum Average Partial"
+			type="standard"
+			file="plugins/VerySimpleStructureMinimumAveragePartial.xml"
+		 />
+		<component 
 			id="cmp_FactoranalysisFactornlyss"
 			label="Factor analysis"
 			type="standard"
@@ -66,14 +72,19 @@
 	</components>
 	<hierarchy>
 		<menu 
-			id="plots"
-			label.plots="Plots"
+			id="analysis"
+			label.analysis="Analysis"
 		>
 			<menu 
 				id="Factoranalysis"
 				label="Factor analysis"
 			>
-				<entry component="cmp_FactoranalysisScreeplot" />
+				<menu 
+					id="Numberoffactors"
+					label="Number of factors"
+				>
+					<entry component="cmp_FactoranalysisScreeplot" />
+				</menu>
 			</menu>
 		</menu>
 		<menu 
@@ -88,14 +99,35 @@
 			</menu>
 		</menu>
 		<menu 
-			id="plots"
-			label.plots="Plots"
+			id="analysis"
+			label.analysis="Analysis"
 		>
 			<menu 
 				id="Factoranalysis"
 				label="Factor analysis"
 			>
-				<entry component="cmp_FactoranlyssPrlllnlyssHrn" />
+				<menu 
+					id="Numberoffactors"
+					label="Number of factors"
+				>
+					<entry component="cmp_FactoranlyssPrlllnlyssHrn" />
+				</menu>
+			</menu>
+		</menu>
+		<menu 
+			id="analysis"
+			label.analysis="Analysis"
+		>
+			<menu 
+				id="Factoranalysis"
+				label="Factor analysis"
+			>
+				<menu 
+					id="Numberoffactors"
+					label="Number of factors"
+				>
+					<entry component="cmp_FctrnlyssVrySmplStrctrMAP" />
+				</menu>
 			</menu>
 		</menu>
 		<menu 
