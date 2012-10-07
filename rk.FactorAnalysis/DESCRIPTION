@@ -2,7 +2,7 @@ Package: rk.FactorAnalysis
 Type: Package
 Title: RKWard GUI to conduct principal component and factor analysis
 Version: 0.01-9
-Date: 2012-10-06
+Date: 2012-10-07
 Author: Meik Michalke <meik.michalke@hhu.de>
 Maintainer: Meik Michalke <meik.michalke@hhu.de>
 Depends: rkward (>= 0.5.6)

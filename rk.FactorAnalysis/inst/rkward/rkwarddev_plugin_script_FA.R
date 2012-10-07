@@ -206,7 +206,10 @@ js.frm.iterate <- rk.JS.vars(chk.iterate, modifiers="checked")
 js.calc <- rk.paste.JS(
 	# create a variable for oblique transformations
 	"var obrot = new Array(\"promax\", \"oblimin\", \"simplimax\", \"bentlerQ\", \"geominQ\", \"biquartimin\", \"cluster\");\n",
-	ite(id("obrot.indexOf(",drp.rotation.EFA ,") == -1"),  "isObrot = false;", "isObrot = true;"),
+	ite(id("(obrot.indexOf(",drp.rotation.EFA ,") == -1 && ", radio.analysis,
+		" != \"PCA\") | (obrot.indexOf(", drp.rotation.PCA ,") == -1 && ", radio.analysis,
+		" == \"PCA\")"),
+	"isObrot = false;", "isObrot = true;"),
 	echo("\tFA.results <- "),
 	ite(id(radio.analysis, " == \"PCA\""),
 		echo("principal("),
@@ -491,10 +494,10 @@ vss.var.data <- rk.XML.varslot(label="Data", source=vss.var.select, required=TRU
 
 # minres, ml, uls, wls, gls, pa
 vss.factmeth <- rk.XML.dropdown("Factoring method", options=list(
-		"Minimum residual (ULS)"=c(val="minres", chk=TRUE),
-		"Principal Components"=c(val="pc"),
-		"Principal axis"=c(val="pa"),
-		"Maximum likelihood"=c(val="ml")
+		"Minimum residual factoring (ULS)"=c(val="minres", chk=TRUE),
+		"Principal component analysis"=c(val="pc"),
+		"Principal axis factor analysis"=c(val="pa"),
+		"Maximum likelihood factor analysis"=c(val="ml")
 	), id.name="drp_vss_factmeth")
 
 vss.drp.rotation <- rk.XML.dropdown("Rotation method", options=list(
@@ -508,7 +511,7 @@ vss.spin.nfactors <- rk.XML.spinbox("Number of factors to extract", min=1, initi
 
 vss.main <- rk.XML.input(label="Main title", initial="Very Simple Structure")
 
-vss.spin.nobs <- rk.XML.spinbox("Number of observations (0 implies raw data)", min=0, initial=0, real=FALSE)
+vss.spin.nobs <- rk.XML.spinbox("Number of observations", min=0, initial=1000, real=FALSE)
 
 vss.cbox.diag <- rk.XML.cbox("Fit the diagonal as well")
 
@@ -528,8 +531,8 @@ vss.full.dialog <- rk.XML.dialog(
 		rk.XML.col(
 			vss.var.data,
 			vss.factmeth,
-			vss.drp.rotation,
 			vss.spin.nobs,
+			vss.drp.rotation,
 			vss.cbox.diag,
 			rk.XML.stretch(),
 			vss.frame.plot,
@@ -537,6 +540,12 @@ vss.full.dialog <- rk.XML.dialog(
 		)
 	)
 , label="VSS/MAP")
+
+## logic section
+	vss.lgc.sect <- rk.XML.logic(
+		vss.gov.factmeth <- rk.XML.convert(sources=list(string=vss.factmeth), mode=c(equals="ml")),
+		rk.XML.connect(governor=vss.gov.factmeth, client=vss.spin.nobs, set="enabled")
+	)
 
 ## JavaScript
 vss.js.calc <- rk.paste.JS(
@@ -576,6 +585,7 @@ vss.js.print <- rk.paste.JS(
 ## make a whole component
 vss.component <- rk.plugin.component("Very Simple Structure/Minimum Average Partial",
 	xml=list(
+		logic=vss.lgc.sect,
 		dialog=vss.full.dialog),
 	js=list(
 		require="psych",

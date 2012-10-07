@@ -39,7 +39,7 @@ function calculate(){
 	// the R code to be evaluated
 	var obrot = new Array("promax", "oblimin", "simplimax", "bentlerQ", "geominQ", "biquartimin", "cluster");
 
-	if(obrot.indexOf(drpEFARotate) == -1) {
+	if((obrot.indexOf(drpEFARotate) == -1 && radFctrngmt != "PCA") | (obrot.indexOf(drpPCARotate) == -1 && radFctrngmt == "PCA")) {
 		isObrot = false;
 	} else {
 		isObrot = true;

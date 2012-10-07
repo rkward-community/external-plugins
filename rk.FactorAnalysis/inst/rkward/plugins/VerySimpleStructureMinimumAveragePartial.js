@@ -12,8 +12,8 @@ function calculate(){
 	// read in variables from dialog
 	var vrslData = getValue("vrsl_Data");
 	var drpVssFactmeth = getValue("drp_vss_factmeth");
+	var spnNmbrfbsr = getValue("spn_Nmbrfbsr");
 	var drpVssRotate = getValue("drp_vss_rotate");
-	var spnNmbrfbs0 = getValue("spn_Nmbrfbs0");
 	var chcFtthdgnl = getValue("chc_Ftthdgnl");
 	var inpMaintitl = getValue("inp_Maintitl");
 	var chcCnnctdff = getValue("chc_Cnnctdff");
@@ -25,8 +25,8 @@ function calculate(){
 	if(vrslData) {
 		echo("\n\t\t\t" + vrslData);
 	}
-	if(spnNmbrfbs0 != 0) {
-		echo(",\n\t\t\tn.obs=" + spnNmbrfbs0);
+	if(spnNmbrfbsr != 0) {
+		echo(",\n\t\t\tn.obs=" + spnNmbrfbsr);
 	}
 	if(drpVssFactmeth != "minres") {
 		echo(",\n\t\t\tfm=\"" + drpVssFactmeth + "\"");
@@ -57,8 +57,8 @@ function doPrintout(full){
 	// read in variables from dialog
 	var vrslData = getValue("vrsl_Data");
 	var drpVssFactmeth = getValue("drp_vss_factmeth");
+	var spnNmbrfbsr = getValue("spn_Nmbrfbsr");
 	var drpVssRotate = getValue("drp_vss_rotate");
-	var spnNmbrfbs0 = getValue("spn_Nmbrfbs0");
 	var chcFtthdgnl = getValue("chc_Ftthdgnl");
 	var inpMaintitl = getValue("inp_Maintitl");
 	var chcCnnctdff = getValue("chc_Cnnctdff");
