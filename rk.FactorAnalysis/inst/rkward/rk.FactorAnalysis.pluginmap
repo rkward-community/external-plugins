@@ -12,7 +12,7 @@
 		shortinfo="RKWard GUI to conduct principal component and factor analysis"
 		longinfo="RKWard GUI to conduct principal component and factor analysis (using the psych package). Also includes dialogs for scree plots, correlation plots, VSS/MAP and parallel analysis."
 		version="0.01-9"
-		releasedate="2012-10-07"
+		releasedate="2012-10-08"
 		url="http://rkward.sf.net"
 		license="GPL (&gt;= 3)"
 	>

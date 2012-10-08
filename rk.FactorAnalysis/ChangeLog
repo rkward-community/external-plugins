@@ -1,6 +1,6 @@
 ChangeLog for package rk.FactorAnalysis
 
-changes in version 0.01-9 (2012-10-07)
+changes in version 0.01-9 (2012-10-08)
 fixed:
   - bug in testing for rotation method led to errors when trying to compute
     variance explained when orthogonal rotation was used with PCA. the result

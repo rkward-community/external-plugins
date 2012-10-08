@@ -1,5 +1,24 @@
 \name{NEWS}
 \title{News for Package 'rk.FactorAnalysis'}
+\section{Changes in rk.FactorAnalysis version 0.01-9 (2012-10-08)}{
+  \subsection{fixed}{
+    \itemize{
+      \item bug in testing for rotation method led to errors when trying to compute
+        variance explained when orthogonal rotation was used with PCA. the result
+        was that no real output was generated, only an error message
+    }
+  }
+  \subsection{added}{
+    \itemize{
+      \item added VSS/MAP dialog
+    }
+  }
+  \subsection{changed}{
+    \itemize{
+      \item moved parallel analysis and scree plot from \code{"plots"} to \code{"analysis"}
+    }
+  }
+}
 \section{Changes in rk.FactorAnalysis version 0.01-8 (2012-09-29)}{
   \subsection{fixed}{
     \itemize{
