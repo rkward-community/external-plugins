@@ -26,57 +26,73 @@ about.info <- rk.XML.about(
 
 # for data
 var.select <- rk.XML.varselector(label="Select data")
-var.data <- rk.XML.varslot(label="Data (data.frame, matrix or vector)", source=var.select, classes=c("data.frame", "matrix", "vector"), required=TRUE, id.name="var_data")
+var.data <- rk.XML.varslot(label="Data (data.frame)", source=var.select, classes=c("data.frame"), required=TRUE, id.name="var_data")
 
 selected.vars <- rk.XML.varslot(label="Selected variables", source=var.select, multi=TRUE)
 frame.selected.vars <- rk.XML.frame(selected.vars, label="Only use a subset of variables", checkable=TRUE, chk=FALSE)
 
 filter.var <- rk.XML.varslot(label="Filter by", source=var.select)
 sset.filter.drop <- rk.XML.dropdown(label="Filter rule", options=list(
-		"includes (%in%)"=c(val="%in%", chk=TRUE),
-		"does not include (!%in%)"=c(val="!%in%", chk=TRUE),
+		"includes (%in%)"=c(val="%in%"),
+		"does not include (!%in%)"=c(val="!%in%"),
 		"is not equal (!=)"=c(val="!="),
 		"is less (<)"=c(val="<"),
 		"is less or equal(<=)"=c(val="<="),
 		"is equal (==)"=c(val="==", chk=TRUE),
 		"is greater or equal (>=)"=c(val=">="),
 		"is greater (>)"=c(val=">")
-	))
-# sset.spin.filter <- rk.XML.spinbox(label="Value", initial=0, real=TRUE)
+	), id.name="drp_fltr_all")
+sset.filter.drop.factor <- rk.XML.dropdown(label="Filter rule", options=list(
+		"includes (%in%)"=c(val="%in%"),
+		"does not include (!%in%)"=c(val="!%in%"),
+		"is not equal (!=)"=c(val="!="),
+		"is equal (==)"=c(val="==", chk=TRUE)
+	), id.name="drp_fltr_fct")
+sset.filter.drop.logical <- rk.XML.dropdown(label="Filter rule", options=list(
+		"is TRUE"=c(val="TRUE", chk=TRUE),
+		"is FALSE"=c(val="FALSE")
+	), id.name="drp_fltr_lgc")
 sset.input.filter <- rk.XML.input(label="Value (pasted as-is, use proper quoting!)")
 
 frame.filter.var <- rk.XML.frame(
 	filter.var,
 	sset.filter.drop,
-# 	sset.spin.filter,
+	sset.filter.drop.factor,
+	sset.filter.drop.logical,
 	sset.input.filter,
 	label="Filter rows by variable", checkable=TRUE, chk=FALSE)
 
 # # for logic sections
-# lgc.df.script <- rk.comment(id("
-# 	gui.addChangeCommand(\"", var.data, ".available\", \"dataChanged()\");
-# 	// this function is called whenever the data was changed
-# 	dataChanged = function(){
-# 			var prepareFrame = \"true\";
-# 			var selectFrame = \"true\";
-# 			var thisObject = makeRObject(gui.getValue(\"", var.data, ".available\"));
-# 			 if(thisObject.classes()){
-# 				if(!thisObject.isDataFrame()){
-# 					selectFrame = \"false\";
-# 					if(thisObject.classes().indexOf(\"dist\") != -1){
-# 						prepareFrame = \"false\";
-# 					} else {}
-# 				} else {}
-# 			} else {}
-# 			gui.setValue(\"", frame.selected.vars, ".enabled\", selectFrame);
-# 			gui.setValue(\"", clust.pre.frame, ".enabled\", prepareFrame);
-# 		}", js=FALSE))
+lgc.filter.script <- rk.comment(id("
+	gui.addChangeCommand(\"", filter.var, ".available\", \"dataChanged()\");
+	// this function is called whenever the data was changed
+	dataChanged = function(){
+			var filterFactor = \"false\";
+			var filterLogical = \"false\";
+			var filterAll = \"true\";
+			var enableVarInput = \"true\";
+			var requireVarInput = \"false\";
+			var thisObject = makeRObject(gui.getValue(\"", filter.var, ".available\"));
+			 if(thisObject.classes()){
+				requireVarInput = \"true\";
+				if(thisObject.classes().indexOf(\"factor\") != -1){
+					filterAll = \"false\";
+					filterFactor = \"true\";
+				} else if(thisObject.classes().indexOf(\"logical\") != -1){
+					filterAll = \"false\";
+					filterLogical = \"true\";
+					enableVarInput = \"false\";
+					requireVarInput = \"false\";
+				} else {}
+			} else {}
+			gui.setValue(\"", sset.filter.drop.factor, ".visible\", filterFactor);
+			gui.setValue(\"", sset.filter.drop.logical, ".visible\", filterLogical);
+			gui.setValue(\"", sset.filter.drop, ".visible\", filterAll);
+			gui.setValue(\"", sset.input.filter, ".enabled\", enableVarInput);
+			gui.setValue(\"", sset.input.filter, ".required\", requireVarInput);
+		}", js=FALSE))
 
-js.frm.subset <- rk.JS.vars(frame.selected.vars, modifiers="checked") # see if the frame is checked
-js.selected.vars <- rk.JS.vars(selected.vars, modifiers="shortname", join="\\\", \\\"") # get selected vars
-js.frm.filter <- rk.JS.vars(frame.filter.var, modifiers="checked") # see if the frame is checked
-
-save.results.sset <- rk.XML.saveobj("Save results to workspace", initial="sset.result")
+save.results.sset <- rk.XML.saveobj("Save results to workspace", initial="sset.result", chk=TRUE)
 
 tab.sset.data <- rk.XML.row(
 		var.select,
@@ -94,41 +110,55 @@ sset.full.dialog <- rk.XML.dialog(
 	label="Subset of data")
 
 ## logic section
-#  lgc.sect.sset <- rk.XML.logic(
-# 		gov.filter.lt <- rk.XML.convert(sources=list(string=sset.filter.drop), mode=c(equals="<"), id.name="lgc_flt_lt"),
-# 		gov.filter.le <- rk.XML.convert(sources=list(string=sset.filter.drop), mode=c(equals="<="), id.name="lgc_flt_le"),
-# 		gov.filter.gt <- rk.XML.convert(sources=list(string=sset.filter.drop), mode=c(equals=">"), id.name="lgc_flt_gt"),
-# 		gov.filter.ge <- rk.XML.convert(sources=list(string=sset.filter.drop), mode=c(equals=">="), id.name="lgc_flt_ge"),
-# 		gov.filter.numeric <- rk.XML.convert(sources=list(gov.filter.lt, gov.filter.le, gov.filter.gt, gov.filter.ge), mode=c(or="")),
-# 		lgc.enable.filter.spin <- rk.XML.connect(governor=gov.filter.numeric, client=sset.spin.filter, set="visible"),
-# 		lgc.enable.filter.spin <- rk.XML.connect(governor=gov.filter.numeric, client=sset.input.filter, set="visible", not=TRUE)
-#  	)
+  lgc.sect.sset <- rk.XML.logic(
+		lgc.filter.script,
+		rk.XML.set(sset.filter.drop.factor, set="visible", to="false"),
+		rk.XML.set(sset.filter.drop.logical, set="visible", to="false"),
+		rk.XML.connect(governor="current_object", client=var.data, set="available"),
+		rk.XML.connect(governor=var.data, client=var.select, get="available", set="root"),
+		sset.gov.data <- rk.XML.convert(sources=list(available=var.data), mode=c(notequals="")),
+ 		rk.XML.connect(governor=sset.gov.data, client=frame.selected.vars, set="enabled"),
+ 		rk.XML.connect(governor=sset.gov.data, client=frame.filter.var, set="enabled")
+  	)
 
 ## JavaScript
 
 sset.js.calc <- rk.paste.JS(
+	js.frm.subset <- rk.JS.vars(frame.selected.vars, modifiers="checked"), # see if the frame is checked
+	js.selected.vars <- rk.JS.vars(selected.vars, modifiers="shortname", join="\\\", \\\""), # get selected vars
+	js.frm.filter <- rk.JS.vars(frame.filter.var, modifiers="checked"), # see if the frame is checked
+	js.filter.var <- rk.JS.vars(filter.var, modifiers="shortname", join="\\\", \\\""), # get selected vars
+	js.filter.mode.all <- rk.JS.vars(sset.filter.drop, modifiers="visible"),
+	js.filter.mode.fct <- rk.JS.vars(sset.filter.drop.factor, modifiers="visible"),
+	js.filter.mode.lgc <- rk.JS.vars(sset.filter.drop.logical, modifiers="visible"),
 	js.frm.subset,
 	js.selected.vars,
 	js.frm.filter,
-# 	js.data.preparation,
+	js.filter.var,
 	echo("\tsset.result <- subset("),
 	ite(var.data, echo("\n\t\t", var.data)),
-	ite(id(js.frm.filter, " && ", sset.filter.drop, " != \"!%in%\""),
-		echo(",\n\t\t", filter.var, " ", sset.filter.drop, " ", sset.input.filter),
-		echo(",\n\t\t!", filter.var, " %in% ", sset.input.filter)
+	ite(id(js.filter.mode.all, " == \"true\" && ", js.frm.filter, " && ", js.filter.var, " != \"\""),
+		ite(id(sset.filter.drop, " == \"!%in%\""),
+			echo(",\n\t\t!", js.filter.var, " %in% ", sset.input.filter),
+			echo(",\n\t\t", js.filter.var, " ", sset.filter.drop, " ", sset.input.filter)
+		),
+		ite(id(js.filter.mode.fct, " == \"true\" && ", js.frm.filter, " && ", js.filter.var, " != \"\""),
+			ite(id(sset.filter.drop.factor, " == \"!%in%\""),
+				echo(",\n\t\t!", js.filter.var, " %in% ", sset.input.filter),
+				echo(",\n\t\t", js.filter.var, " ", sset.filter.drop.factor, " ", sset.input.filter)
+			),
+			ite(id(js.filter.mode.lgc, " == \"true\" && ", js.frm.filter),
+				ite(id(sset.filter.drop.logical, " == \"TRUE\""),
+					echo(",\n\t\t", js.filter.var),
+					echo(",\n\t\t!", js.filter.var)
+				)
+			)
+		)
 	),
 	ite(id(js.frm.subset, " && ", js.selected.vars, " != \"\""), echo(",\n\t\tselect=c(\"", js.selected.vars, "\")")),
-# 	echo(",\n\t\tcenters=", clust.k.spin.numcl),
-# 	ite(id(clust.k.drop.meth, " != \"Hartigan-Wong\""), echo(",\n\t\talgorithm=\"", clust.k.drop.meth,"\"")),
-# 	ite(id(clust.k.spin.maxiter, " != 10"), echo(",\n\t\titer.max=", clust.k.spin.maxiter)),
-# 	ite(id(clust.k.spin.nstart, " != 1"), echo(",\n\t\tnstart=", clust.k.spin.nstart)),
 	echo("\n\t)\n\n")
 )
 
-
-# # print selected subsets, if needed
-# js.prt.subset <- ite(id(js.frm.subset, " & ", js.selected.vars, " != \"\""),
-# 	echo("\nrk.header(\"Subset of variables included the analysis\", level=3)\nrk.print(list(\"", js.selected.vars, "\"))\n\n"))
 
 #############
 ## if you run the following function call, files will be written to tempdir!
@@ -139,12 +169,12 @@ sset.plugin.dir <<- rk.plugin.skeleton(
 	about.info,
 	path=output.dir,
 	xml=list(
- 		dialog=sset.full.dialog#,
-#  		logic=lgc.sect.sset
+ 		dialog=sset.full.dialog,
+  		logic=lgc.sect.sset
 		),
 	js=list(results.header="\"Data subset\"",
 		calculate=sset.js.calc),
-	pluginmap=list(name="Subset of data objects", hierarchy=list("data")),
+	pluginmap=list(name="Subset of data.frame", hierarchy=list("data")),
 	create=c("pmap", "xml", "js", "desc"),
 	overwrite=overwrite,
 	tests=FALSE,
