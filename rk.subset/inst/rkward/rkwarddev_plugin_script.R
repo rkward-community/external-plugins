@@ -52,44 +52,70 @@ sset.filter.drop.logical <- rk.XML.dropdown(label="Filter rule", options=list(
 		"is TRUE"=c(val="TRUE", chk=TRUE),
 		"is FALSE"=c(val="FALSE")
 	), id.name="drp_fltr_lgc")
+sset.filter.drop.numeric <- rk.XML.dropdown(label="Filter rule", options=list(
+		"is not equal (!=)"=c(val="!="),
+		"is less (<)"=c(val="<"),
+		"is less or equal(<=)"=c(val="<="),
+		"is equal (==)"=c(val="==", chk=TRUE),
+		"is greater or equal (>=)"=c(val=">="),
+		"is greater (>)"=c(val=">")
+	), id.name="drp_fltr_num")
 sset.input.filter <- rk.XML.input(label="Value (pasted as-is, use proper quoting!)")
+sset.spin.filter <- rk.XML.spinbox(label="Value")
 
 frame.filter.var <- rk.XML.frame(
 	filter.var,
 	sset.filter.drop,
 	sset.filter.drop.factor,
 	sset.filter.drop.logical,
+	sset.filter.drop.numeric,
 	sset.input.filter,
+	sset.spin.filter,
 	label="Filter rows by variable", checkable=TRUE, chk=FALSE)
 
-# # for logic sections
+# for logic section
 lgc.filter.script <- rk.comment(id("
 	gui.addChangeCommand(\"", filter.var, ".available\", \"dataChanged()\");
 	// this function is called whenever the data was changed
 	dataChanged = function(){
 			var filterFactor = \"false\";
 			var filterLogical = \"false\";
+			var filterNumeric = \"false\";
 			var filterAll = \"true\";
+			var enableVarSpin = \"false\";
+			var visibleVarSpin = \"false\";
+			var visibleVarInput = \"true\";
 			var enableVarInput = \"true\";
 			var requireVarInput = \"false\";
 			var thisObject = makeRObject(gui.getValue(\"", filter.var, ".available\"));
 			 if(thisObject.classes()){
 				requireVarInput = \"true\";
-				if(thisObject.classes().indexOf(\"factor\") != -1){
+				if(thisObject.isDataFactor() || thisObject.isDataCharacter()){
 					filterAll = \"false\";
 					filterFactor = \"true\";
-				} else if(thisObject.classes().indexOf(\"logical\") != -1){
+				} else if(thisObject.isDataLogical()){
 					filterAll = \"false\";
 					filterLogical = \"true\";
 					enableVarInput = \"false\";
+					requireVarInput = \"false\";
+				} else if(thisObject.isDataNumeric()){
+					filterAll = \"false\";
+					filterNumeric = \"true\";
+					enableVarSpin = \"true\";
+					visibleVarSpin = \"true\";
+					enableVarInput = \"false\";
+					visibleVarInput = \"false\";
 					requireVarInput = \"false\";
 				} else {}
 			} else {}
 			gui.setValue(\"", sset.filter.drop.factor, ".visible\", filterFactor);
 			gui.setValue(\"", sset.filter.drop.logical, ".visible\", filterLogical);
+			gui.setValue(\"", sset.filter.drop.numeric, ".visible\", filterNumeric);
 			gui.setValue(\"", sset.filter.drop, ".visible\", filterAll);
 			gui.setValue(\"", sset.input.filter, ".enabled\", enableVarInput);
+			gui.setValue(\"", sset.input.filter, ".visible\", visibleVarInput);
 			gui.setValue(\"", sset.input.filter, ".required\", requireVarInput);
+			gui.setValue(\"", sset.spin.filter, ".visible\", visibleVarSpin);
 		}", js=FALSE))
 
 save.results.sset <- rk.XML.saveobj("Save results to workspace", initial="sset.result", chk=TRUE)
@@ -114,6 +140,7 @@ sset.full.dialog <- rk.XML.dialog(
 		lgc.filter.script,
 		rk.XML.set(sset.filter.drop.factor, set="visible", to="false"),
 		rk.XML.set(sset.filter.drop.logical, set="visible", to="false"),
+		rk.XML.set(sset.filter.drop.numeric, set="visible", to="false"),
 		rk.XML.connect(governor="current_object", client=var.data, set="available"),
 		rk.XML.connect(governor=var.data, client=var.select, get="available", set="root"),
 		sset.gov.data <- rk.XML.convert(sources=list(available=var.data), mode=c(notequals="")),
@@ -122,19 +149,16 @@ sset.full.dialog <- rk.XML.dialog(
   	)
 
 ## JavaScript
+js.frm.filter <- rk.JS.vars(frame.filter.var, modifiers="checked") # see if the frame is checked
+js.frm.subset <- rk.JS.vars(frame.selected.vars, modifiers="checked")
 
 sset.js.calc <- rk.paste.JS(
-	js.frm.subset <- rk.JS.vars(frame.selected.vars, modifiers="checked"), # see if the frame is checked
 	js.selected.vars <- rk.JS.vars(selected.vars, modifiers="shortname", join="\\\", \\\""), # get selected vars
-	js.frm.filter <- rk.JS.vars(frame.filter.var, modifiers="checked"), # see if the frame is checked
-	js.filter.var <- rk.JS.vars(filter.var, modifiers="shortname", join="\\\", \\\""), # get selected vars
+	js.filter.var <- rk.JS.vars(filter.var, modifiers="shortname", join="\\\", \\\""),
 	js.filter.mode.all <- rk.JS.vars(sset.filter.drop, modifiers="visible"),
 	js.filter.mode.fct <- rk.JS.vars(sset.filter.drop.factor, modifiers="visible"),
 	js.filter.mode.lgc <- rk.JS.vars(sset.filter.drop.logical, modifiers="visible"),
-	js.frm.subset,
-	js.selected.vars,
-	js.frm.filter,
-	js.filter.var,
+	js.filter.mode.nmb <- rk.JS.vars(sset.filter.drop.numeric, modifiers="visible"),
 	echo("\tsset.result <- subset("),
 	ite(var.data, echo("\n\t\t", var.data)),
 	ite(id(js.filter.mode.all, " == \"true\" && ", js.frm.filter, " && ", js.filter.var, " != \"\""),
@@ -151,6 +175,9 @@ sset.js.calc <- rk.paste.JS(
 				ite(id(sset.filter.drop.logical, " == \"TRUE\""),
 					echo(",\n\t\t", js.filter.var),
 					echo(",\n\t\t!", js.filter.var)
+				),
+				ite(id(js.filter.mode.nmb, " == \"true\" && ", js.frm.filter),
+					echo(",\n\t\t", js.filter.var, " ", sset.filter.drop.numeric, " ", sset.spin.filter)
 				)
 			)
 		)
@@ -172,7 +199,7 @@ sset.plugin.dir <<- rk.plugin.skeleton(
  		dialog=sset.full.dialog,
   		logic=lgc.sect.sset
 		),
-	js=list(results.header="\"Data subset\"",
+	js=list(results.header=FALSE,
 		calculate=sset.js.calc),
 	pluginmap=list(name="Subset of data.frame", hierarchy=list("data")),
 	create=c("pmap", "xml", "js", "desc"),

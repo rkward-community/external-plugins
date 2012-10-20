@@ -13,32 +13,48 @@
 							dataChanged = function(){
 									var filterFactor = "false";
 									var filterLogical = "false";
+									var filterNumeric = "false";
 									var filterAll = "true";
+									var enableVarSpin = "false";
+									var visibleVarSpin = "false";
+									var visibleVarInput = "true";
 									var enableVarInput = "true";
 									var requireVarInput = "false";
 									var thisObject = makeRObject(gui.getValue("vrsl_Filterby.available"));
 									 if(thisObject.classes()){
 										requireVarInput = "true";
-										if(thisObject.classes().indexOf("factor") != -1){
+										if(thisObject.isDataFactor() || thisObject.isDataCharacter()){
 											filterAll = "false";
 											filterFactor = "true";
-										} else if(thisObject.classes().indexOf("logical") != -1){
+										} else if(thisObject.isDataLogical()){
 											filterAll = "false";
 											filterLogical = "true";
 											enableVarInput = "false";
+											requireVarInput = "false";
+										} else if(thisObject.isDataNumeric()){
+											filterAll = "false";
+											filterNumeric = "true";
+											enableVarSpin = "true";
+											visibleVarSpin = "true";
+											enableVarInput = "false";
+											visibleVarInput = "false";
 											requireVarInput = "false";
 										} else {}
 									} else {}
 									gui.setValue("drp_fltr_fct.visible", filterFactor);
 									gui.setValue("drp_fltr_lgc.visible", filterLogical);
+									gui.setValue("drp_fltr_num.visible", filterNumeric);
 									gui.setValue("drp_fltr_all.visible", filterAll);
 									gui.setValue("inp_Vlpstdss.enabled", enableVarInput);
+									gui.setValue("inp_Vlpstdss.visible", visibleVarInput);
 									gui.setValue("inp_Vlpstdss.required", requireVarInput);
+									gui.setValue("spn_Value.visible", visibleVarSpin);
 								} 
 			]]>
 		</script>
 		<set id="drp_fltr_fct.visible" to="false" />
 		<set id="drp_fltr_lgc.visible" to="false" />
+		<set id="drp_fltr_num.visible" to="false" />
 		<connect governor="current_object" client="var_data.available" />
 		<connect governor="var_data.available" client="vrs_Selectdt.root" />
 		<convert id="lgc_vardata" sources="var_data.available" mode="notequals" />
@@ -75,7 +91,16 @@
 						<option label="is TRUE" value="TRUE" checked="true" />
 						<option label="is FALSE" value="FALSE" />
 					</dropdown>
+					<dropdown id="drp_fltr_num" label="Filter rule">
+						<option label="is not equal (!=)" value="!=" />
+						<option label="is less (&lt;)" value="&lt;" />
+						<option label="is less or equal(&lt;=)" value="&lt;=" />
+						<option label="is equal (==)" value="==" checked="true" />
+						<option label="is greater or equal (&gt;=)" value="&gt;=" />
+						<option label="is greater (&gt;)" value="&gt;" />
+					</dropdown>
 					<input label="Value (pasted as-is, use proper quoting!)" id="inp_Vlpstdss" />
+					<spinbox label="Value" id="spn_Value" />
 				</frame>
 				<stretch />
 				<saveobject label="Save results to workspace" checkable="true" checked="true" initial="sset.result" id="svb_Svrsltst" />

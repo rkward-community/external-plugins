@@ -1,0 +1,14 @@
+bibentry("Manual",
+		title="rk.subset: RKWard GUI to define subsets of data objects",
+		author="Meik Michalke",
+		year="2012",
+		note="(Version 0.01-1)",
+		url="http://rkward.sf.net",
+
+		textVersion =
+		paste("Michalke, M. (2012). ",
+				"rk.subset: RKWard GUI to define subsets of data objects (Version 0.01-1). ",
+				"Available from http://rkward.sf.net",
+				sep=""),
+
+		mheader = "To cite rk.subset in publications use:")

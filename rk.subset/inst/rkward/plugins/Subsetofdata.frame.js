@@ -16,23 +16,20 @@ function calculate(){
 	var drpFltrAll = getValue("drp_fltr_all");
 	var drpFltrFct = getValue("drp_fltr_fct");
 	var drpFltrLgc = getValue("drp_fltr_lgc");
+	var drpFltrNum = getValue("drp_fltr_num");
 	var inpVlpstdss = getValue("inp_Vlpstdss");
+	var spnValue = getValue("spn_Value");
 	var svbSvrsltst = getValue("svb_Svrsltst");
 	var frmOnlyssbsChecked = getValue("frm_Onlyssbs.checked");
 	var frmFltrrwsbChecked = getValue("frm_Fltrrwsb.checked");
 
 	// the R code to be evaluated
-	var frmOnlyssbsChecked = getValue("frm_Onlyssbs.checked");
 	var vrslSlctdvrbShortname = getValue("vrsl_Slctdvrb.shortname").split("\n").join("\", \"");
-	var frmFltrrwsbChecked = getValue("frm_Fltrrwsb.checked");
 	var vrslFilterbyShortname = getValue("vrsl_Filterby.shortname").split("\n").join("\", \"");
 	var drpFltrAllVisible = getValue("drp_fltr_all.visible");
 	var drpFltrFctVisible = getValue("drp_fltr_fct.visible");
 	var drpFltrLgcVisible = getValue("drp_fltr_lgc.visible");
-	var frmOnlyssbsChecked = getValue("frm_Onlyssbs.checked");
-	var vrslSlctdvrbShortname = getValue("vrsl_Slctdvrb.shortname").split("\n").join("\", \"");
-	var frmFltrrwsbChecked = getValue("frm_Fltrrwsb.checked");
-	var vrslFilterbyShortname = getValue("vrsl_Filterby.shortname").split("\n").join("\", \"");
+	var drpFltrNumVisible = getValue("drp_fltr_num.visible");
 	echo("\tsset.result <- subset(");
 	if(varData) {
 		echo("\n\t\t" + varData);
@@ -55,6 +52,8 @@ function calculate(){
 		} else {
 			echo(",\n\t\t!" + vrslFilterbyShortname);
 		}
+	} else if(drpFltrNumVisible == "true" && frmFltrrwsbChecked) {
+		echo(",\n\t\t" + vrslFilterbyShortname + " " + drpFltrNum + " " + spnValue);
 	}
 	if(frmOnlyssbsChecked && vrslSlctdvrbShortname != "") {
 		echo(",\n\t\tselect=c(\"" + vrslSlctdvrbShortname + "\")");
@@ -64,7 +63,7 @@ function calculate(){
 
 function printout(){
 	// printout the results
-	echo("rk.header(\"Data subset\")\n");
+
 
 
 	//// save result object
