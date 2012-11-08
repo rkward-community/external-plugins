@@ -1,0 +1,30 @@
+<h1>Cohen's Kappa and weighted Kappa</h1>
+DATE<br />
+<h3>Correlation coefficients and confidence boundaries</h3>
+<br />
+
+
+<p align= center >
+<table cellspacing=0 border=1><caption align=bottom class=captiondataframe></caption>
+<tr><td>
+	<table border=0 class=dataframe>
+	<tbody> <tr class= firstline > <th></th><th>lower</th><th>estimate</th><th>upper</th> </tr>
+ 
+<tr><td class=firstcolumn>unweighted kappa</td>
+<td class=cellinside> 0.39</td>
+<td class=cellinside> 0.49</td>
+<td class=cellinside> 0.59</td></tr>
+ 
+<tr><td class=firstcolumn>weighted kappa</td>
+<td class=cellinside>-0.39</td>
+<td class=cellinside> 0.35</td>
+<td class=cellinside> 1.08</td></tr>
+ 
+	</tbody>
+</table>
+ </td></table>
+ <br>
+
+<p class='character'><b>Alpha level:</b> 0.05</p>
+
+<p class='character'><b>Number of subjects:</b> 200</p>

@@ -1,7 +1,7 @@
-<!DOCTYPE rkplugin>
+<!DOCTYPE rkplugin >
 <document>
 	<!-- this code was generated using the rkwarddev package.
-		perhaps don't make changes here, but in the rkwarddev script instead! -->
+			perhaps don't make changes here, but in the rkwarddev script instead! -->
 	<code file="CohensKappa.js" />
 	<help file="CohensKappa.rkh" />
 	<include file="../rk.CohenKappa.pluginmap" />

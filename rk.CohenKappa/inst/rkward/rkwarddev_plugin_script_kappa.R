@@ -16,7 +16,7 @@ about.info <- rk.XML.about(
 		person(given="Meik", family="Michalke",
 			email="meik.michalke@hhu.de", role=c("aut","cre"))),
 	about=list(desc="RKWard GUI to calculate Cohen's Kappa",
-		version="0.01-3", url="http://rkward.sf.net", long.desc="RKWard GUI to calculate Cohen's Kappa, i.e., the agreement of two raters (using the psych package)"),
+		version="0.01-4", url="http://rkward.sf.net", long.desc="RKWard GUI to calculate Cohen's Kappa, i.e., the agreement of two raters (using the psych package)"),
 	dependencies=list(rkward.min="0.5.6"),
 	package=list(c(name="psych"))
 	)
