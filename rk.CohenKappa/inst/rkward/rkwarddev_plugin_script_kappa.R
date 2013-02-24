@@ -90,6 +90,7 @@ rk.plugin.skeleton(
 	overwrite=overwrite,
 	tests=FALSE,
 #	edit=TRUE,
-	load=TRUE)#,
-#	show=TRUE)
+	load=TRUE,
+#	show=TRUE,
+	hints=FALSE)
 })

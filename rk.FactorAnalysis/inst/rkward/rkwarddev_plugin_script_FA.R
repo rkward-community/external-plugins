@@ -706,5 +706,6 @@ rk.FactorAnalysis.dir <<- rk.plugin.skeleton(
 	tests=FALSE,
 #	edit=TRUE,
 #	show=TRUE,
-	load=TRUE)
+	load=TRUE,
+	hints=FALSE)
 })

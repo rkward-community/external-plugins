@@ -9,6 +9,8 @@ local({
 # set the output directory to overwrite the actual plugin
 output.dir <- tempdir()
 overwrite <- TRUE
+# if you set guess.getters to TRUE, the resulting code will need RKWard >= 0.6.0
+guess.getter <- FALSE
 
 about.info <- rk.XML.about(
 	name="rk.MPT",
@@ -16,11 +18,13 @@ about.info <- rk.XML.about(
 		person(given="Meik", family="Michalke",
 			email="meik.michalke@hhu.de", role=c("aut","cre"))),
 	about=list(desc="RKWard GUI for multinomial processing tree (MPT) models",
-		version="0.01-2", url="http://rkward.sf.net"),
-	dependencies=list(rkward.min="0.5.6"),
+		version="0.01-3", url="http://rkward.sf.net")
+	)
+dependencies.info <- rk.XML.dependencies(
+	dependencies=list(rkward.min=ifelse(isTRUE(guess.getter), "0.6.0", "0.5.6")),
 #	package=list(c(name="mpt"), c(name="MPTinR2"))
 	package=list(c(name="MPTinR2"))
-	)
+)
 
 ############
 ## MPTinR2
@@ -170,6 +174,7 @@ MPTinR2.logic <- rk.XML.logic(
 rk.plugin.skeleton(
 	about.info,
 	path=output.dir,
+	guess.getter=guess.getter,
 	xml=list(
 		dialog=MPTinR2.full.dialog,
 		logic=MPTinR2.logic),
@@ -178,10 +183,12 @@ rk.plugin.skeleton(
  		calculate=MPTinR2.js.calc,
  		printout=MPTinR2.js.print),
 	pluginmap=list(name="MPTinR2", hierarchy=list("analysis", "MPT")),
+	dependencies=dependencies.info,
 	create=c("pmap", "xml", "js", "desc"),
 	overwrite=overwrite,
 	tests=FALSE,
 #	edit=TRUE,
-	load=TRUE)#,
-#	show=TRUE)
+	load=TRUE,
+#	show=TRUE,
+	hints=FALSE)
 })
