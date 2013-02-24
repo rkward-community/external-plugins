@@ -9,6 +9,8 @@ local({
 # set the output directory to overwrite the actual plugin
 output.dir <- tempdir()
 overwrite <- TRUE
+# if you set guess.getters to TRUE, the resulting code will need RKWard >= 0.6.0
+guess.getter <- FALSE
 
 about.info <- rk.XML.about(
 	name="rk.CohenKappa",
@@ -16,10 +18,12 @@ about.info <- rk.XML.about(
 		person(given="Meik", family="Michalke",
 			email="meik.michalke@hhu.de", role=c("aut","cre"))),
 	about=list(desc="RKWard GUI to calculate Cohen's Kappa",
-		version="0.01-4", url="http://rkward.sf.net", long.desc="RKWard GUI to calculate Cohen's Kappa, i.e., the agreement of two raters (using the psych package)"),
-	dependencies=list(rkward.min="0.5.6"),
-	package=list(c(name="psych"))
+		version="0.01-4", url="http://rkward.sf.net", long.desc="RKWard GUI to calculate Cohen's Kappa, i.e., the agreement of two raters (using the psych package)")
 	)
+dependencies.info <- rk.XML.dependencies(
+	dependencies=list(rkward.min=ifelse(isTRUE(guess.getter), "0.6.0", "0.5.6")),
+	package=list(c(name="psych"))
+)
 
 ############
 ## cohen's kappa
@@ -73,6 +77,7 @@ kappa.js.print <- rk.paste.JS(
 rk.plugin.skeleton(
 	about.info,
 	path=output.dir,
+	guess.getter=guess.getter,
 	xml=list(
 		dialog=kappa.full.dialog),
 	js=list(results.header="\"Cohen's Kappa and weighted Kappa\"",
@@ -80,6 +85,7 @@ rk.plugin.skeleton(
  		calculate=kappa.js.calc,
  		printout=kappa.js.print),
 	pluginmap=list(name="Cohen's Kappa", hierarchy=list("analysis")),
+	dependencies=dependencies.info,
 	create=c("pmap", "xml", "js", "desc"),
 	overwrite=overwrite,
 	tests=FALSE,

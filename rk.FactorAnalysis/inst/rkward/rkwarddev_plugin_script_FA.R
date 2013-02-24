@@ -7,6 +7,8 @@ local({
 # set the output directory to overwrite the actual plugin
 output.dir <- tempdir()
 overwrite <- TRUE
+# if you set guess.getters to TRUE, the resulting code will need RKWard >= 0.6.0
+guess.getter <- FALSE
 
 require(rkwarddev)
 
@@ -16,10 +18,12 @@ about.info <- rk.XML.about(
 		person(given="Meik", family="Michalke",
 			email="meik.michalke@hhu.de", role=c("aut","cre"))),
 	about=list(desc="RKWard GUI to conduct principal component and factor analysis",
-		version="0.01-9", url="http://rkward.sf.net", long.desc="RKWard GUI to conduct principal component and factor analysis (using the psych package). Also includes dialogs for scree plots, correlation plots, VSS/MAP and parallel analysis."),
-	dependencies=list(rkward.min="0.5.6"),
-	package=list(c(name="psych", min="1.1.10"))
+		version="0.01-10", url="http://rkward.sf.net", long.desc="RKWard GUI to conduct principal component and factor analysis (using the psych package). Also includes dialogs for scree plots, correlation plots, VSS/MAP and parallel analysis.")
 	)
+dependencies.info <- rk.XML.dependencies(
+	dependencies=list(rkward.min=ifelse(isTRUE(guess.getter), "0.6.0", "0.5.6")),
+	package=list(c(name="psych", min="1.1.10"))
+)
 
 
 #############
@@ -394,6 +398,7 @@ scree.component <- rk.plugin.component("Scree plot",
 	js=list(
 		require="psych",
 		doPrintout=scree.js.print),
+	guess.getter=guess.getter,
 	hierarchy=list("analysis", "Factor analysis","Number of factors"),
 	create=c("xml", "js"))
 
@@ -481,6 +486,7 @@ prll.component <- rk.plugin.component("Parallel analysis (Horn)",
 	js=list(
 		require="psych",
 		doPrintout=prll.js.print),
+	guess.getter=guess.getter,
 	hierarchy=list("analysis", "Factor analysis","Number of factors"),
 	create=c("xml", "js"))
 
@@ -591,6 +597,7 @@ vss.component <- rk.plugin.component("Very Simple Structure/Minimum Average Part
 		require="psych",
 		calculate=vss.js.calc,
 		doPrintout=vss.js.print),
+	guess.getter=guess.getter,
 	hierarchy=list("analysis", "Factor analysis","Number of factors"),
 	create=c("xml", "js"))
 
@@ -664,6 +671,7 @@ crplt.component <- rk.plugin.component("Correlation plot",
 	js=list(results.header="\"Correlation plot\"",
 		require="psych",
  		doPrintout=crplt.js.print),
+	guess.getter=guess.getter,
 	hierarchy=list("plots", "Factor analysis"),
 	create=c("xml", "js"))
 
@@ -676,6 +684,7 @@ crplt.component <- rk.plugin.component("Correlation plot",
 rk.FactorAnalysis.dir <<- rk.plugin.skeleton(
 	about.info,
 	path=output.dir,
+	guess.getter=guess.getter,
 	xml=list(
 		logic=lgc.sect,
 		dialog=full.dialog),
@@ -691,6 +700,7 @@ rk.FactorAnalysis.dir <<- rk.plugin.skeleton(
 		crplt.component,
 		prll.component,
 		vss.component),
+	dependencies=dependencies.info,
 	create=c("pmap", "xml", "js", "desc"),
 	overwrite=overwrite,
 	tests=FALSE,

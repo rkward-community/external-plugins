@@ -9,6 +9,8 @@ local({
 # set the output directory to overwrite the actual plugin
 output.dir <- tempdir()
 overwrite <- TRUE
+# if you set guess.getters to TRUE, the resulting code will need RKWard >= 0.6.0
+guess.getter <- FALSE
 
 about.info <- rk.XML.about(
 	name="rk.subset",
@@ -16,9 +18,11 @@ about.info <- rk.XML.about(
 		person(given="Meik", family="Michalke",
 			email="meik.michalke@hhu.de", role=c("aut","cre"))),
 	about=list(desc="RKWard GUI to define subsets of data objects",
-		version="0.01-1", url="http://rkward.sf.net"),
-	dependencies=list(rkward.min="0.5.6")
+		version="0.01-2", url="http://rkward.sf.net")
 	)
+dependencies.info <- rk.XML.dependencies(
+	dependencies=list(rkward.min=ifelse(isTRUE(guess.getter), "0.6.0", "0.5.6"))
+)
 
 ############
 ## re-usable objects
@@ -195,6 +199,7 @@ sset.js.calc <- rk.paste.JS(
 sset.plugin.dir <<- rk.plugin.skeleton(
 	about.info,
 	path=output.dir,
+	guess.getter=guess.getter,
 	xml=list(
  		dialog=sset.full.dialog,
   		logic=lgc.sect.sset
@@ -202,6 +207,7 @@ sset.plugin.dir <<- rk.plugin.skeleton(
 	js=list(results.header=FALSE,
 		calculate=sset.js.calc),
 	pluginmap=list(name="Subset of data.frame", hierarchy=list("data")),
+	dependencies=dependencies.info,
 	create=c("pmap", "xml", "js", "desc"),
 	overwrite=overwrite,
 	tests=FALSE,

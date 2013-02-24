@@ -1,18 +1,21 @@
-<!DOCTYPE rkpluginmap>
+<!DOCTYPE rkpluginmap >
 <document 
-	namespace="rkward"
-	id="Subsetofdata.frame_rkward"
+	namespace="Subsetofdata.frame"
+	id="Subsetofdataframe_rkward"
+	priority="medium"
 >
 	<!-- 
 		this code was generated using the rkwarddev package.
 			perhaps don't make changes here, but in the rkwarddev script instead! 
 	-->
+	<dependencies rkward_min_version="0.5.6">
+	</dependencies>
 	<about 
 		name="rk.subset"
 		shortinfo="RKWard GUI to define subsets of data objects"
 		longinfo="RKWard GUI to define subsets of data objects"
-		version="0.01-1"
-		releasedate="2012-10-20"
+		version="0.01-2"
+		releasedate="2013-02-24"
 		url="http://rkward.sf.net"
 		license="GPL (&gt;= 3)"
 	>
@@ -22,25 +25,11 @@
 			email="meik.michalke@hhu.de"
 			role="aut, cre"
 		 />
-		<dependencies rkward_min_version="0.5.6">
-			<!-- 
-				<package 
-								name="CHANGE_ME_OR_DELETE_ME"
-								min_version="CHANGE_ME_OR_DELETE_ME"
-								max_version="CHANGE_ME_OR_DELETE_ME"
-								repository="CHANGE_ME_OR_DELETE_ME"
-							 /> 
-			-->
-			<!-- 
-				If this plugin depends on other pluginmaps, edit this part to your needs: 				<pluginmap 
-								name="CHANGE_ME_OR_DELETE_ME"
-								url="CHANGE_ME_OR_DELETE_ME"
-							 /> 
-			-->
-		</dependencies>
 	</about>
 	<!-- 
-		<require file="path/file.pluginmap" /> 
+		<require 
+				file="path/file.pluginmap"
+			 /> 
 	-->
 	<components>
 		<component 
@@ -48,7 +37,8 @@
 			label="Subset of data.frame"
 			type="standard"
 			file="plugins/Subsetofdata.frame.xml"
-		 />
+		>
+		</component>
 	</components>
 	<hierarchy>
 		<menu 

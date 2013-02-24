@@ -3,8 +3,8 @@
 #' \tabular{ll}{
 #' Package: \tab rk.CohenKappa\cr
 #' Type: \tab Package\cr
-#' Version: \tab 0.01-3\cr
-#' Date: \tab 2012-04-07\cr
+#' Version: \tab 0.01-4\cr
+#' Date: \tab 2013-02-24\cr
 #' Depends: \tab  rkward (>= 0.5.6)\cr
 #' Enhances: \tab rkward\cr
 #' License: \tab GPL (>= 3)\cr
@@ -17,7 +17,7 @@
 #' @aliases rk.CohenKappa-package rk.CohenKappa
 #' @name rk.CohenKappa-package
 #' @docType package
-#' @title RKWard GUI to calculate Cohen's Kappa.
+#' @title The rk.CohenKappa Package
 #' @author Meik Michalke \email{meik.michalke@@hhu.de}
 #' @keywords package
 NULL

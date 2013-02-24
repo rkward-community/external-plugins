@@ -1,5 +1,12 @@
 \name{NEWS}
 \title{News for Package 'rk.FactorAnalysis'}
+\section{Changes in rk.FactorAnalysis version 0.01-10 (2013-02-24)}{
+  \subsection{changed}{
+    \itemize{
+      \item updated rkwarddev generator script (compatibility with 0.06-2) and regenerated plugin code
+    }
+  }
+}
 \section{Changes in rk.FactorAnalysis version 0.01-9 (2012-10-08)}{
   \subsection{fixed}{
     \itemize{

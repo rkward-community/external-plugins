@@ -1,4 +1,4 @@
-<!DOCTYPE rkplugin>
+<!DOCTYPE rkplugin >
 <document>
 	<!-- this code was generated using the rkwarddev package.
 			perhaps don't make changes here, but in the rkwarddev script instead! -->
@@ -33,10 +33,10 @@
 		</script>
 		<convert id="lgc_drpCmptt" sources="drp_Cmpttnmt.string" mode="equals" standard="minkowski" />
 		<connect governor="lgc_drpCmptt" client="spn_PwrfMnkw.enabled" />
-		<connect governor="chc_Pltrslts.state" client="row_cPPOTT08TT.enabled" />
+		<connect governor="chc_Pltrslts.state" client="row_cPPGTT08TT.enabled" />
 		<convert id="lgc_frmDtprp" sources="frm_Dtprprtn.enabled" mode="equals" standard="true" />
 		<connect governor="lgc_frmDtprp" client="frm_Dstncmtr.enabled" />
-		<set id="emb_Optnsrkw.color.string" to="red" />
+		<set id="emb_rkwrdclrchsG.color.string" to="red" />
 	</logic>
 	<dialog label="Multidimensional scaling">
 		<tabbook>
@@ -97,10 +97,10 @@
 				</row>
 			</tab>
 			<tab label="Plot" id="tab_Plot">
-				<row id="row_cPPOTT08TT">
-					<column id="clm_fPPOTT08TT">
+				<row id="row_cPPGTT08TT">
+					<column id="clm_fPPGTT08TT">
 						<frame label="Plot labels (from row names of data)" checkable="true" id="frm_Pltlblsf">
-							<embed component="rkward::color_chooser" id="emb_Optnsrkw" />
+							<embed component="rkward::color_chooser" id="emb_rkwrdclrchsG" />
 							<spinbox label="Text size" id="spn_Textsize" initial="0.8" />
 							<dropdown id="drp_Textpstn" label="Text position">
 								<option label="Instead of point" value="0" />
@@ -111,7 +111,7 @@
 							</dropdown>
 						</frame>
 						<stretch />
-						<embed component="rkward::plot_options" as_button="true" label="Generic plot options" id="emb_Gnrcpltp" />
+						<embed component="rkward::plot_options" as_button="true" label="Generic plot options" id="emb_rkwrdpltptnG" />
 						<preview />
 					</column>
 				</row>

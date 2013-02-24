@@ -9,6 +9,8 @@ local({
 # set the output directory to overwrite the actual plugin
 output.dir <- tempdir()
 overwrite <- TRUE
+# if you set guess.getters to TRUE, the resulting code will need RKWard >= 0.6.0
+guess.getter <- FALSE
 
 about.info <- rk.XML.about(
 	name="rk.MultidimensionalScaling",
@@ -16,10 +18,12 @@ about.info <- rk.XML.about(
 		person(given="Meik", family="Michalke",
 			email="meik.michalke@hhu.de", role=c("aut","cre"))),
 	about=list(desc="RKWard GUI for multidimensional scaling",
-		version="0.01-4", url="http://rkward.sf.net"),
-	dependencies=list(rkward.min="0.5.6"),
-	package=list(c(name="MASS"))
+		version="0.01-5", url="http://rkward.sf.net")
 	)
+dependencies.info <- rk.XML.dependencies(
+	dependencies=list(rkward.min=ifelse(isTRUE(guess.getter), "0.6.0", "0.5.6")),
+	package=list(c(name="MASS"))
+)
 
 ############
 ## prepare data
@@ -238,6 +242,7 @@ mds.js.plot <- rk.paste.JS(
 mds.plugin.dir <<- rk.plugin.skeleton(
 	about.info,
 	path=output.dir,
+	guess.getter=guess.getter,
 	xml=list(
 		dialog=mds.full.dialog,
 		logic=lgc.sect.mds),
@@ -247,6 +252,7 @@ mds.plugin.dir <<- rk.plugin.skeleton(
 		calculate=mds.js.calc,
 		doPrintout=mds.js.plot),
 	pluginmap=list(name="Multidimensional scaling", hierarchy=list("analysis")),
+	dependencies=dependencies.info,
 	create=c("pmap", "xml", "js", "desc"),
 	overwrite=overwrite,
 	tests=FALSE,

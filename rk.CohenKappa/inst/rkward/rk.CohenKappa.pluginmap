@@ -1,18 +1,22 @@
 <!DOCTYPE rkpluginmap >
 <document 
-	namespace="rkward"
+	namespace="CohensKappa"
 	id="CohensKappa_rkward"
+	priority="medium"
 >
 	<!-- 
 		this code was generated using the rkwarddev package.
 			perhaps don't make changes here, but in the rkwarddev script instead! 
 	-->
+	<dependencies rkward_min_version="0.5.6">
+		<package name="psych" />
+	</dependencies>
 	<about 
 		name="rk.CohenKappa"
 		shortinfo="RKWard GUI to calculate Cohen's Kappa"
 		longinfo="RKWard GUI to calculate Cohen's Kappa, i.e., the agreement of two raters (using the psych package)"
 		version="0.01-4"
-		releasedate="2012-11-08"
+		releasedate="2013-02-24"
 		url="http://rkward.sf.net"
 		license="GPL (&gt;= 3)"
 	>
@@ -22,18 +26,11 @@
 			email="meik.michalke@hhu.de"
 			role="aut, cre"
 		 />
-		<dependencies rkward_min_version="0.5.6">
-			<package name="psych" />
-			<!-- 
-				If this plugin depends on other pluginmaps, edit this part to your needs: 				<pluginmap 
-								name="CHANGE_ME_OR_DELETE_ME"
-								url="CHANGE_ME_OR_DELETE_ME"
-							 /> 
-			-->
-		</dependencies>
 	</about>
 	<!-- 
-		<require file="path/file.pluginmap" /> 
+		<require 
+				file="path/file.pluginmap"
+			 /> 
 	-->
 	<components>
 		<component 
@@ -41,7 +38,8 @@
 			label="Cohen's Kappa"
 			type="standard"
 			file="plugins/CohensKappa.xml"
-		 />
+		>
+		</component>
 	</components>
 	<hierarchy>
 		<menu 

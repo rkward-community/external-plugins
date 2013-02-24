@@ -1,5 +1,12 @@
 \name{NEWS}
 \title{News for Package 'rk.MultidimensionalScaling'}
+\section{Changes in rk.MultidimensionalScaling version 0.01-5 (2013-02-24)}{
+  \subsection{changed}{
+    \itemize{
+      \item updated rkwarddev generator script (compatibility with 0.06-2) and regenerated plugin code
+    }
+  }
+}
 \section{Changes in rk.MultidimensionalScaling version 0.01-4 (2012-09-29)}{
   \subsection{fixed}{
     \itemize{

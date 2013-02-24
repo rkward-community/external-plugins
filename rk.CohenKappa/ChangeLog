@@ -1,5 +1,9 @@
 ChangeLog for package rk.CohenKappa
 
+changes in version 0.01-4 (2013-02-24)
+changed:
+  - updated rkwarddev generator script (compatibility with 0.06-2) and regenerated plugin code
+
 changes in version 0.01-3 (2012-04-07)
 changes:
   - added a ChangeLog file

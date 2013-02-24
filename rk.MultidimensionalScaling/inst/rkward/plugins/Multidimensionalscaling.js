@@ -103,10 +103,11 @@ function doPrintout(full){
 	var frmPltlblsfChecked = getValue("frm_Pltlblsf.checked");
 	if(chcPltrslts) {
 		echo("\n");
+		var embRkwrdclrchsGCodePrintout = getValue("emb_rkwrdclrchsG.code.printout");
 		// in case there are generic plot options defined:
-	var embGnrcpltpCodePreprocess = getValue("emb_Gnrcpltp.code.preprocess");
-	var embGnrcpltpCodePrintout = getValue("emb_Gnrcpltp.code.printout");
-	var embGnrcpltpCodeCalculate = getValue("emb_Gnrcpltp.code.calculate");
+	var embRkwrdpltptnGCodePreprocess = getValue("emb_rkwrdpltptnG.code.preprocess");
+	var embRkwrdpltptnGCodePrintout = getValue("emb_rkwrdpltptnG.code.printout");
+	var embRkwrdpltptnGCodeCalculate = getValue("emb_rkwrdpltptnG.code.calculate");
 
 	if(full) {
 		echo("rk.graph.on()\n");
@@ -114,25 +115,24 @@ function doPrintout(full){
 	echo("\ttry({\n");
 
 	// insert any option-setting code that should be run before the actual plotting commands:
-	printIndentedUnlessEmpty("\t\t", embGnrcpltpCodePreprocess, "\n", "");
+	printIndentedUnlessEmpty("\t\t", embRkwrdpltptnGCodePreprocess, "\n", "");
 
 	// the actual plot:
 	// label text color:
-	var embOptnsrkwCodePrintout = getValue("emb_Optnsrkw.code.printout");
 	echo("\t\tplot(mds.result");
 	if(drpSclngmth == "isoMDS" || drpSclngmth == "sammon") {
 		echo("[[\"points\"]]");
 	}
-	if(!embGnrcpltpCodePrintout.match(/main\s*=/)) {
+	if(!embRkwrdpltptnGCodePrintout.match(/main\s*=/)) {
 		echo(",\n\t\t\tmain=\"Multidimensional scaling\"");
 	}
-	if(!embGnrcpltpCodePrintout.match(/sub\s*=/)) {
+	if(!embRkwrdpltptnGCodePrintout.match(/sub\s*=/)) {
 		echo(",\n\t\t\tsub=\"Solution with " + spnMxmmdmns + " dimensions (" + drpSclngmth + ")\"");
 	}
 	if(frmPltlblsfChecked && drpTextpstn == 0) {
 		echo(",\n\t\t\ttype=\"n\"");
 	}
-	echo(embGnrcpltpCodePrintout.replace(/, /g, ",\n\t\t\t"));
+	echo(embRkwrdpltptnGCodePrintout.replace(/, /g, ",\n\t\t\t"));
 	echo(")");
 	if(frmPltlblsfChecked) {
 		echo("\n\t\ttext(mds.result");
@@ -147,11 +147,11 @@ function doPrintout(full){
 			if(drpTextpstn != 0) {
 				echo(",\n\t\t\tpos=" + drpTextpstn);
 			}
-			echo(embOptnsrkwCodePrintout + ")");
+			echo(embRkwrdclrchsGCodePrintout + ")");
 	}
 
 	// insert any option-setting code that should be run after the actual plot:
-	printIndentedUnlessEmpty("\t\t", embGnrcpltpCodeCalculate, "\n", "");
+	printIndentedUnlessEmpty("\t\t", embRkwrdpltptnGCodeCalculate, "\n", "");
 
 	echo("\n\t})\n");
 	if(full) {

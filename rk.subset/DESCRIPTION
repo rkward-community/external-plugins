@@ -1,8 +1,8 @@
 Package: rk.subset
 Type: Package
 Title: RKWard GUI to define subsets of data objects
-Version: 0.01-1
-Date: 2012-10-20
+Version: 0.01-2
+Date: 2013-02-24
 Author: Meik Michalke <meik.michalke@hhu.de>
 Maintainer: Meik Michalke <meik.michalke@hhu.de>
 Depends:
