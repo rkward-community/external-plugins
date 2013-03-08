@@ -36,7 +36,7 @@ selected.vars <- rk.XML.varslot(label="Selected variables", source=var.select, m
 frame.selected.vars <- rk.XML.frame(selected.vars, label="Only use a subset of variables", checkable=TRUE, chk=FALSE)
 
 filter.var <- rk.XML.varslot(label="Filter by", source=var.select)
-sset.filter.drop <- rk.XML.dropdown(label="Filter rule", options=list(
+sset.filter.drop <- rk.XML.dropdown(label="Keep cases matching rule", options=list(
 		"includes (%in%)"=c(val="%in%"),
 		"does not include (!%in%)"=c(val="!%in%"),
 		"is not equal (!=)"=c(val="!="),
@@ -47,8 +47,8 @@ sset.filter.drop <- rk.XML.dropdown(label="Filter rule", options=list(
 		"is greater (>)"=c(val=">")
 	), id.name="drp_fltr_all")
 sset.filter.drop.factor <- rk.XML.dropdown(label="Filter rule", options=list(
-		"includes (%in%)"=c(val="%in%"),
-		"does not include (!%in%)"=c(val="!%in%"),
+		"is one of (%in%)"=c(val="%in%"),
+		"is not one of (!%in%)"=c(val="!%in%"),
 		"is not equal (!=)"=c(val="!="),
 		"is equal (==)"=c(val="==", chk=TRUE)
 	), id.name="drp_fltr_fct")
@@ -159,28 +159,28 @@ js.frm.subset <- rk.JS.vars(frame.selected.vars, modifiers="checked")
 sset.js.calc <- rk.paste.JS(
 	js.selected.vars <- rk.JS.vars(selected.vars, modifiers="shortname", join="\\\", \\\""), # get selected vars
 	js.filter.var <- rk.JS.vars(filter.var, modifiers="shortname", join="\\\", \\\""),
-	js.filter.mode.all <- rk.JS.vars(sset.filter.drop, modifiers="visible"),
-	js.filter.mode.fct <- rk.JS.vars(sset.filter.drop.factor, modifiers="visible"),
-	js.filter.mode.lgc <- rk.JS.vars(sset.filter.drop.logical, modifiers="visible"),
-	js.filter.mode.nmb <- rk.JS.vars(sset.filter.drop.numeric, modifiers="visible"),
+	js.filter.mode.all <- rk.JS.vars(sset.filter.drop, modifiers="visible", getter="getBoolean"),
+	js.filter.mode.fct <- rk.JS.vars(sset.filter.drop.factor, modifiers="visible", getter="getBoolean"),
+	js.filter.mode.lgc <- rk.JS.vars(sset.filter.drop.logical, modifiers="visible", getter="getBoolean"),
+	js.filter.mode.nmb <- rk.JS.vars(sset.filter.drop.numeric, modifiers="visible", getter="getBoolean"),
 	echo("\tsset.result <- subset("),
 	ite(var.data, echo("\n\t\t", var.data)),
-	ite(id(js.filter.mode.all, " == \"true\" && ", js.frm.filter, " && ", js.filter.var, " != \"\""),
+	ite(id(js.filter.mode.all, " && ", js.frm.filter, " && ", js.filter.var, " != \"\""),
 		ite(id(sset.filter.drop, " == \"!%in%\""),
 			echo(",\n\t\t!", js.filter.var, " %in% ", sset.input.filter),
 			echo(",\n\t\t", js.filter.var, " ", sset.filter.drop, " ", sset.input.filter)
 		),
-		ite(id(js.filter.mode.fct, " == \"true\" && ", js.frm.filter, " && ", js.filter.var, " != \"\""),
+		ite(id(js.filter.mode.fct, " && ", js.frm.filter, " && ", js.filter.var, " != \"\""),
 			ite(id(sset.filter.drop.factor, " == \"!%in%\""),
 				echo(",\n\t\t!", js.filter.var, " %in% ", sset.input.filter),
 				echo(",\n\t\t", js.filter.var, " ", sset.filter.drop.factor, " ", sset.input.filter)
 			),
-			ite(id(js.filter.mode.lgc, " == \"true\" && ", js.frm.filter),
+			ite(id(js.filter.mode.lgc, " && ", js.frm.filter),
 				ite(id(sset.filter.drop.logical, " == \"TRUE\""),
 					echo(",\n\t\t", js.filter.var),
 					echo(",\n\t\t!", js.filter.var)
 				),
-				ite(id(js.filter.mode.nmb, " == \"true\" && ", js.frm.filter),
+				ite(id(js.filter.mode.nmb, " && ", js.frm.filter),
 					echo(",\n\t\t", js.filter.var, " ", sset.filter.drop.numeric, " ", sset.spin.filter)
 				)
 			)
