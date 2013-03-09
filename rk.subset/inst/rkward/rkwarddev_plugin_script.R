@@ -159,10 +159,10 @@ js.frm.subset <- rk.JS.vars(frame.selected.vars, modifiers="checked")
 sset.js.calc <- rk.paste.JS(
 	js.selected.vars <- rk.JS.vars(selected.vars, modifiers="shortname", join="\\\", \\\""), # get selected vars
 	js.filter.var <- rk.JS.vars(filter.var, modifiers="shortname", join="\\\", \\\""),
-	js.filter.mode.all <- rk.JS.vars(sset.filter.drop, modifiers="visible", getter="getBoolean"),
-	js.filter.mode.fct <- rk.JS.vars(sset.filter.drop.factor, modifiers="visible", getter="getBoolean"),
-	js.filter.mode.lgc <- rk.JS.vars(sset.filter.drop.logical, modifiers="visible", getter="getBoolean"),
-	js.filter.mode.nmb <- rk.JS.vars(sset.filter.drop.numeric, modifiers="visible", getter="getBoolean"),
+	js.filter.mode.all <- rk.JS.vars(sset.filter.drop, modifiers="visible.numeric"),
+	js.filter.mode.fct <- rk.JS.vars(sset.filter.drop.factor, modifiers="visible.numeric"),
+	js.filter.mode.lgc <- rk.JS.vars(sset.filter.drop.logical, modifiers="visible.numeric"),
+	js.filter.mode.nmb <- rk.JS.vars(sset.filter.drop.numeric, modifiers="visible.numeric"),
 	echo("\tsset.result <- subset("),
 	ite(var.data, echo("\n\t\t", var.data)),
 	ite(id(js.filter.mode.all, " && ", js.frm.filter, " && ", js.filter.var, " != \"\""),
