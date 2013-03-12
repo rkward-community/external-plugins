@@ -9,7 +9,7 @@ local({
 # set the output directory to overwrite the actual plugin
 output.dir <- tempdir()
 overwrite <- TRUE
-# if you set guess.getters to TRUE, the resulting code will need RKWard >= 0.6.0
+# if you set guess.getters to TRUE, the resulting code willdat need RKWard >= 0.6.0
 guess.getter <- FALSE
 
 about.info <- rk.XML.about(
@@ -46,17 +46,17 @@ sset.filter.drop <- rk.XML.dropdown(label="Keep cases matching rule", options=li
 		"is greater or equal (>=)"=c(val=">="),
 		"is greater (>)"=c(val=">")
 	), id.name="drp_fltr_all")
-sset.filter.drop.factor <- rk.XML.dropdown(label="Filter rule", options=list(
+sset.filter.drop.factor <- rk.XML.dropdown(label="Keep cases matching rule", options=list(
 		"is one of (%in%)"=c(val="%in%"),
 		"is not one of (!%in%)"=c(val="!%in%"),
 		"is not equal (!=)"=c(val="!="),
 		"is equal (==)"=c(val="==", chk=TRUE)
 	), id.name="drp_fltr_fct")
-sset.filter.drop.logical <- rk.XML.dropdown(label="Filter rule", options=list(
+sset.filter.drop.logical <- rk.XML.dropdown(label="Keep cases matching rule", options=list(
 		"is TRUE"=c(val="TRUE", chk=TRUE),
 		"is FALSE"=c(val="FALSE")
 	), id.name="drp_fltr_lgc")
-sset.filter.drop.numeric <- rk.XML.dropdown(label="Filter rule", options=list(
+sset.filter.drop.numeric <- rk.XML.dropdown(label="Keep cases matching rule", options=list(
 		"is not equal (!=)"=c(val="!="),
 		"is less (<)"=c(val="<"),
 		"is less or equal(<=)"=c(val="<="),
@@ -64,7 +64,7 @@ sset.filter.drop.numeric <- rk.XML.dropdown(label="Filter rule", options=list(
 		"is greater or equal (>=)"=c(val=">="),
 		"is greater (>)"=c(val=">")
 	), id.name="drp_fltr_num")
-sset.input.filter <- rk.XML.input(label="Value (pasted as-is, use proper quoting!)")
+sset.input.filter <- rk.XML.input(label="Value (pasted as-is, use proper quoting!)", required=TRUE)
 sset.spin.filter <- rk.XML.spinbox(label="Value")
 
 frame.filter.var <- rk.XML.frame(
@@ -86,30 +86,24 @@ lgc.filter.script <- rk.comment(id("
 			var filterLogical = \"false\";
 			var filterNumeric = \"false\";
 			var filterAll = \"true\";
-			var enableVarSpin = \"false\";
 			var visibleVarSpin = \"false\";
 			var visibleVarInput = \"true\";
-			var enableVarInput = \"true\";
-			var requireVarInput = \"false\";
+			var enableVarInput = \"false\";
 			var thisObject = makeRObject(gui.getValue(\"", filter.var, ".available\"));
 			 if(thisObject.classes()){
-				requireVarInput = \"true\";
 				if(thisObject.isDataFactor() || thisObject.isDataCharacter()){
 					filterAll = \"false\";
 					filterFactor = \"true\";
+					var enableVarInput = \"true\";
 				} else if(thisObject.isDataLogical()){
 					filterAll = \"false\";
 					filterLogical = \"true\";
-					enableVarInput = \"false\";
-					requireVarInput = \"false\";
+					// NOTE: not hiding VarInput to avoid nasty flicker
 				} else if(thisObject.isDataNumeric()){
 					filterAll = \"false\";
 					filterNumeric = \"true\";
-					enableVarSpin = \"true\";
 					visibleVarSpin = \"true\";
-					enableVarInput = \"false\";
 					visibleVarInput = \"false\";
-					requireVarInput = \"false\";
 				} else {}
 			} else {}
 			gui.setValue(\"", sset.filter.drop.factor, ".visible\", filterFactor);
@@ -118,9 +112,9 @@ lgc.filter.script <- rk.comment(id("
 			gui.setValue(\"", sset.filter.drop, ".visible\", filterAll);
 			gui.setValue(\"", sset.input.filter, ".enabled\", enableVarInput);
 			gui.setValue(\"", sset.input.filter, ".visible\", visibleVarInput);
-			gui.setValue(\"", sset.input.filter, ".required\", requireVarInput);
 			gui.setValue(\"", sset.spin.filter, ".visible\", visibleVarSpin);
-		}", js=FALSE))
+		}
+		dataChanged (); // initialize", js=FALSE))
 
 save.results.sset <- rk.XML.saveobj("Save results to workspace", initial="sset.result", chk=TRUE)
 
@@ -142,9 +136,6 @@ sset.full.dialog <- rk.XML.dialog(
 ## logic section
   lgc.sect.sset <- rk.XML.logic(
 		lgc.filter.script,
-		rk.XML.set(sset.filter.drop.factor, set="visible", to="false"),
-		rk.XML.set(sset.filter.drop.logical, set="visible", to="false"),
-		rk.XML.set(sset.filter.drop.numeric, set="visible", to="false"),
 		rk.XML.connect(governor="current_object", client=var.data, set="available"),
 		rk.XML.connect(governor=var.data, client=var.select, get="available", set="root"),
 		sset.gov.data <- rk.XML.convert(sources=list(available=var.data), mode=c(notequals="")),
