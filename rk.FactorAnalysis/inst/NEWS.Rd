@@ -1,5 +1,17 @@
 \name{NEWS}
 \title{News for Package 'rk.FactorAnalysis'}
+\section{Changes in rk.FactorAnalysis version 0.01-11 (2013-04-04)}{
+  \subsection{added}{
+    \itemize{
+      \item debianized the plugin
+    }
+  }
+  \subsection{fixed}{
+    \itemize{
+      \item removed erroneous pluginmap inclusions from XML files
+    }
+  }
+}
 \section{Changes in rk.FactorAnalysis version 0.01-10 (2013-02-24)}{
   \subsection{changed}{
     \itemize{

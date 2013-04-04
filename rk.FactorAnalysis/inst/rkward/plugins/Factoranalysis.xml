@@ -4,7 +4,6 @@
 			perhaps don't make changes here, but in the rkwarddev script instead! -->
 	<code file="Factoranalysis.js" />
 	<help file="Factoranalysis.rkh" />
-	<include file="../rk.FactorAnalysis.pluginmap" />
 	<logic>
 		<convert id="lgc_rdFctPCA" sources="rad_Fctrngmt.string" mode="equals" standard="PCA" />
 		<convert id="lgc_rdCrrltn" sources="rad_Crrltnmt.string" mode="equals" standard="fa" />

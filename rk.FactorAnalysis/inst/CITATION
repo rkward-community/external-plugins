@@ -2,12 +2,12 @@ bibentry("Manual",
 		title="rk.FactorAnalysis: RKWard GUI to conduct principal component and factor analysis",
 		author="Meik Michalke",
 		year="2013",
-		note="(Version 0.01-10)",
+		note="(Version 0.01-11)",
 		url="http://rkward.sf.net",
 
 		textVersion =
 		paste("Michalke, M. (2013). ",
-				"rk.FactorAnalysis: RKWard GUI to conduct principal component and factor analysis (Version 0.01-10). ",
+				"rk.FactorAnalysis: RKWard GUI to conduct principal component and factor analysis (Version 0.01-11). ",
 				"Available from http://rkward.sf.net",
 				sep=""),
 

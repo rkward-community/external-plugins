@@ -18,7 +18,7 @@ about.info <- rk.XML.about(
 		person(given="Meik", family="Michalke",
 			email="meik.michalke@hhu.de", role=c("aut","cre"))),
 	about=list(desc="RKWard GUI to conduct principal component and factor analysis",
-		version="0.01-10", url="http://rkward.sf.net", long.desc="RKWard GUI to conduct principal component and factor analysis (using the psych package). Also includes dialogs for scree plots, correlation plots, VSS/MAP and parallel analysis.")
+		version="0.01-11", url="http://rkward.sf.net", long.desc="RKWard GUI to conduct principal component and factor analysis (using the psych package). Also includes dialogs for scree plots, correlation plots, VSS/MAP and parallel analysis.")
 	)
 dependencies.info <- rk.XML.dependencies(
 	dependencies=list(rkward.min=ifelse(isTRUE(guess.getter), "0.6.0", "0.5.6")),

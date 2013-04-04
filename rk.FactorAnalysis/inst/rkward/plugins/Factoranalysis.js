@@ -2,7 +2,7 @@
 //perhaps don't make changes here, but in the rkwarddev script instead!
 
 // define variables globally
-var isObrot;
+ var isObrot;
 
 function preprocess(){
 	// add requirements etc. here
