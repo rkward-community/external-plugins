@@ -4,7 +4,6 @@
 			perhaps don't make changes here, but in the rkwarddev script instead! -->
 	<code file="CohensKappa.js" />
 	<help file="CohensKappa.rkh" />
-	<include file="../rk.CohenKappa.pluginmap" />
 	<logic>
 		<!-- <convert id="!edit!" sources="!edit!" mode="equals" standard="!edit!" /> -->
 		<!-- <connect governor="!edit!" client="!edit!.enabled" /> -->
