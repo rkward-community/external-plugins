@@ -2,12 +2,12 @@ bibentry("Manual",
 		title="rk.MultidimensionalScaling: RKWard GUI for multidimensional scaling",
 		author="Meik Michalke",
 		year="2013",
-		note="(Version 0.01-5)",
+		note="(Version 0.01-6)",
 		url="http://rkward.sf.net",
 
 		textVersion =
 		paste("Michalke, M. (2013). ",
-				"rk.MultidimensionalScaling: RKWard GUI for multidimensional scaling (Version 0.01-5). ",
+				"rk.MultidimensionalScaling: RKWard GUI for multidimensional scaling (Version 0.01-6). ",
 				"Available from http://rkward.sf.net",
 				sep=""),
 

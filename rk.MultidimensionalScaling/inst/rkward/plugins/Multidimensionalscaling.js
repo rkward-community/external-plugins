@@ -2,7 +2,7 @@
 //perhaps don't make changes here, but in the rkwarddev script instead!
 
 // define variables globally
-var frmUsnlysbsChecked = getValue("frm_Usnlysbs.checked");
+ var frmUsnlysbsChecked = getValue("frm_Usnlysbs.checked");
 var vrslSlctdvrbShortname = getValue("vrsl_Slctdvrb.shortname").split("\n").join("\", \"");
 var frmDtprprtnEnabled = getValue("frm_Dtprprtn.enabled");
 

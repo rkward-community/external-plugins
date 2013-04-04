@@ -4,7 +4,6 @@
 			perhaps don't make changes here, but in the rkwarddev script instead! -->
 	<code file="Multidimensionalscaling.js" />
 	<help file="Multidimensionalscaling.rkh" />
-	<include file="../rk.MultidimensionalScaling.pluginmap" />
 	<logic>
 		<connect governor="current_object" client="vrsl_Dtdtfrmm.available" />
 		<connect governor="vrsl_Dtdtfrmm.available" client="vrs_Selectdt.root" />
