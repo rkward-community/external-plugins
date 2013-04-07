@@ -1,3 +1,9 @@
+r-other-rkward-rk.cohenkappa (0.01-5-2) unstable; urgency=low
+
+  * renamed package (keep the period in name)
+
+ -- m.eik michalke <meik.michalke@hhu.de>  Sun, 07 Apr 2013 21:08:09 +0000
+
 r-other-rkward-rk-cohenkappa (0.01-5-1) unstable; urgency=low
 
   * new upstream release
