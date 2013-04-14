@@ -33,8 +33,7 @@
 		<convert id="lgc_drpCmptt" sources="drp_Cmpttnmt.string" mode="equals" standard="minkowski" />
 		<connect governor="lgc_drpCmptt" client="spn_PwrfMnkw.enabled" />
 		<connect governor="chc_Pltrslts.state" client="row_cPPGTT08TT.enabled" />
-		<convert id="lgc_frmDtprp" sources="frm_Dtprprtn.enabled" mode="equals" standard="true" />
-		<connect governor="lgc_frmDtprp" client="frm_Dstncmtr.enabled" />
+		<connect governor="frm_Dtprprtn.enabled" client="frm_Dstncmtr.enabled" />
 		<set id="emb_rkwrdclrchsG.color.string" to="red" />
 	</logic>
 	<dialog label="Multidimensional scaling">

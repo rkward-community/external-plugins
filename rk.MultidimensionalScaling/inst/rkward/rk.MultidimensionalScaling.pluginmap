@@ -15,8 +15,8 @@
 		name="rk.MultidimensionalScaling"
 		shortinfo="RKWard GUI for multidimensional scaling"
 		longinfo="RKWard GUI for multidimensional scaling"
-		version="0.01-6"
-		releasedate="2013-04-04"
+		version="0.01-7"
+		releasedate="2013-04-14"
 		url="http://rkward.sf.net"
 		license="GPL (&gt;= 3)"
 	>

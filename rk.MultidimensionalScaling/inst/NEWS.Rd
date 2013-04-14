@@ -1,5 +1,13 @@
 \name{NEWS}
 \title{News for Package 'rk.MultidimensionalScaling'}
+\section{Changes in rk.MultidimensionalScaling version 0.01-7 (2013-04-14)}{
+  \subsection{fixed}{
+    \itemize{
+      \item corrected logic section in main dialog
+        (distance calculation was not correctly enabled/disabled)
+    }
+  }
+}
 \section{Changes in rk.MultidimensionalScaling version 0.01-6 (2013-04-04)}{
   \subsection{added}{
     \itemize{

@@ -18,7 +18,7 @@ about.info <- rk.XML.about(
 		person(given="Meik", family="Michalke",
 			email="meik.michalke@hhu.de", role=c("aut","cre"))),
 	about=list(desc="RKWard GUI for multidimensional scaling",
-		version="0.01-6", url="http://rkward.sf.net")
+		version="0.01-7", url="http://rkward.sf.net")
 	)
 dependencies.info <- rk.XML.dependencies(
 	dependencies=list(rkward.min=ifelse(isTRUE(guess.getter), "0.6.0", "0.5.6")),
@@ -155,8 +155,7 @@ lgc.sect.mds <- rk.XML.logic(
 		rk.XML.connect(governor=MDS.gov.dist, client=mds.spin.pwmink, set="enabled"),
 		rk.XML.connect(governor=mds.plot.cbox.plot, client=tab.mds.plot, set="enabled"),
 		# disable distance computation, if dist object given
-		gov.isntDistData <- rk.XML.convert(sources=list(enabled=mds.pre.frame), mode=c(equals="true")),
-		lgc.isntDistData <- rk.XML.connect(governor=gov.isntDistData, client=mds.frame.dist, set="enabled"),
+		lgc.isntDistData <- rk.XML.connect(governor=mds.pre.frame, get="enabled", client=mds.frame.dist, set="enabled"),
 		# set label text color to red
 		rk.XML.set(plot.text.color, set="color.string", to="red")
 	)

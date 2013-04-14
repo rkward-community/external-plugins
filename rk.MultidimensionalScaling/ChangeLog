@@ -1,5 +1,10 @@
 ChangeLog for package rk.MultidimensionalScaling
 
+changes in version 0.01-7 (2013-04-14)
+fixed:
+  - corrected logic section in main dialog
+    (distance calculation was not correctly enabled/disabled)
+
 changes in version 0.01-6 (2013-04-04)
 added:
   - debianized the plugin
