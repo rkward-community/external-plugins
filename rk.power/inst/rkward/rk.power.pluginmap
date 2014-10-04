@@ -1,0 +1,46 @@
+<!DOCTYPE rkpluginmap >
+<document 
+	namespace="Poweranalysis"
+	id="Poweranalysis__rkward"
+	priority="medium"
+>
+	<!-- 
+		this code was generated using the rkwarddev package.
+			perhaps don't make changes here, but in the rkwarddev script instead! 
+	-->
+	<dependencies rkward_min_version="0.5.6">
+	</dependencies>
+	<about 
+		name="rk.power"
+		shortinfo="RKWard GUI to perform power analysis and sample size estimation."
+		longinfo="RKWard GUI to perform power analysis and sample size estimation."
+		version="0.01-1"
+		releasedate="2014-10-05"
+		url="http://rkward.sf.net"
+		license="GPL (&gt;= 3)"
+	>
+		<author 
+			given="Meik"
+			family="Michalke"
+			email="meik.michalke@hhu.de"
+			role="aut, cre"
+		 />
+	</about>
+	<components>
+		<component 
+			id="cmp_PoweranalysisPoweranalyss"
+			label="Power analysis"
+			type="standard"
+			file="plugins/Poweranalysis.xml"
+		>
+		</component>
+	</components>
+	<hierarchy>
+		<menu 
+			id="analysis"
+			label.analysis="Analysis"
+		>
+			<entry component="cmp_PoweranalysisPoweranalyss" />
+		</menu>
+	</hierarchy>
+</document>
