@@ -5,10 +5,12 @@ Version: 0.01-1
 Date: 2014-10-05
 Author: Meik Michalke <meik.michalke@hhu.de>
 Maintainer: Meik Michalke <meik.michalke@hhu.de>
-Depends: rkward (>= 0.5.6)
+Depends:
+    rkward (>= 0.5.6)
 Enhances: rkward
 Description: RKWard GUI to perform power analysis and sample size estimation.
 License: GPL (>= 3)
 LazyLoad: yes
 URL: http://rkward.sf.net
-Authors@R: person(given="Meik", family="Michalke", email="meik.michalke@hhu.de", role=c("aut", "cre"))
+Authors@R: person(given="Meik", family="Michalke",
+    email="meik.michalke@hhu.de", role=c("aut", "cre"))

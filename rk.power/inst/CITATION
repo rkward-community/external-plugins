@@ -1,0 +1,14 @@
+bibentry("Manual",
+    title="rk.power: RKWard GUI to perform power analysis and sample size estimation.",
+    author="Meik Michalke",
+    year="2014",
+    note="(Version 0.01-1)",
+    url="http://rkward.sf.net",
+
+    textVersion =
+    paste("Michalke, M. (2014). ",
+        "rk.power: RKWard GUI to perform power analysis and sample size estimation. (Version 0.01-1). ",
+        "Available from http://rkward.sf.net",
+        sep=""),
+
+    mheader = "To cite rk.power in publications use:")
