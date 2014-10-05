@@ -35,7 +35,7 @@ function calculate(){
 	if(drpPwrStat == "pwr.t.test") {
 		if(drpPwrType == "two.sample.diff") {
 		echo("pwr.t2n.test(");
-	if(radPwrParam != "sample") {
+	if(radPwrParam != "Sample size") {
 		echo("\n\t\tn1=" + pwrSpinSample1 + ",\n\t\tn2=" + pwrSpinSample2);
 	} else if(radPwrParam2samples == "n2") {
 		echo("\n\t\tn1=" + pwrSpinSample1 + ",");
@@ -44,12 +44,12 @@ function calculate(){
 	}
 	} else {
 		echo("pwr.t.test(");
-	if(radPwrParam != "sample") {
+	if(radPwrParam != "Sample size") {
 		echo("\n\t\tn=" + pwrSpinSample0);
 	}
 	}
-	if(radPwrParam != "effect") {
-		if(radPwrParam != "sample") {
+	if(radPwrParam != "Effect size") {
+		if(radPwrParam != "Sample size") {
 		echo(",");
 	}
 	echo("\n\t\td=" + spnEffectsz);
@@ -57,11 +57,11 @@ function calculate(){
 	}
 	if(drpPwrStat == "pwr.r.test") {
 		echo("pwr.r.test(");
-	if(radPwrParam != "sample") {
+	if(radPwrParam != "Sample size") {
 		echo("\n\t\tn=" + pwrSpinSample0);
 	}
-	if(radPwrParam != "effect") {
-		if(radPwrParam != "sample") {
+	if(radPwrParam != "Effect size") {
+		if(radPwrParam != "Sample size") {
 		echo(",");
 	}
 	echo("\n\t\tr=" + spnEffectsz);
@@ -70,10 +70,10 @@ function calculate(){
 	if(drpPwrStat == "pwr.anova.test") {
 		echo("pwr.anova.test(");
 	echo("\n\t\tk=" + spnNmbrfgrp);
-	if(radPwrParam != "sample") {
+	if(radPwrParam != "Sample size") {
 		echo(",\n\t\tn=" + pwrSpinSample0);
 	}
-	if(radPwrParam != "effect") {
+	if(radPwrParam != "Effect size") {
 		if(radEffctEta == "f") {
 			echo(",\n\t\tf=" + spnEffectsz);
 		} else {
@@ -83,24 +83,24 @@ function calculate(){
 	}
 	if(drpPwrStat == "pwr.f2.test") {
 		echo("pwr.f2.test(");
-	if(radPwrParam != "sample") {
+	if(radPwrParam != "Sample size") {
 		echo(",\n\t\tu=" + pwrSpinDfu + ",\n\t\tv=" + pwrSpinDfv);
 	} else if(radPwrParam2df == "v") {
 		echo("\n\t\tu=" + pwrSpinDfu);
 	} else {
 		echo("\n\t\tv=" + pwrSpinDfv);
 	}
-	if(radPwrParam != "effect") {
+	if(radPwrParam != "Effect size") {
 		echo(",\n\t\tf2=" + spnEffectsz);
 	}
 	}
 	if(drpPwrStat == "pwr.chisq.test") {
 		echo("pwr.chisq.test(");
-	if(radPwrParam != "effect") {
+	if(radPwrParam != "Effect size") {
 		echo("\n\t\tw=" + spnEffectsz);
 	}
-	if(radPwrParam != "sample") {
-		if(radPwrParam != "effect") {
+	if(radPwrParam != "Sample size") {
+		if(radPwrParam != "Effect size") {
 		echo(",");
 	}
 	echo("\n\t\tN=" + pwrSpinSample0);
@@ -117,11 +117,11 @@ function calculate(){
 	if(drpPwrProptype == "one.sample") {
 		echo("pwr.p.test(");
 	}
-	if(radPwrParam != "effect") {
+	if(radPwrParam != "Effect size") {
 		echo("\n\t\th=" + spnEffectsz);
 	}
-	if(radPwrParam != "sample") {
-		if(radPwrParam != "effect") {
+	if(radPwrParam != "Sample size") {
+		if(radPwrParam != "Effect size") {
 		echo(",");
 	}
 	if(drpPwrProptype != "two.sample.diff") {
@@ -139,24 +139,24 @@ function calculate(){
 	}
 	if(drpPwrStat == "pwr.norm.test") {
 		echo("pwr.norm.test(");
-	if(radPwrParam != "effect") {
+	if(radPwrParam != "Effect size") {
 		echo("\n\t\td=" + spnEffectsz);
 	}
-	if(radPwrParam != "sample") {
-		if(radPwrParam != "effect") {
+	if(radPwrParam != "Sample size") {
+		if(radPwrParam != "Effect size") {
 		echo(",");
 	}
 	echo("\n\t\tn=" + pwrSpinSample0);
 	}
 	}
-	if(radPwrParam != "significance") {
+	if(radPwrParam != "Significance level") {
 		if(spnSgnfcncl != 0.05) {
 			echo("\n\t\tsig.level=" + spnSgnfcncl + ",");
 		}
 	} else {
 		echo(",\n\t\tsig.level=NULL");
 	}
-	if(radPwrParam != "power") {
+	if(radPwrParam != "Power") {
 		echo(",\n\t\tpower=" + spnPower);
 	}
 	if(drpPwrStat == "pwr.t.test" & drpPwrType != "two.sample.diff" & drpPwrType != "two.sample") {
@@ -172,9 +172,29 @@ function calculate(){
 
 function printout(){
 	// printout the results
-	echo("rk.header(\"Power analysis results\")\n");
 
-	echo("rk.print(pwr.result)\n");
+
+	var drpPwrStat = getValue("drp_pwr_stat");
+	var radPwrParam = getValue("rad_pwr_param");
+	echo("\t# Prepare printout\n" + "\tmethod <- pwr.result[[\"method\"]]\n" + "\tnote <- pwr.result[[\"note\"]]\n" + "\tparameters <- list(\"Target measure\"=\"" + radPwrParam + "\")\n" + "\tif(!is.null(pwr.result[[\"alternative\"]])){\n\t\tparameters[[\"alternative\"]] <- pwr.result[[\"alternative\"]]\n\t}\n\n" + "\tpwr.result[c(\"method\", \"note\", \"alternative\")] <- NULL\n" + "\tpwr.result <- as.data.frame(unlist(pwr.result))\n" + "\tcolnames(pwr.result) <- \"Parameters\"\n\n" + "\trk.header(method, parameters=parameters)\n" + "\trk.results(pwr.result)\n" + "\tif(!is.null(note)){\n\t\trk.print(paste(\"<strong>Note:</strong> \", note))\n\t}\n\n");
+	if(drpPwrStat == "pwr.t.test" | drpPwrStat == "pwr.norm.test") {
+		echo("\trk.print(\"Interpretation of effect size <strong>d</strong> (according to Cohen):\")\n" + "\trk.results(data.frame(small=0.2, medium=0.5, large=0.8))\n");
+	}
+	if(drpPwrStat == "pwr.r.test") {
+		echo("\trk.print(\"Interpretation of effect size <strong>r</strong> (according to Cohen):\")\n" + "\trk.results(data.frame(small=0.1, medium=0.3, large=0.5))\n");
+	}
+	if(drpPwrStat == "pwr.f2.test") {
+		echo("\trk.print(\"Interpretation of effect size <strong>f<sup>2</sup></strong> (according to Cohen):\")\n" + "\trk.results(data.frame(small=0.02, medium=0.15, large=0.35))\n");
+	}
+	if(drpPwrStat == "pwr.anova.test") {
+		echo("\trk.print(\"Interpretation of effect size <strong>f</strong> (according to Cohen):\")\n" + "\trk.results(data.frame(small=0.1, medium=0.25, large=0.4))\n");
+	}
+	if(drpPwrStat == "pwr.chisq.test") {
+		echo("\trk.print(\"Interpretation of effect size <strong>w</strong> (according to Cohen):\")\n" + "\trk.results(data.frame(small=0.1, medium=0.3, large=0.5))\n");
+	}
+	if(drpPwrStat == "pwr.p.test") {
+		echo("\trk.print(\"Interpretation of effect size <strong>h</strong> (according to Cohen):\")\n" + "\trk.results(data.frame(small=0.2, medium=0.5, large=0.8))\n");
+	}
 	//// save result object
 	// read in saveobject variables
 	var svbSvrsltst = getValue("svb_Svrsltst");

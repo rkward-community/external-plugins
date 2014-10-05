@@ -1,7 +1,7 @@
 Package: rk.power
 Type: Package
 Title: RKWard GUI to perform power analysis and sample size estimation.
-Version: 0.01-1
+Version: 0.01-2
 Date: 2014-10-05
 Author: Meik Michalke <meik.michalke@hhu.de>
 Maintainer: Meik Michalke <meik.michalke@hhu.de>

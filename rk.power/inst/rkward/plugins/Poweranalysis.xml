@@ -5,10 +5,10 @@
 	<code file="Poweranalysis.js" />
 	<help file="Poweranalysis.rkh" />
 	<logic>
-		<convert id="pwr_lgc_power" sources="rad_pwr_param.string" mode="equals" standard="power" />
-		<convert id="pwr_lgc_sample" sources="rad_pwr_param.string" mode="equals" standard="sample" />
-		<convert id="pwr_lgc_effect" sources="rad_pwr_param.string" mode="equals" standard="effect" />
-		<convert id="pwr_lgc_signif" sources="rad_pwr_param.string" mode="equals" standard="significance" />
+		<convert id="pwr_lgc_power" sources="rad_pwr_param.string" mode="equals" standard="Power" />
+		<convert id="pwr_lgc_sample" sources="rad_pwr_param.string" mode="equals" standard="Sample size" />
+		<convert id="pwr_lgc_effect" sources="rad_pwr_param.string" mode="equals" standard="Effect size" />
+		<convert id="pwr_lgc_signif" sources="rad_pwr_param.string" mode="equals" standard="Significance level" />
 		<connect governor="pwr_lgc_power.not" client="frm_spnbPP0801.enabled" />
 		<connect governor="pwr_lgc_effect.not" client="frm_sEE0311MCM.enabled" />
 		<connect governor="pwr_lgc_signif.not" client="frm_spnSS00501.enabled" />
@@ -21,14 +21,16 @@
 		<convert id="pwr_lgc_norm" sources="drp_pwr_stat.string" mode="equals" standard="pwr.norm.test" />
 		<convert id="pwr_lgc_sample_2p_same" sources="drp_pwr_proptype.string" mode="equals" standard="two.sample.same" />
 		<convert id="pwr_lgc_sample_2p_diff" sources="drp_pwr_proptype.string" mode="equals" standard="two.sample.diff" />
+		<convert id="pwr_lgc_sample_t_same" sources="drp_pwr_type.string" mode="equals" standard="two.sample" />
 		<convert id="pwr_lgc_sample_t_diff" sources="drp_pwr_type.string" mode="equals" standard="two.sample.diff" />
 		<convert id="pwr_lgc_sample_t_pairs" sources="drp_pwr_type.string" mode="equals" standard="paired" />
-		<convert id="pwr_lgc_sample_t_nopairs" sources="drp_pwr_type.string" mode="notequals" standard="paired" />
+		<convert id="pwr_lgc_sample_t_onesample" sources="drp_pwr_type.string" mode="equals" standard="one.sample" />
 		<convert id="pwr_lgc_2p" sources="pwr_lgc_sample_2p_same;pwr_lgc_proptest" mode="and" />
 		<convert id="pwr_lgc_2p2n" sources="pwr_lgc_sample_2p_diff;pwr_lgc_proptest" mode="and" />
+		<convert id="pwr_lgc_tsame" sources="pwr_lgc_sample_t_same;pwr_lgc_ttest" mode="and" />
 		<convert id="pwr_lgc_tdiff" sources="pwr_lgc_sample_t_diff;pwr_lgc_ttest" mode="and" />
 		<convert id="pwr_lgc_tpaired" sources="pwr_lgc_sample_t_pairs;pwr_lgc_ttest" mode="and" />
-		<convert id="pwr_lgc_tunpaired" sources="pwr_lgc_sample_t_nopairs;pwr_lgc_ttest" mode="and" />
+		<convert id="pwr_lgc_tunpaired" sources="pwr_lgc_sample_t_onesample;pwr_lgc_ttest" mode="and" />
 		<connect governor="pwr_lgc_proptest.not" client="drp_pwr_type.visible" />
 		<connect governor="pwr_lgc_ttest" client="drp_pwr_type.enabled" />
 		<connect governor="pwr_lgc_proptest" client="drp_pwr_proptype.visible" />
@@ -53,8 +55,8 @@
 		<connect governor="pwr_lgc_anova" client="rad_effct_eta.visible" />
 		<connect governor="pwr_lgc_effect.not" client="rad_effct_eta.enabled" />
 		<connect governor="pwr_lgc_anova" client="spn_Nmbrfgrp.enabled" />
-		<convert id="pwr_lgc_smpl_ps" sources="pwr_lgc_tunpaired;pwr_lgc_2p" mode="or" />
-		<convert id="pwr_lgc_smpl_nondefault" sources="pwr_lgc_ttest;pwr_lgc_2p;pwr_txt_smpl_ps;pwr_lgc_anova;pwr_lgc_chisq" mode="or" />
+		<convert id="pwr_lgc_smpl_ps" sources="pwr_lgc_tsame;pwr_lgc_tunpaired;pwr_lgc_2p" mode="or" />
+		<convert id="pwr_lgc_smpl_nondefault" sources="pwr_lgc_ttest;pwr_lgc_2p;pwr_lgc_2p2n;pwr_lgc_tdiff;pwr_lgc_anova;pwr_lgc_chisq" mode="or" />
 		<connect governor="pwr_lgc_smpl_ps" client="pwr_txt_smpl_ps.visible" />
 		<connect governor="pwr_lgc_anova" client="pwr_txt_smpl_pg.visible" />
 		<connect governor="pwr_lgc_chisq" client="pwr_txt_smpl_tt.visible" />
@@ -94,14 +96,14 @@
 		<connect governor="pwr_lgc_alt_warn_pos" client="pwr_txt_hypothesis_pos.visible" />
 	</logic>
 	<dialog label="Power analysis">
-		<row id="row_cTTPPSES2E">
-			<column id="clm_fTTPPSES2E">
+		<row id="row_cTTPPPSSEE">
+			<column id="clm_fTTPPPSSEE">
 				<frame label="Target measure" id="frm_Targtmsr">
 					<radio id="rad_pwr_param" label="Parameter to determine">
-						<option label="Power of test" value="power" checked="true" />
-						<option label="Sample size" value="sample" />
-						<option label="Effect size" value="effect" />
-						<option label="Significance level" value="significance" />
+						<option label="Power of test" value="Power" checked="true" />
+						<option label="Sample size" value="Sample size" />
+						<option label="Effect size" value="Effect size" />
+						<option label="Significance level" value="Significance level" />
 					</radio>
 					<stretch />
 					<radio id="rad_pwr_param_2samples" label="Estimate">
@@ -157,88 +159,86 @@
 			</column>
 			<column id="clm_fKKPP0801P">
 				<frame label="Known measures" id="frm_Knwnmsrs">
-					<frame id="frm_fPP0801PP0">
-						<frame id="frm_spnbPP0801">
-							<spinbox label="Power" id="spn_Power" initial="0.8" min="0" max="1" />
-						</frame>
-						<frame id="frm_sD301D301D">
-							<spinbox label="Degrees of freedom" id="pwr_spin_df" initial="30" min="1" type="integer" />
-							<spinbox label="Degrees of freedom for numerator" id="pwr_spin_dfu" initial="30" min="1" type="integer" />
-							<spinbox label="Degrees of freedom for denominator" id="pwr_spin_dfv" initial="30" min="1" type="integer" />
-						</frame>
-						<frame id="frm_sS0301F130">
-							<spinbox label="Sample size" id="pwr_spin_sample0" initial="30" min="1" type="integer" />
-							<spinbox label="First sample" id="pwr_spin_sample1" initial="30" min="1" type="integer" />
-							<spinbox label="Second sample" id="pwr_spin_sample2" initial="30" min="1" type="integer" />
-							<text id="pwr_txt_smpl">
-								Number of observations
-							</text>
-							<text id="pwr_txt_smpl_ps">
-								Number of observations 								<b>
-									per sample
-								</b>
-							</text>
-							<text id="pwr_txt_smpl_pg">
-								Number of observations 								<b>
-									per group
-								</b>
-							</text>
-							<text id="pwr_txt_smpl_tt">
-								Number of observations 								<b>
-									in total
-								</b>
-							</text>
-							<text id="pwr_txt_smpl_pairs">
-								Number of 								<b>
-									pairs
-								</b>
-							</text>
-						</frame>
-						<frame id="frm_sEE0311MCM">
-							<spinbox label="Effect size" id="spn_Effectsz" initial="0.3" min="-1" max="1" />
-							<text id="pwr_txt_efct_d">
-								Measure for selected method is 								<b>
-									Cohen's d
-								</b>
-							</text>
-							<text id="pwr_txt_efct_r">
-								Measure for selected method is 								<b>
-									Pearson's r
-								</b>
-							</text>
-							<text id="pwr_txt_efct_f">
-								Measure for selected method is 								<b>
-									Cohen's f
-								</b>
-							</text>
-							<text id="pwr_txt_efct_e2">
-								Measure for selected method is 								<b>
-									Eta 									<sup>
-										2
-									</sup>
-								</b>
-							</text>
-							<text id="pwr_txt_efct_f2">
-								Measure for selected method is 								<b>
-									Cohen's f 									<sup>
-										2
-									</sup>
-								</b>
-							</text>
-							<text id="pwr_txt_efct_w">
-								Measure for selected method is 								<b>
-									Cohen's w
-								</b>
-							</text>
-							<text id="pwr_txt_efct_h">
-								Measure for selected method is 								<b>
-									Cohen's h
-								</b>
-							</text>
-						</frame>
-						<frame id="frm_spnSS00501">
-							<spinbox label="Significance level" id="spn_Sgnfcncl" initial="0.05" min="0" max="1" />
-						</frame>
+					<frame id="frm_spnbPP0801">
+						<spinbox label="Power" id="spn_Power" initial="0.8" min="0" max="1" />
+					</frame>
+					<frame id="frm_sD301D301D">
+						<spinbox label="Degrees of freedom" id="pwr_spin_df" initial="30" min="1" type="integer" />
+						<spinbox label="Degrees of freedom for numerator" id="pwr_spin_dfu" initial="30" min="1" type="integer" />
+						<spinbox label="Degrees of freedom for denominator" id="pwr_spin_dfv" initial="30" min="1" type="integer" />
+					</frame>
+					<frame id="frm_sS0301F130">
+						<spinbox label="Sample size" id="pwr_spin_sample0" initial="30" min="1" type="integer" />
+						<spinbox label="First sample size" id="pwr_spin_sample1" initial="30" min="1" type="integer" />
+						<spinbox label="Second sample size" id="pwr_spin_sample2" initial="30" min="1" type="integer" />
+						<text id="pwr_txt_smpl">
+							Number of observations
+						</text>
+						<text id="pwr_txt_smpl_ps">
+							Number of observations 							<b>
+								per sample
+							</b>
+						</text>
+						<text id="pwr_txt_smpl_pg">
+							Number of observations 							<b>
+								per group
+							</b>
+						</text>
+						<text id="pwr_txt_smpl_tt">
+							Number of observations 							<b>
+								in total
+							</b>
+						</text>
+						<text id="pwr_txt_smpl_pairs">
+							Number of 							<b>
+								pairs
+							</b>
+						</text>
+					</frame>
+					<frame id="frm_sEE0311MCM">
+						<spinbox label="Effect size" id="spn_Effectsz" initial="0.3" min="-1" max="1" />
+						<text id="pwr_txt_efct_d">
+							Measure for selected method is 							<b>
+								Cohen's d
+							</b>
+						</text>
+						<text id="pwr_txt_efct_r">
+							Measure for selected method is 							<b>
+								Pearson's r
+							</b>
+						</text>
+						<text id="pwr_txt_efct_f">
+							Measure for selected method is 							<b>
+								Cohen's f
+							</b>
+						</text>
+						<text id="pwr_txt_efct_e2">
+							Measure for selected method is 							<b>
+								Eta 								<sup>
+									2
+								</sup>
+							</b>
+						</text>
+						<text id="pwr_txt_efct_f2">
+							Measure for selected method is 							<b>
+								Cohen's f 								<sup>
+									2
+								</sup>
+							</b>
+						</text>
+						<text id="pwr_txt_efct_w">
+							Measure for selected method is 							<b>
+								Cohen's w
+							</b>
+						</text>
+						<text id="pwr_txt_efct_h">
+							Measure for selected method is 							<b>
+								Cohen's h
+							</b>
+						</text>
+					</frame>
+					<frame id="frm_spnSS00501">
+						<spinbox label="Significance level" id="spn_Sgnfcncl" initial="0.05" min="0" max="1" />
 					</frame>
 					<stretch />
 					<saveobject label="Save results to workspace" checkable="true" initial="pwr.result" id="svb_Svrsltst" />

@@ -14,7 +14,7 @@
 		name="rk.power"
 		shortinfo="RKWard GUI to perform power analysis and sample size estimation."
 		longinfo="RKWard GUI to perform power analysis and sample size estimation."
-		version="0.01-1"
+		version="0.01-2"
 		releasedate="2014-10-05"
 		url="http://rkward.sf.net"
 		license="GPL (&gt;= 3)"

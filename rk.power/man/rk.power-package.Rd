@@ -10,9 +10,9 @@ RKWard GUI to perform power analysis and sample size estimation..
 \tabular{ll}{
 Package: \tab rk.power\cr
 Type: \tab Package\cr
-Version: \tab 0.01-1\cr
+Version: \tab 0.01-2\cr
 Date: \tab 2014-10-05\cr
-Depends: \tab  rkward (>= 0.5.6)\cr
+Depends: \tab rkward (>= 0.5.6)\cr
 Enhances: \tab rkward\cr
 License: \tab GPL (>= 3)\cr
 LazyLoad: \tab yes\cr
