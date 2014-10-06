@@ -1,0 +1,69 @@
+<!DOCTYPE rkhelp >
+<document>
+	<!-- this code was generated using the rkwarddev package.
+			perhaps don't make changes here, but in the rkwarddev script instead! -->
+	<summary>
+	</summary>
+	<usage>
+	</usage>
+	<!-- <section id="sct_EDITORDE" title="EDIT OR DELETE ME">
+				EDIT OR DELETE ME
+			</section> -->
+	<settings>
+		<caption id="frm_Targtmsr" />
+		<setting id="rad_pwr_param">
+		</setting>
+		<setting id="rad_pwr_param_2samples">
+		</setting>
+		<setting id="rad_pwr_param_2df">
+		</setting>
+		<caption id="frm_SttstclM" />
+		<setting id="drp_pwr_stat">
+		</setting>
+		<setting id="spn_Nmbrfgrp">
+		</setting>
+		<setting id="drp_pwr_type">
+		</setting>
+		<setting id="drp_pwr_proptype">
+		</setting>
+		<setting id="drp_pwr_hypothesis">
+		</setting>
+		<setting id="rad_effct_eta">
+		</setting>
+		<caption id="frm_Knwnmsrs" />
+		<caption id="frm_spnbPP0801" />
+		<setting id="spn_Power">
+		</setting>
+		<caption id="frm_sD301D301D" />
+		<setting id="pwr_spin_df">
+		</setting>
+		<setting id="pwr_spin_dfu">
+		</setting>
+		<setting id="pwr_spin_dfv">
+		</setting>
+		<caption id="frm_sS0301F130" />
+		<setting id="pwr_spin_sample0">
+		</setting>
+		<setting id="pwr_spin_sample1">
+		</setting>
+		<setting id="pwr_spin_sample2">
+		</setting>
+		<caption id="frm_sEE0311MCM" />
+		<setting id="spn_Effectsz">
+		</setting>
+		<caption id="frm_spnSS00501" />
+		<setting id="spn_Sgnfcncl">
+		</setting>
+		<setting id="svb_Svrsltst">
+		</setting>
+	</settings>
+	<!-- <related>
+				<ul>
+					<li>
+						<link href="rkward://rhelp/..." />
+					</li>
+				</ul>
+			</related> -->
+	<technical>
+	</technical>
+</document>
