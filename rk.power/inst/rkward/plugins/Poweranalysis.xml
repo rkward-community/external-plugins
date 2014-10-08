@@ -37,7 +37,7 @@
 		<connect governor="pwr_lgc_proptest" client="drp_pwr_proptype.enabled" />
 		<connect governor="pwr_lgc_f2test.not" client="frm_sS0301F130.visible" />
 		<convert id="pwr_lgc_show_df" sources="pwr_lgc_f2test;pwr_lgc_chisq" mode="or" />
-		<connect governor="pwr_lgc_show_df" client="frm_sD301D301D.visible" />
+		<connect governor="pwr_lgc_show_df" client="frm_sD301D3011.visible" />
 		<connect governor="pwr_lgc_chisq" client="pwr_spin_df.visible" />
 		<connect governor="pwr_lgc_f2test" client="pwr_spin_dfu.visible" />
 		<connect governor="pwr_lgc_f2test" client="pwr_spin_dfv.visible" />
@@ -84,6 +84,8 @@
 		<connect governor="pwr_lgc_smpl_show_n2" client="pwr_spin_sample2.enabled" />
 		<connect governor="pwr_lgc_df_show_u" client="pwr_spin_dfu.enabled" />
 		<connect governor="pwr_lgc_df_show_v" client="pwr_spin_dfv.enabled" />
+		<connect governor="pwr_lgc_df_show_u" client="pwr_txt_dfu.enabled" />
+		<connect governor="pwr_lgc_df_show_v" client="pwr_txt_dfv.enabled" />
 		<convert id="pwr_lgc_noalternative" sources="pwr_lgc_anova.not;pwr_lgc_f2test.not;pwr_lgc_chisq.not" mode="and" />
 		<connect governor="pwr_lgc_noalternative" client="drp_pwr_hypothesis.enabled" />
 		<convert id="pwr_lgc_alt_less" sources="drp_pwr_hypothesis.string" mode="equals" standard="less" />
@@ -162,10 +164,22 @@
 					<frame id="frm_spnbPP0801">
 						<spinbox label="Power" id="spn_Power" initial="0.8" min="0" max="1" />
 					</frame>
-					<frame id="frm_sD301D301D">
+					<frame id="frm_sD301D3011">
 						<spinbox label="Degrees of freedom" id="pwr_spin_df" initial="30" min="1" type="integer" />
 						<spinbox label="Degrees of freedom for numerator" id="pwr_spin_dfu" initial="30" min="1" type="integer" />
+						<text id="pwr_txt_dfu">
+							df 							<sub>
+								num
+							</sub>
+							: k &minus; 1
+						</text>
 						<spinbox label="Degrees of freedom for denominator" id="pwr_spin_dfv" initial="30" min="1" type="integer" />
+						<text id="pwr_txt_dfv">
+							df 							<sub>
+								den
+							</sub>
+							: k &times; (n &minus; 1)
+						</text>
 					</frame>
 					<frame id="frm_sS0301F130">
 						<spinbox label="Sample size" id="pwr_spin_sample0" initial="30" min="1" type="integer" />
