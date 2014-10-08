@@ -107,8 +107,8 @@
 					</radio>
 					<stretch />
 					<radio id="rad_pwr_param_2samples" label="Estimate">
-						<option label="First sample" value="n1" checked="true" />
-						<option label="Second sample" value="n2" />
+						<option label="First sample" value="n1" />
+						<option label="Second sample" value="n2" checked="true" />
 					</radio>
 					<radio id="rad_pwr_param_2df" label="Estimate">
 						<option label="Numerator" value="u" checked="true" />

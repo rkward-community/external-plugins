@@ -2,9 +2,20 @@
 <document>
 	<!-- this code was generated using the rkwarddev package.
 			perhaps don't make changes here, but in the rkwarddev script instead! -->
+	<title>
+		Power analysis
+	</title>
 	<summary>
+		Perform power anaylsis for a variety of statistcal methods.
 	</summary>
 	<usage>
+		Given three of the parameters 'power of test', 
+		  'sample size', 'effect size', and 'significance level', this plugin will 
+		  estimate the fourth, i.e. for example the test power of a t.test at a given 
+		  sample size, effect size, and level of significance. On the left hand control, 
+		  select which of the parameters to estimate. In the middle, specify the 
+		  statistical method, on the right hand side, enter the values of the given 
+		  parameters.
 	</usage>
 	<!-- <section id="sct_EDITORDE" title="EDIT OR DELETE ME">
 				EDIT OR DELETE ME
@@ -12,50 +23,36 @@
 	<settings>
 		<caption id="frm_Targtmsr" />
 		<setting id="rad_pwr_param">
+			Parameter to estimate, given the others.
 		</setting>
 		<setting id="rad_pwr_param_2samples">
+			Only shown when applicable: For estimating the required sample sizes for a test with two 
+			    differently sized samples, specify which should be estimated, and which is 
+			    given.
 		</setting>
-		<setting id="rad_pwr_param_2df">
-		</setting>
+		<setting id="rad_pwr_param_2df" />
 		<caption id="frm_SttstclM" />
-		<setting id="drp_pwr_stat">
-		</setting>
-		<setting id="spn_Nmbrfgrp">
-		</setting>
-		<setting id="drp_pwr_type">
-		</setting>
-		<setting id="drp_pwr_proptype">
-		</setting>
-		<setting id="drp_pwr_hypothesis">
-		</setting>
-		<setting id="rad_effct_eta">
-		</setting>
+		<setting id="drp_pwr_stat" />
+		<setting id="spn_Nmbrfgrp" />
+		<setting id="drp_pwr_type" />
+		<setting id="drp_pwr_proptype" />
+		<setting id="drp_pwr_hypothesis" />
+		<setting id="rad_effct_eta" />
 		<caption id="frm_Knwnmsrs" />
 		<caption id="frm_spnbPP0801" />
-		<setting id="spn_Power">
-		</setting>
+		<setting id="spn_Power" />
 		<caption id="frm_sD301D301D" />
-		<setting id="pwr_spin_df">
-		</setting>
-		<setting id="pwr_spin_dfu">
-		</setting>
-		<setting id="pwr_spin_dfv">
-		</setting>
+		<setting id="pwr_spin_df" />
+		<setting id="pwr_spin_dfu" />
+		<setting id="pwr_spin_dfv" />
 		<caption id="frm_sS0301F130" />
-		<setting id="pwr_spin_sample0">
-		</setting>
-		<setting id="pwr_spin_sample1">
-		</setting>
-		<setting id="pwr_spin_sample2">
-		</setting>
+		<setting id="pwr_spin_sample0" />
+		<setting id="pwr_spin_sample1" />
+		<setting id="pwr_spin_sample2" />
 		<caption id="frm_sEE0311MCM" />
-		<setting id="spn_Effectsz">
-		</setting>
+		<setting id="spn_Effectsz" />
 		<caption id="frm_spnSS00501" />
-		<setting id="spn_Sgnfcncl">
-		</setting>
-		<setting id="svb_Svrsltst">
-		</setting>
+		<setting id="spn_Sgnfcncl" />
 	</settings>
 	<!-- <related>
 				<ul>
