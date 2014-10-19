@@ -9,6 +9,7 @@
 		<convert id="pwr_lgc_sample" sources="rad_pwr_param.string" mode="equals" standard="Sample size" />
 		<convert id="pwr_lgc_effect" sources="rad_pwr_param.string" mode="equals" standard="Effect size" />
 		<convert id="pwr_lgc_signif" sources="rad_pwr_param.string" mode="equals" standard="Significance level" />
+		<convert id="pwr_lgc_df_u" sources="rad_pwr_param.string" mode="equals" standard="Parameter count" />
 		<connect governor="pwr_lgc_power.not" client="frm_spnbPP0801.enabled" />
 		<connect governor="pwr_lgc_effect.not" client="frm_sEE0311MCM.enabled" />
 		<connect governor="pwr_lgc_signif.not" client="frm_spnSS00501.enabled" />
@@ -35,12 +36,15 @@
 		<connect governor="pwr_lgc_ttest" client="drp_pwr_type.enabled" />
 		<connect governor="pwr_lgc_proptest" client="drp_pwr_proptype.visible" />
 		<connect governor="pwr_lgc_proptest" client="drp_pwr_proptype.enabled" />
+		<connect governor="pwr_lgc_f2test" client="rad_pwr_param.opt_Prmtrcnt.enabled" />
 		<connect governor="pwr_lgc_f2test.not" client="frm_sS0301F130.visible" />
 		<convert id="pwr_lgc_show_df" sources="pwr_lgc_f2test;pwr_lgc_chisq" mode="or" />
 		<connect governor="pwr_lgc_show_df" client="frm_sD301D3011.visible" />
 		<connect governor="pwr_lgc_chisq" client="pwr_spin_df.visible" />
 		<connect governor="pwr_lgc_f2test" client="pwr_spin_dfu.visible" />
+		<connect governor="pwr_lgc_f2test" client="pwr_txt_dfu.visible" />
 		<connect governor="pwr_lgc_f2test" client="pwr_spin_dfv.visible" />
+		<connect governor="pwr_lgc_f2test" client="pwr_txt_dfv.visible" />
 		<convert id="pwr_lgc_efct_d" sources="pwr_lgc_ttest;pwr_lgc_norm" mode="or" />
 		<connect governor="pwr_lgc_efct_d" client="pwr_txt_efct_d.visible" />
 		<connect governor="pwr_lgc_rtest" client="pwr_txt_efct_r.visible" />
@@ -67,25 +71,13 @@
 		<connect governor="pwr_lgc_smpl_diff" client="pwr_spin_sample2.visible" />
 		<connect governor="pwr_lgc_smpl_diff.not" client="pwr_spin_sample0.visible" />
 		<convert id="pwr_lgc_smpl_switch" sources="pwr_lgc_sample;pwr_lgc_smpl_diff" mode="and" />
-		<convert id="pwr_lgc_df_switch" sources="pwr_lgc_sample;pwr_lgc_f2test" mode="and" />
 		<convert id="pwr_lgc_enable_sample_frame" sources="pwr_lgc_sample.not;pwr_lgc_smpl_switch" mode="or" />
 		<connect governor="pwr_lgc_enable_sample_frame" client="frm_sS0301F130.enabled" />
-		<connect governor="pwr_lgc_smpl_switch" client="rad_pwr_param_2samples.visible" />
-		<connect governor="pwr_lgc_df_switch" client="rad_pwr_param_2df.visible" />
-		<convert id="pwr_lgc_smpl_n1" sources="rad_pwr_param_2samples.string" mode="equals" standard="n1" />
-		<convert id="pwr_lgc_smpl_n2" sources="rad_pwr_param_2samples.string" mode="equals" standard="n2" />
-		<convert id="pwr_lgc_df_u" sources="rad_pwr_param_2df.string" mode="equals" standard="u" />
-		<convert id="pwr_lgc_df_v" sources="rad_pwr_param_2df.string" mode="equals" standard="v" />
-		<convert id="pwr_lgc_smpl_show_n1" sources="pwr_lgc_smpl_n2;pwr_lgc_sample.not" mode="or" />
-		<convert id="pwr_lgc_smpl_show_n2" sources="pwr_lgc_smpl_n1;pwr_lgc_sample.not" mode="or" />
-		<convert id="pwr_lgc_df_show_u" sources="pwr_lgc_df_v;pwr_lgc_sample.not" mode="or" />
-		<convert id="pwr_lgc_df_show_v" sources="pwr_lgc_df_u;pwr_lgc_sample.not" mode="or" />
-		<connect governor="pwr_lgc_smpl_show_n1" client="pwr_spin_sample1.enabled" />
-		<connect governor="pwr_lgc_smpl_show_n2" client="pwr_spin_sample2.enabled" />
-		<connect governor="pwr_lgc_df_show_u" client="pwr_spin_dfu.enabled" />
-		<connect governor="pwr_lgc_df_show_v" client="pwr_spin_dfv.enabled" />
-		<connect governor="pwr_lgc_df_show_u" client="pwr_txt_dfu.enabled" />
-		<connect governor="pwr_lgc_df_show_v" client="pwr_txt_dfv.enabled" />
+		<connect governor="pwr_lgc_sample.not" client="pwr_spin_sample2.enabled" />
+		<connect governor="pwr_lgc_df_u.not" client="pwr_spin_dfu.enabled" />
+		<connect governor="pwr_lgc_sample.not" client="pwr_spin_dfv.enabled" />
+		<connect governor="pwr_lgc_df_u.not" client="pwr_txt_dfu.enabled" />
+		<connect governor="pwr_lgc_sample.not" client="pwr_txt_dfv.enabled" />
 		<convert id="pwr_lgc_noalternative" sources="pwr_lgc_anova.not;pwr_lgc_f2test.not;pwr_lgc_chisq.not" mode="and" />
 		<connect governor="pwr_lgc_noalternative" client="drp_pwr_hypothesis.enabled" />
 		<convert id="pwr_lgc_alt_less" sources="drp_pwr_hypothesis.string" mode="equals" standard="less" />
@@ -98,26 +90,7 @@
 		<connect governor="pwr_lgc_alt_warn_pos" client="pwr_txt_hypothesis_pos.visible" />
 	</logic>
 	<dialog label="Power analysis">
-		<row id="row_cTTPPPSSEE">
-			<column id="clm_fTTPPPSSEE">
-				<frame label="Target measure" id="frm_Targtmsr">
-					<radio id="rad_pwr_param" label="Parameter to determine">
-						<option label="Power of test" value="Power" checked="true" />
-						<option label="Sample size" value="Sample size" />
-						<option label="Effect size" value="Effect size" />
-						<option label="Significance level" value="Significance level" />
-					</radio>
-					<stretch />
-					<radio id="rad_pwr_param_2samples" label="Estimate">
-						<option label="First sample" value="n1" />
-						<option label="Second sample" value="n2" checked="true" />
-					</radio>
-					<radio id="rad_pwr_param_2df" label="Estimate">
-						<option label="Numerator" value="u" checked="true" />
-						<option label="Denominator" value="v" />
-					</radio>
-				</frame>
-			</column>
+		<row id="row_cSMSMSTCAN">
 			<column id="clm_fSMSMSTCAN">
 				<frame label="Statistical Method" id="frm_SttstclM">
 					<dropdown id="drp_pwr_stat" label="Select a method">
@@ -159,6 +132,18 @@
 				</frame>
 				<stretch />
 			</column>
+			<column id="clm_fTTPPPSSEE">
+				<frame label="Target measure" id="frm_Targtmsr">
+					<radio id="rad_pwr_param" label="Parameter to determine">
+						<option label="Power of test" value="Power" checked="true" />
+						<option label="Sample size" value="Sample size" />
+						<option label="Effect size" value="Effect size" />
+						<option label="Significance level" value="Significance level" />
+						<option label="Parameter count" value="Parameter count" id="opt_Prmtrcnt" />
+					</radio>
+					<stretch />
+				</frame>
+			</column>
 			<column id="clm_fKKPP0801P">
 				<frame label="Known measures" id="frm_Knwnmsrs">
 					<frame id="frm_spnbPP0801">
@@ -178,7 +163,7 @@
 							df 							<sub>
 								den
 							</sub>
-							: k &times; (n &minus; 1)
+							: N &minus; k
 						</text>
 					</frame>
 					<frame id="frm_sS0301F130">

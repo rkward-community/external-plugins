@@ -2,15 +2,16 @@ Package: rk.power
 Type: Package
 Title: RKWard GUI to perform power analysis and sample size estimation.
 Version: 0.01-3
-Date: 2014-10-08
+Date: 2014-10-19
 Author: Meik Michalke <meik.michalke@hhu.de>
 Maintainer: Meik Michalke <meik.michalke@hhu.de>
-Depends: rkward (>= 0.5.6)
+Depends:
+    rkward (>= 0.5.6)
 Enhances: rkward
-Description: RKWard GUI to perform power analysis and sample size
-        estimation.
+Description: RKWard GUI to perform power analysis and sample size estimation.
 License: GPL (>= 3)
 LazyLoad: yes
 URL: http://rkward.sf.net
-Authors@R: person(given="Meik", family="Michalke",
-        email="meik.michalke@hhu.de", role=c("aut", "cre"))
+Authors@R: c(person(given="Meik", family="Michalke",
+    email="meik.michalke@hhu.de", role=c("aut", "cre")), person(given="Thomas",
+    family="Friedrichsmeier", role="ctb"))

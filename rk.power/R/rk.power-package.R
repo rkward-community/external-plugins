@@ -3,8 +3,8 @@
 #' \tabular{ll}{
 #' Package: \tab rk.power\cr
 #' Type: \tab Package\cr
-#' Version: \tab 0.01-2\cr
-#' Date: \tab 2014-10-05\cr
+#' Version: \tab 0.01-3\cr
+#' Date: \tab 2014-10-19\cr
 #' Depends: \tab  rkward (>= 0.5.6)\cr
 #' Enhances: \tab rkward\cr
 #' License: \tab GPL (>= 3)\cr
@@ -18,6 +18,6 @@
 #' @name rk.power-package
 #' @docType package
 #' @title The rk.power Package
-#' @author Meik Michalke
+#' @author Meik Michalke, with contributions from Thomas Friedrichsmeier
 #' @keywords package
 NULL

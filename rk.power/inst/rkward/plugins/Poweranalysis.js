@@ -10,15 +10,13 @@ function preprocess(){
 
 function calculate(){
 	// read in variables from dialog
-	var radPwrParam = getValue("rad_pwr_param");
-	var radPwrParam2samples = getValue("rad_pwr_param_2samples");
-	var radPwrParam2df = getValue("rad_pwr_param_2df");
 	var drpPwrStat = getValue("drp_pwr_stat");
 	var spnNmbrfgrp = getValue("spn_Nmbrfgrp");
 	var drpPwrType = getValue("drp_pwr_type");
 	var drpPwrProptype = getValue("drp_pwr_proptype");
 	var drpPwrHypothesis = getValue("drp_pwr_hypothesis");
 	var radEffctEta = getValue("rad_effct_eta");
+	var radPwrParam = getValue("rad_pwr_param");
 	var spnPower = getValue("spn_Power");
 	var pwrSpinDf = getValue("pwr_spin_df");
 	var pwrSpinDfu = getValue("pwr_spin_dfu");
@@ -37,10 +35,8 @@ function calculate(){
 		echo("pwr.t2n.test(");
 	if(radPwrParam != "Sample size") {
 		echo("\n\t\t\tn1=" + pwrSpinSample1 + ",\n\t\t\tn2=" + pwrSpinSample2);
-	} else if(radPwrParam2samples == "n2") {
-		echo("\n\t\t\tn1=" + pwrSpinSample1 + ",");
 	} else {
-		echo("\n\t\t\tn2=" + pwrSpinSample2 + ",");
+		echo("\n\t\t\tn1=" + pwrSpinSample1 + ",");
 	}
 	} else {
 		echo("pwr.t.test(");
@@ -83,12 +79,14 @@ function calculate(){
 	}
 	if(drpPwrStat == "pwr.f2.test") {
 		echo("pwr.f2.test(");
-	if(radPwrParam != "Sample size") {
-		echo(",\n\t\t\tu=" + pwrSpinDfu + ",\n\t\t\tv=" + pwrSpinDfv);
-	} else if(radPwrParam2df == "v") {
+	if(radPwrParam != "Parameter count") {
 		echo("\n\t\t\tu=" + pwrSpinDfu);
-	} else {
-		echo("\n\t\t\tv=" + pwrSpinDfv);
+	}
+	if(radPwrParam != "Sample size") {
+		if(radPwrParam != "Parameter count") {
+		echo(",");
+	}
+	echo("\n\t\t\tv=" + pwrSpinDfv);
 	}
 	if(radPwrParam != "Effect size") {
 		echo(",\n\t\t\tf2=" + spnEffectsz);
@@ -130,11 +128,7 @@ function calculate(){
 		echo("\n\t\t\tn1=" + pwrSpinSample1 + ",\n\t\t\tn2=" + pwrSpinSample2);
 	}
 	} else if(drpPwrProptype == "two.sample.diff") {
-		if(radPwrParam2samples == "n2") {
-			echo(",\n\t\t\tn1=" + pwrSpinSample1);
-		} else {
-			echo(",\n\t\t\tn2=" + pwrSpinSample2);
-		}
+		echo(",\n\t\t\tn1=" + pwrSpinSample1);
 	}
 	}
 	if(drpPwrStat == "pwr.norm.test") {

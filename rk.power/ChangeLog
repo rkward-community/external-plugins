@@ -1,0 +1,8 @@
+ChangeLog for package rk.power
+
+changes in version 0.01-3 (2014-10-19)
+changed:
+  - reworked the order of input elements and parameters for GLM (thomas friedrichsmeier)
+added:
+  - full set of documentation (thomas friedrichsmeier)
+  - first ChangeLog (after two initial testing releases)
