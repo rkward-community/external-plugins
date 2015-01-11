@@ -4,7 +4,7 @@ RKWard external plugins
 Provides a collaboration area for RKWard plugins that are not (yet) targetted
 for inclusion in the offical RKWard releases.
 
-See http://rkward.sourceforge.net/documents/devel/plugins/index.html for documentation on writing plugins for RKWard.
+See http://api.kde.org/doc/rkwardplugins/ for documentation on writing plugins for RKWard.
 Contact rkward-devel@lists.sourceforge.net for help and requests.
 
 Why use this repository?
