@@ -552,5 +552,6 @@ pwr.plugin.dir <<- rk.plugin.skeleton(
 # edit=TRUE,
   load=TRUE,
 # show=TRUE,
-  hints=FALSE)
+  hints=FALSE,
+  internal=TRUE)
 })
