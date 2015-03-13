@@ -36,7 +36,7 @@ function calculate(){
 
 function printout(){
 	// printout the results
-	new Header(i18n(""Cohen's Kappa and weighted Kappa"")).print();
+	new Header(i18n("Cohen's Kappa and weighted Kappa")).print();
 
 
 	echo("\trk.header(\"Correlation coefficients and confidence boundaries\", level=3)\n");

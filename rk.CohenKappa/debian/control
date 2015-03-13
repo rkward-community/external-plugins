@@ -12,3 +12,4 @@ Section: math
 Depends: r-base (>= 2.15.0), rkward (>= 0.5.6)
 Description: GNU R package: RKWard GUI to calculate Cohen's Kappa, i.e., the agreement of two raters (using the psych package)
 Homepage: http://rkward.sf.net
+Suggests: r-cran-psych

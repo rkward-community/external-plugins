@@ -1,5 +1,12 @@
 \name{NEWS}
 \title{News for Package 'rk.CohenKappa'}
+\section{Changes in rk.CohenKappa version 0.01-6 (2015-03-13)}{
+  \subsection{changed}{
+    \itemize{
+      \item rebuilt using rkwarddev 0.07-1
+    }
+  }
+}
 \section{Changes in rk.CohenKappa version 0.01-5 (2013-04-04)}{
   \subsection{added}{
     \itemize{

@@ -80,7 +80,7 @@ rk.plugin.skeleton(
   guess.getter=guess.getter,
   xml=list(
     dialog=kappa.full.dialog),
-  js=list(results.header="\"Cohen's Kappa and weighted Kappa\"",
+  js=list(results.header="Cohen's Kappa and weighted Kappa",
     require="psych",
      calculate=kappa.js.calc,
      printout=kappa.js.print),
