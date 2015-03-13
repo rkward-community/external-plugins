@@ -1,14 +1,16 @@
 <!DOCTYPE rkpluginmap >
 <document 
+	base_prefix=""
 	namespace="Factoranalysis"
 	id="Factoranalysis_rkward"
+	po_id="Factoranalysis_rkward"
 	priority="medium"
 >
 	<!-- 
 		this code was generated using the rkwarddev package.
 			perhaps don't make changes here, but in the rkwarddev script instead! 
 	-->
-	<dependencies rkward_min_version="0.5.6">
+	<dependencies rkward_min_version="0.6.0">
 		<package 
 			name="psych"
 			min="1.1.10"
@@ -18,8 +20,8 @@
 		name="rk.FactorAnalysis"
 		shortinfo="RKWard GUI to conduct principal component and factor analysis"
 		longinfo="RKWard GUI to conduct principal component and factor analysis (using the psych package). Also includes dialogs for scree plots, correlation plots, VSS/MAP and parallel analysis."
-		version="0.01-11"
-		releasedate="2013-04-04"
+		version="0.01-12"
+		releasedate="2015-03-13"
 		url="http://rkward.sf.net"
 		license="GPL (&gt;= 3)"
 	>
@@ -30,6 +32,12 @@
 			role="aut, cre"
 		 />
 	</about>
+	<require 
+		map="rkward::menu"
+	 />
+	<require 
+		map="rkward::embedded"
+	 />
 	<components>
 		<component 
 			id="cmp_FactoranalysisScreeplot"
@@ -70,7 +78,7 @@
 	<hierarchy>
 		<menu 
 			id="analysis"
-			label.analysis="Analysis"
+			label="Analysis"
 		>
 			<menu 
 				id="Factoranalysis"
@@ -86,7 +94,7 @@
 		</menu>
 		<menu 
 			id="plots"
-			label.plots="Plots"
+			label="Plots"
 		>
 			<menu 
 				id="Factoranalysis"
@@ -97,7 +105,7 @@
 		</menu>
 		<menu 
 			id="analysis"
-			label.analysis="Analysis"
+			label="Analysis"
 		>
 			<menu 
 				id="Factoranalysis"
@@ -113,7 +121,7 @@
 		</menu>
 		<menu 
 			id="analysis"
-			label.analysis="Analysis"
+			label="Analysis"
 		>
 			<menu 
 				id="Factoranalysis"
@@ -129,7 +137,7 @@
 		</menu>
 		<menu 
 			id="analysis"
-			label.analysis="Analysis"
+			label="Analysis"
 		>
 			<menu 
 				id="Factoranalysis"

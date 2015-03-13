@@ -8,7 +8,7 @@ local({
 output.dir <- tempdir()
 overwrite <- TRUE
 # if you set guess.getters to TRUE, the resulting code will need RKWard >= 0.6.0
-guess.getter <- FALSE
+guess.getter <- TRUE
 
 require(rkwarddev)
 
@@ -18,7 +18,7 @@ about.info <- rk.XML.about(
 		person(given="Meik", family="Michalke",
 			email="meik.michalke@hhu.de", role=c("aut","cre"))),
 	about=list(desc="RKWard GUI to conduct principal component and factor analysis",
-		version="0.01-11", url="http://rkward.sf.net", long.desc="RKWard GUI to conduct principal component and factor analysis (using the psych package). Also includes dialogs for scree plots, correlation plots, VSS/MAP and parallel analysis.")
+		version="0.01-12", url="http://rkward.sf.net", long.desc="RKWard GUI to conduct principal component and factor analysis (using the psych package). Also includes dialogs for scree plots, correlation plots, VSS/MAP and parallel analysis.")
 	)
 dependencies.info <- rk.XML.dependencies(
 	dependencies=list(rkward.min=ifelse(isTRUE(guess.getter), "0.6.0", "0.5.6")),
@@ -174,7 +174,7 @@ tab2.options <- rk.XML.row(
 					rk.XML.col(spin.digits)
 				),
 			label="Output")
-		)
+		), id.name="row_cPCAREFARNmain"
  	)
 
 full.dialog <- rk.XML.dialog(rk.XML.tabbook(label="Factor analysis",
@@ -185,8 +185,8 @@ full.dialog <- rk.XML.dialog(rk.XML.tabbook(label="Factor analysis",
 	lgc.sect <- rk.XML.logic(
 		FA.gov.analysis <- rk.XML.convert(sources=list(string=radio.analysis), mode=c(equals="PCA")),
 		FA.gov.corr <- rk.XML.convert(sources=list(string=radio.corr.type), mode=c(equals="fa")),
-		FA.gov.fa <- rk.XML.convert(sources=list(not=FA.gov.analysis, FA.gov.corr), mode=c(and="")),
-		FA.gov.notpoly <- rk.XML.convert(sources=list(FA.gov.analysis, FA.gov.corr), mode=c(or="")),
+		FA.gov.fa <- rk.XML.convert(sources=list(not=FA.gov.analysis, FA.gov.corr), mode=c(and=""), id.name="lgc_lgcFPCACfa"),
+		FA.gov.notpoly <- rk.XML.convert(sources=list(FA.gov.analysis, FA.gov.corr), mode=c(or=""), id.name="lgc_lgcFPCACnp"),
 		rk.XML.connect(governor=FA.gov.analysis, client=drp.rotation.PCA, set="visible"),
 		rk.XML.connect(governor=FA.gov.analysis, client=drp.rotation.EFA, set="visible", not=TRUE),
 		rk.XML.connect(governor=FA.gov.analysis, client=drp.factmeth.EFA, set="enabled", not=TRUE),
@@ -621,7 +621,7 @@ crplt.spin.shades <- rk.XML.spinbox(label="Number of shades", min=2, initial=51,
 
 crplt.spin.lower <- rk.XML.spinbox(label="from", min=-1, max=1, initial=-1)
 crplt.spin.upper <- rk.XML.spinbox(label="to", min=-1, max=1, initial=1)
-crplt.range <- rk.XML.frame(rk.XML.row(rk.XML.col(crplt.spin.lower),rk.XML.col(crplt.spin.upper)), label="Range of correlation values to color")
+crplt.range <- rk.XML.frame(rk.XML.row(rk.XML.col(crplt.spin.lower, id.name="clm_spnbxlower"),rk.XML.col(crplt.spin.upper, id.name="clm_spnbxupper")), label="Range of correlation values to color")
 
 crplt.spin.nlabels <- rk.XML.spinbox(label="Number of categories in legend", min=1, initial=10, real=FALSE)
 
@@ -668,7 +668,7 @@ crplt.js.print <- rk.paste.JS(
 crplt.component <- rk.plugin.component("Correlation plot",
 	xml=list(
 		dialog=crplt.full.dialog),
-	js=list(results.header="\"Correlation plot\"",
+	js=list(results.header="Correlation plot",
 		require="psych",
  		doPrintout=crplt.js.print),
 	guess.getter=guess.getter,

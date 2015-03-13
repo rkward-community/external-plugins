@@ -10,15 +10,16 @@ function preprocess(){
 
 function calculate(){
 	// read in variables from dialog
-	var vrslData = getValue("vrsl_Data");
-	var drpVssFactmeth = getValue("drp_vss_factmeth");
-	var spnNmbrfbsr = getValue("spn_Nmbrfbsr");
-	var drpVssRotate = getValue("drp_vss_rotate");
-	var chcFtthdgnl = getValue("chc_Ftthdgnl");
-	var inpMaintitl = getValue("inp_Maintitl");
-	var chcCnnctdff = getValue("chc_Cnnctdff");
-	var svbSvdttwrk = getValue("svb_Svdttwrk");
-	var frmPltrsltsChecked = getValue("frm_Pltrslts.checked");
+
+	var vrslData = getString("vrsl_Data");
+	var drpVssFactmeth = getString("drp_vss_factmeth");
+	var spnNmbrfbsr = getString("spn_Nmbrfbsr");
+	var drpVssRotate = getString("drp_vss_rotate");
+	var inpMaintitl = getString("inp_Maintitl");
+	var svbSvdttwrk = getString("svb_Svdttwrk");
+	var chcFtthdgnl = getBoolean("chc_Ftthdgnl.state");
+	var chcCnnctdff = getBoolean("chc_Cnnctdff.state");
+	var frmPltrsltsChecked = getBoolean("frm_Pltrslts.checked");
 
 	// the R code to be evaluated
 	echo("\t\tVSS.data <- VSS(");
@@ -55,19 +56,21 @@ function preview(){
 
 function doPrintout(full){
 	// read in variables from dialog
-	var vrslData = getValue("vrsl_Data");
-	var drpVssFactmeth = getValue("drp_vss_factmeth");
-	var spnNmbrfbsr = getValue("spn_Nmbrfbsr");
-	var drpVssRotate = getValue("drp_vss_rotate");
-	var chcFtthdgnl = getValue("chc_Ftthdgnl");
-	var inpMaintitl = getValue("inp_Maintitl");
-	var chcCnnctdff = getValue("chc_Cnnctdff");
-	var svbSvdttwrk = getValue("svb_Svdttwrk");
-	var frmPltrsltsChecked = getValue("frm_Pltrslts.checked");
+
+	var vrslData = getString("vrsl_Data");
+	var drpVssFactmeth = getString("drp_vss_factmeth");
+	var spnNmbrfbsr = getString("spn_Nmbrfbsr");
+	var drpVssRotate = getString("drp_vss_rotate");
+	var inpMaintitl = getString("inp_Maintitl");
+	var svbSvdttwrk = getString("svb_Svdttwrk");
+	var chcFtthdgnl = getBoolean("chc_Ftthdgnl.state");
+	var chcCnnctdff = getBoolean("chc_Cnnctdff.state");
+	var frmPltrsltsChecked = getBoolean("frm_Pltrslts.checked");
 
 	// create the plot
 	if(full) {
-		echo("rk.header(\"Very Simple Structure/Minimum Average Partial results\")\n");
+		new Header(i18n("Very Simple Structure/Minimum Average Partial results")).print();
+
 	}
 
 	var frmPltrsltsChecked = getValue("frm_Pltrslts.checked");

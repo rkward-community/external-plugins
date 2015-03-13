@@ -4,6 +4,8 @@
 			perhaps don't make changes here, but in the rkwarddev script instead! -->
 	<code file="VerySimpleStructureMinimumAveragePartial.js" />
 	<help file="VerySimpleStructureMinimumAveragePartial.rkh" />
+	<!-- <dependencies>
+			</dependencies> -->
 	<logic>
 		<convert id="lgc_drpvssfc" sources="drp_vss_factmeth.string" mode="equals" standard="ml" />
 		<connect governor="lgc_drpvssfc" client="spn_Nmbrfbsr.enabled" />

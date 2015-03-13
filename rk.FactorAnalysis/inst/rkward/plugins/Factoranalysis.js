@@ -2,7 +2,7 @@
 //perhaps don't make changes here, but in the rkwarddev script instead!
 
 // define variables globally
- var isObrot;
+var isObrot;
 
 function preprocess(){
 	// add requirements etc. here
@@ -11,30 +11,31 @@ function preprocess(){
 
 function calculate(){
 	// read in variables from dialog
-	var vrslCrrltnmt = getValue("vrsl_Crrltnmt");
-	var radFctrngmt = getValue("rad_Fctrngmt");
-	var radCrrltnmt = getValue("rad_Crrltnmt");
-	var spnNmbrffct = getValue("spn_Nmbrffct");
-	var svbSvrsltst = getValue("svb_Svrsltst");
-	var drpPCARotate = getValue("drp_PCA_rotate");
-	var drpEFARotate = getValue("drp_EFA_rotate");
-	var drpEFAFactmeth = getValue("drp_EFA_factmeth");
-	var radIntlcmmn = getValue("rad_Intlcmmn");
-	var radMtrxtfct = getValue("rad_Mtrxtfct");
-	var radMtrxtscr = getValue("rad_Mtrxtscr");
-	var chcShwrsdls = getValue("chc_Shwrsdls");
-	var chcApplyKsr = getValue("chc_ApplyKsr");
-	var radioMissingsPCA = getValue("radio_missings_PCA");
-	var drpMthdtfnd = getValue("drp_Mthdtfnd");
-	var radioMissingsEFA = getValue("radio_missings_EFA");
-	var spnNmbrfbGF = getValue("spn_NmbrfbGF");
-	var spnNmbrftrt = getValue("spn_Nmbrftrt");
-	var spnUntlchng = getValue("spn_Untlchng");
-	var spnMxmmnmbr = getValue("spn_Mxmmnmbr");
-	var spnMrkrtmth = getValue("spn_Mrkrtmth");
-	var spnShwdcmls = getValue("spn_Shwdcmls");
-	var frmFndcmpnnChecked = getValue("frm_Fndcmpnn.checked");
-	var frmPrfrmbtsChecked = getValue("frm_Prfrmbts.checked");
+	
+	var vrslCrrltnmt = getString("vrsl_Crrltnmt");
+	var radFctrngmt = getString("rad_Fctrngmt");
+	var radCrrltnmt = getString("rad_Crrltnmt");
+	var spnNmbrffct = getString("spn_Nmbrffct");
+	var svbSvrsltst = getString("svb_Svrsltst");
+	var drpPCARotate = getString("drp_PCA_rotate");
+	var drpEFARotate = getString("drp_EFA_rotate");
+	var drpEFAFactmeth = getString("drp_EFA_factmeth");
+	var radIntlcmmn = getString("rad_Intlcmmn");
+	var radMtrxtfct = getString("rad_Mtrxtfct");
+	var radMtrxtscr = getString("rad_Mtrxtscr");
+	var radioMissingsPCA = getString("radio_missings_PCA");
+	var drpMthdtfnd = getString("drp_Mthdtfnd");
+	var radioMissingsEFA = getString("radio_missings_EFA");
+	var spnNmbrfbGF = getString("spn_NmbrfbGF");
+	var spnNmbrftrt = getString("spn_Nmbrftrt");
+	var spnUntlchng = getString("spn_Untlchng");
+	var spnMxmmnmbr = getString("spn_Mxmmnmbr");
+	var spnMrkrtmth = getString("spn_Mrkrtmth");
+	var spnShwdcmls = getString("spn_Shwdcmls");
+	var chcShwrsdls = getBoolean("chc_Shwrsdls.state");
+	var chcApplyKsr = getBoolean("chc_ApplyKsr.state");
+	var frmFndcmpnnChecked = getBoolean("frm_Fndcmpnn.checked");
+	var frmPrfrmbtsChecked = getBoolean("frm_Prfrmbts.checked");
 
 	// the R code to be evaluated
 	var obrot = new Array("promax", "oblimin", "simplimax", "bentlerQ", "geominQ", "biquartimin", "cluster");

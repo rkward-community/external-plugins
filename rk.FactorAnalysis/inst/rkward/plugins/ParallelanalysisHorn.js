@@ -25,20 +25,22 @@ function preview(){
 
 function doPrintout(full){
 	// read in variables from dialog
-	var vrslData = getValue("vrsl_Data");
-	var inpMaintitl = getValue("inp_Maintitl");
-	var radShwEgnvl = getValue("rad_ShwEgnvl");
-	var drpPrllFactmeth = getValue("drp_prll_factmeth");
-	var spnNmbrfbs0 = getValue("spn_Nmbrfbs0");
-	var spnNmbrftrt = getValue("spn_Nmbrftrt");
-	var chcEstmtSMC = getValue("chc_EstmtSMC");
-	var chcPltrrrbr = getValue("chc_Pltrrrbr");
-	var chcShowlgnd = getValue("chc_Showlgnd");
-	var svbSvdttwrk = getValue("svb_Svdttwrk");
+
+	var vrslData = getString("vrsl_Data");
+	var inpMaintitl = getString("inp_Maintitl");
+	var radShwEgnvl = getString("rad_ShwEgnvl");
+	var drpPrllFactmeth = getString("drp_prll_factmeth");
+	var spnNmbrfbs0 = getString("spn_Nmbrfbs0");
+	var spnNmbrftrt = getString("spn_Nmbrftrt");
+	var svbSvdttwrk = getString("svb_Svdttwrk");
+	var chcEstmtSMC = getBoolean("chc_EstmtSMC.state");
+	var chcPltrrrbr = getBoolean("chc_Pltrrrbr.state");
+	var chcShowlgnd = getBoolean("chc_Showlgnd.state");
 
 	// create the plot
 	if(full) {
-		echo("rk.header(\"Parallel analysis (Horn) results\")\n");
+		new Header(i18n("Parallel analysis (Horn) results")).print();
+
 	}
 
 	

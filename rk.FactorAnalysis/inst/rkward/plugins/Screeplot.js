@@ -25,15 +25,17 @@ function preview(){
 
 function doPrintout(full){
 	// read in variables from dialog
-	var vrslData = getValue("vrsl_Data");
-	var inpMaintitl = getValue("inp_Maintitl");
-	var radDrwscrfr = getValue("rad_Drwscrfr");
-	var spnEigenval = getValue("spn_Eigenval");
-	var frmHrzntllnChecked = getValue("frm_Hrzntlln.checked");
+
+	var vrslData = getString("vrsl_Data");
+	var inpMaintitl = getString("inp_Maintitl");
+	var radDrwscrfr = getString("rad_Drwscrfr");
+	var spnEigenval = getString("spn_Eigenval");
+	var frmHrzntllnChecked = getBoolean("frm_Hrzntlln.checked");
 
 	// create the plot
 	if(full) {
-		echo("rk.header(\"Scree plot results\")\n");
+		new Header(i18n("Scree plot results")).print();
+
 	}
 
 	var frmHrzntllnChecked = getValue("frm_Hrzntlln.checked");

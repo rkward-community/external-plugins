@@ -4,21 +4,23 @@
 			perhaps don't make changes here, but in the rkwarddev script instead! -->
 	<code file="Factoranalysis.js" />
 	<help file="Factoranalysis.rkh" />
+	<!-- <dependencies>
+			</dependencies> -->
 	<logic>
 		<convert id="lgc_rdFctPCA" sources="rad_Fctrngmt.string" mode="equals" standard="PCA" />
 		<convert id="lgc_rdCrrltn" sources="rad_Crrltnmt.string" mode="equals" standard="fa" />
-		<convert id="lgc_lgcFPCAC" sources="lgc_rdFctPCA.not;lgc_rdCrrltn" mode="and" />
-		<convert id="lgc_lgcFPCAC" sources="lgc_rdFctPCA;lgc_rdCrrltn" mode="or" />
+		<convert id="lgc_lgcFPCACfa" sources="lgc_rdFctPCA.not;lgc_rdCrrltn" mode="and" />
+		<convert id="lgc_lgcFPCACnp" sources="lgc_rdFctPCA;lgc_rdCrrltn" mode="or" />
 		<connect governor="lgc_rdFctPCA" client="drp_PCA_rotate.visible" />
 		<connect governor="lgc_rdFctPCA.not" client="drp_EFA_rotate.visible" />
 		<connect governor="lgc_rdFctPCA.not" client="drp_EFA_factmeth.enabled" />
 		<connect governor="lgc_rdFctPCA.not" client="rad_Intlcmmn.enabled" />
-		<connect governor="lgc_lgcFPCAC" client="rad_Mtrxtfct.enabled" />
-		<connect governor="lgc_lgcFPCAC" client="chc_Shwrsdls.enabled" />
+		<connect governor="lgc_lgcFPCACfa" client="rad_Mtrxtfct.enabled" />
+		<connect governor="lgc_lgcFPCACnp" client="chc_Shwrsdls.enabled" />
 		<connect governor="lgc_rdFctPCA.not" client="rad_Mtrxtscr.enabled" />
 		<connect governor="lgc_rdFctPCA" client="frm_Fndcmpnn.visible" />
 		<connect governor="lgc_rdFctPCA.not" client="drp_Mthdtfnd.visible" />
-		<connect governor="lgc_lgcFPCAC" client="drp_Mthdtfnd.enabled" />
+		<connect governor="lgc_lgcFPCACfa" client="drp_Mthdtfnd.enabled" />
 		<connect governor="lgc_rdFctPCA.not" client="radio_missings_EFA.visible" />
 		<connect governor="lgc_rdFctPCA.not" client="frm_Prfrmbts.enabled" />
 		<connect governor="lgc_rdFctPCA.not" client="rad_Crrltnmt.enabled" />
@@ -51,7 +53,7 @@
 				</row>
 			</tab>
 			<tab label="Options" id="tab_Options">
-				<row id="row_cPCAREFARN">
+				<row id="row_cPCAREFARNmain">
 					<column id="clm_rPCAREFARN">
 						<row id="row_cPCAREFARN">
 							<column id="clm_dPCAREFARN">

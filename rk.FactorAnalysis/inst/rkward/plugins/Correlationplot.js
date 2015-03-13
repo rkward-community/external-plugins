@@ -25,18 +25,20 @@ function preview(){
 
 function doPrintout(full){
 	// read in variables from dialog
-	var vrslDtcrrltn = getValue("vrsl_Dtcrrltn");
-	var radColors = getValue("rad_Colors");
-	var spnFrom = getValue("spn_from");
-	var spnTo = getValue("spn_to");
-	var spnNmbrfshd = getValue("spn_Nmbrfshd");
-	var inpMaintitl = getValue("inp_Maintitl");
-	var spnNmbrfctg = getValue("spn_Nmbrfctg");
-	var frmShowlgndChecked = getValue("frm_Showlgnd.checked");
+
+	var vrslDtcrrltn = getString("vrsl_Dtcrrltn");
+	var radColors = getString("rad_Colors");
+	var spnFrom = getString("spn_from");
+	var spnTo = getString("spn_to");
+	var spnNmbrfshd = getString("spn_Nmbrfshd");
+	var inpMaintitl = getString("inp_Maintitl");
+	var spnNmbrfctg = getString("spn_Nmbrfctg");
+	var frmShowlgndChecked = getBoolean("frm_Showlgnd.checked");
 
 	// create the plot
 	if(full) {
-		echo("rk.header(\"Correlation plot\")\n");
+		new Header(i18n("Correlation plot")).print();
+
 	}
 
 	var frmShowlgndChecked = getValue("frm_Showlgnd.checked");

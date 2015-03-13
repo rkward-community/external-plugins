@@ -4,6 +4,8 @@
 			perhaps don't make changes here, but in the rkwarddev script instead! -->
 	<code file="Correlationplot.js" />
 	<help file="Correlationplot.rkh" />
+	<!-- <dependencies>
+			</dependencies> -->
 	<logic>
 		<!-- <convert id="!edit!" sources="!edit!" mode="equals" standard="!edit!" /> -->
 		<!-- <connect governor="!edit!" client="!edit!.enabled" /> -->
@@ -18,11 +20,11 @@
 					<option label="Greyscale" value="false" />
 				</radio>
 				<frame label="Range of correlation values to color" id="frm_Rngfcrrl">
-					<row id="row_c111111111">
-						<column id="clm_spnbxlb111">
+					<row id="row_clmn111111">
+						<column id="clm_spnbxlower">
 							<spinbox label="from" id="spn_from" initial="-1" min="-1" max="1" />
 						</column>
-						<column id="clm_spnbxlb111">
+						<column id="clm_spnbxupper">
 							<spinbox label="to" id="spn_to" initial="1" min="-1" max="1" />
 						</column>
 					</row>
