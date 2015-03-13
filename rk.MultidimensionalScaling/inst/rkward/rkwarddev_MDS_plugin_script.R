@@ -10,7 +10,7 @@ local({
 output.dir <- tempdir()
 overwrite <- TRUE
 # if you set guess.getters to TRUE, the resulting code will need RKWard >= 0.6.0
-guess.getter <- FALSE
+guess.getter <- TRUE
 
 about.info <- rk.XML.about(
 	name="rk.MultidimensionalScaling",
@@ -18,7 +18,7 @@ about.info <- rk.XML.about(
 		person(given="Meik", family="Michalke",
 			email="meik.michalke@hhu.de", role=c("aut","cre"))),
 	about=list(desc="RKWard GUI for multidimensional scaling",
-		version="0.01-7", url="http://rkward.sf.net")
+		version="0.01-8", url="http://rkward.sf.net")
 	)
 dependencies.info <- rk.XML.dependencies(
 	dependencies=list(rkward.min=ifelse(isTRUE(guess.getter), "0.6.0", "0.5.6")),
@@ -245,7 +245,7 @@ mds.plugin.dir <<- rk.plugin.skeleton(
 	xml=list(
 		dialog=mds.full.dialog,
 		logic=lgc.sect.mds),
-	js=list(results.header="\"Multidimensional scaling\"",
+	js=list(results.header="Multidimensional scaling",
 		globals=js.global.vars,
 		require="MASS",
 		calculate=mds.js.calc,

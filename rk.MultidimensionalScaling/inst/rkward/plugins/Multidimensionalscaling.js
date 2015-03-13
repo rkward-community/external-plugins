@@ -2,7 +2,7 @@
 //perhaps don't make changes here, but in the rkwarddev script instead!
 
 // define variables globally
- var frmUsnlysbsChecked = getValue("frm_Usnlysbs.checked");
+var frmUsnlysbsChecked = getValue("frm_Usnlysbs.checked");
 var vrslSlctdvrbShortname = getValue("vrsl_Slctdvrb.shortname").split("\n").join("\", \"");
 var frmDtprprtnEnabled = getValue("frm_Dtprprtn.enabled");
 
@@ -13,21 +13,23 @@ function preprocess(){
 
 function calculate(){
 	// read in variables from dialog
-	var vrslDtdtfrmm = getValue("vrsl_Dtdtfrmm");
-	var vrslSlctdvrb = getValue("vrsl_Slctdvrb");
-	var chcRmvmssng = getValue("chc_Rmvmssng");
-	var chcStdrdzvl = getValue("chc_Stdrdzvl");
-	var svbSvrsltst = getValue("svb_Svrsltst");
-	var spnMxmmdmns = getValue("spn_Mxmmdmns");
-	var drpCmpttnmt = getValue("drp_Cmpttnmt");
-	var spnPwrfMnkw = getValue("spn_PwrfMnkw");
-	var drpSclngmth = getValue("drp_Sclngmth");
-	var spnMxmmnmbr = getValue("spn_Mxmmnmbr");
-	var spnIntlrndm = getValue("spn_Intlrndm");
-	var chcPltrslts = getValue("chc_Pltrslts");
-	var spnTextsize = getValue("spn_Textsize");
-	var drpTextpstn = getValue("drp_Textpstn");
-	var frmPltlblsfChecked = getValue("frm_Pltlblsf.checked");
+	
+	var vrslDtdtfrmm = getString("vrsl_Dtdtfrmm");
+	var vrslSlctdvrb = getString("vrsl_Slctdvrb");
+	var svbSvrsltst = getString("svb_Svrsltst");
+	var spnMxmmdmns = getString("spn_Mxmmdmns");
+	var drpCmpttnmt = getString("drp_Cmpttnmt");
+	var spnPwrfMnkw = getString("spn_PwrfMnkw");
+	var drpSclngmth = getString("drp_Sclngmth");
+	var spnMxmmnmbr = getString("spn_Mxmmnmbr");
+	var spnIntlrndm = getString("spn_Intlrndm");
+	var spnTextsize = getString("spn_Textsize");
+	var drpTextpstn = getString("drp_Textpstn");
+	var chcRmvmssng = getBoolean("chc_Rmvmssng.state");
+	var chcStdrdzvl = getBoolean("chc_Stdrdzvl.state");
+	var chcPltrslts = getBoolean("chc_Pltrslts.state");
+	var frmUsnlysbsChecked = getBoolean("frm_Usnlysbs.checked");
+	var frmPltlblsfChecked = getBoolean("frm_Pltlblsf.checked");
 
 	// the R code to be evaluated
 	if(frmUsnlysbsChecked && vrslSlctdvrbShortname != "") {
@@ -79,25 +81,28 @@ function preview(){
 
 function doPrintout(full){
 	// read in variables from dialog
-	var vrslDtdtfrmm = getValue("vrsl_Dtdtfrmm");
-	var vrslSlctdvrb = getValue("vrsl_Slctdvrb");
-	var chcRmvmssng = getValue("chc_Rmvmssng");
-	var chcStdrdzvl = getValue("chc_Stdrdzvl");
-	var svbSvrsltst = getValue("svb_Svrsltst");
-	var spnMxmmdmns = getValue("spn_Mxmmdmns");
-	var drpCmpttnmt = getValue("drp_Cmpttnmt");
-	var spnPwrfMnkw = getValue("spn_PwrfMnkw");
-	var drpSclngmth = getValue("drp_Sclngmth");
-	var spnMxmmnmbr = getValue("spn_Mxmmnmbr");
-	var spnIntlrndm = getValue("spn_Intlrndm");
-	var chcPltrslts = getValue("chc_Pltrslts");
-	var spnTextsize = getValue("spn_Textsize");
-	var drpTextpstn = getValue("drp_Textpstn");
-	var frmPltlblsfChecked = getValue("frm_Pltlblsf.checked");
+	
+	var vrslDtdtfrmm = getString("vrsl_Dtdtfrmm");
+	var vrslSlctdvrb = getString("vrsl_Slctdvrb");
+	var svbSvrsltst = getString("svb_Svrsltst");
+	var spnMxmmdmns = getString("spn_Mxmmdmns");
+	var drpCmpttnmt = getString("drp_Cmpttnmt");
+	var spnPwrfMnkw = getString("spn_PwrfMnkw");
+	var drpSclngmth = getString("drp_Sclngmth");
+	var spnMxmmnmbr = getString("spn_Mxmmnmbr");
+	var spnIntlrndm = getString("spn_Intlrndm");
+	var spnTextsize = getString("spn_Textsize");
+	var drpTextpstn = getString("drp_Textpstn");
+	var chcRmvmssng = getBoolean("chc_Rmvmssng.state");
+	var chcStdrdzvl = getBoolean("chc_Stdrdzvl.state");
+	var chcPltrslts = getBoolean("chc_Pltrslts.state");
+	var frmUsnlysbsChecked = getBoolean("frm_Usnlysbs.checked");
+	var frmPltlblsfChecked = getBoolean("frm_Pltlblsf.checked");
 
 	// create the plot
 	if(full) {
-		echo("rk.header(\"Multidimensional scaling\")\n");
+		new Header(i18n("Multidimensional scaling")).print();
+
 	}
 
 	var frmPltlblsfChecked = getValue("frm_Pltlblsf.checked");

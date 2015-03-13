@@ -1,22 +1,24 @@
 <!DOCTYPE rkpluginmap >
 <document 
+	base_prefix=""
 	namespace="Multidimensionalscaling"
 	id="Multidimensionalscaling_rkward"
+	po_id="Multidimensionalscaling_rkward"
 	priority="medium"
 >
 	<!-- 
 		this code was generated using the rkwarddev package.
 			perhaps don't make changes here, but in the rkwarddev script instead! 
 	-->
-	<dependencies rkward_min_version="0.5.6">
+	<dependencies rkward_min_version="0.6.0">
 		<package name="MASS" />
 	</dependencies>
 	<about 
 		name="rk.MultidimensionalScaling"
 		shortinfo="RKWard GUI for multidimensional scaling"
 		longinfo="RKWard GUI for multidimensional scaling"
-		version="0.01-7"
-		releasedate="2013-04-14"
+		version="0.01-8"
+		releasedate="2015-03-13"
 		url="http://rkward.sf.net"
 		license="GPL (&gt;= 3)"
 	>
@@ -27,6 +29,12 @@
 			role="aut, cre"
 		 />
 	</about>
+	<require 
+		map="rkward::menu"
+	 />
+	<require 
+		map="rkward::embedded"
+	 />
 	<components>
 		<component 
 			id="cmp_MltdmnsnlsclngMltdmnsnlsc"
@@ -39,7 +47,7 @@
 	<hierarchy>
 		<menu 
 			id="analysis"
-			label.analysis="Analysis"
+			label="Analysis"
 		>
 			<entry component="cmp_MltdmnsnlsclngMltdmnsnlsc" />
 		</menu>
