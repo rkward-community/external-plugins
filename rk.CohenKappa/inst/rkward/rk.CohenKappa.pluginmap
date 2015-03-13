@@ -1,22 +1,24 @@
 <!DOCTYPE rkpluginmap >
 <document 
+	base_prefix=""
 	namespace="CohensKappa"
 	id="CohensKappa_rkward"
+	po_id="CohensKappa_rkward"
 	priority="medium"
 >
 	<!-- 
 		this code was generated using the rkwarddev package.
 			perhaps don't make changes here, but in the rkwarddev script instead! 
 	-->
-	<dependencies rkward_min_version="0.5.6">
+	<dependencies rkward_min_version="0.6.0">
 		<package name="psych" />
 	</dependencies>
 	<about 
 		name="rk.CohenKappa"
 		shortinfo="RKWard GUI to calculate Cohen's Kappa"
 		longinfo="RKWard GUI to calculate Cohen's Kappa, i.e., the agreement of two raters (using the psych package)"
-		version="0.01-5"
-		releasedate="2013-04-04"
+		version="0.01-6"
+		releasedate="2015-03-13"
 		url="http://rkward.sf.net"
 		license="GPL (&gt;= 3)"
 	>
@@ -27,6 +29,12 @@
 			role="aut, cre"
 		 />
 	</about>
+	<require 
+		map="rkward::menu"
+	 />
+	<require 
+		map="rkward::embedded"
+	 />
 	<components>
 		<component 
 			id="cmp_CohensKappaCohensKappa"
@@ -39,7 +47,7 @@
 	<hierarchy>
 		<menu 
 			id="analysis"
-			label.analysis="Analysis"
+			label="Analysis"
 		>
 			<entry component="cmp_CohensKappaCohensKappa" />
 		</menu>

@@ -10,19 +10,19 @@ local({
 output.dir <- tempdir()
 overwrite <- TRUE
 # if you set guess.getters to TRUE, the resulting code will need RKWard >= 0.6.0
-guess.getter <- FALSE
+guess.getter <- TRUE
 
 about.info <- rk.XML.about(
-	name="rk.CohenKappa",
-	author=c(
-		person(given="Meik", family="Michalke",
-			email="meik.michalke@hhu.de", role=c("aut","cre"))),
-	about=list(desc="RKWard GUI to calculate Cohen's Kappa",
-		version="0.01-5", url="http://rkward.sf.net", long.desc="RKWard GUI to calculate Cohen's Kappa, i.e., the agreement of two raters (using the psych package)")
-	)
+  name="rk.CohenKappa",
+  author=c(
+    person(given="Meik", family="Michalke",
+      email="meik.michalke@hhu.de", role=c("aut","cre"))),
+  about=list(desc="RKWard GUI to calculate Cohen's Kappa",
+    version="0.01-6", url="http://rkward.sf.net", long.desc="RKWard GUI to calculate Cohen's Kappa, i.e., the agreement of two raters (using the psych package)")
+  )
 dependencies.info <- rk.XML.dependencies(
-	dependencies=list(rkward.min=ifelse(isTRUE(guess.getter), "0.6.0", "0.5.6")),
-	package=list(c(name="psych"))
+  dependencies=list(rkward.min=ifelse(isTRUE(guess.getter), "0.6.0", "0.5.6")),
+  package=list(c(name="psych"))
 )
 
 ############
@@ -38,34 +38,34 @@ kappa.spin.alpha <- rk.XML.spinbox(label="Alpha value for confidence interval", 
 save.results <- rk.XML.saveobj("Save results to workspace", initial="kappa.result")
 
 kappa.full.dialog <- rk.XML.dialog(
-	rk.XML.row(
-		kappa.var.select,
-		rk.XML.col(
-			kappa.var.data,
-			kappa.var.weights,
-			rk.XML.stretch(),
-			rk.XML.frame(kappa.spin.nobs,
-			kappa.spin.alpha),
-			save.results
-		)
-	)
+  rk.XML.row(
+    kappa.var.select,
+    rk.XML.col(
+      kappa.var.data,
+      kappa.var.weights,
+      rk.XML.stretch(),
+      rk.XML.frame(kappa.spin.nobs,
+      kappa.spin.alpha),
+      save.results
+    )
+  )
 , label="Cohen's Kappa")
 
 ## JavaScript
 kappa.js.calc <- rk.paste.JS(
- 	echo("\tkappa.result <- cohen.kappa("),
-	ite(kappa.var.data, echo("\n\t\tx=", kappa.var.data)),
-	ite(kappa.var.weights, echo(",\n\t\tw=", kappa.var.weights)),
-	ite(id(kappa.spin.nobs, " > 0"), echo(",\n\t\tn.obs=", kappa.spin.nobs)),
-	ite(id(kappa.spin.alpha, " != 0.05"), echo(",\n\t\talpha=", kappa.spin.alpha)),
-	echo("\n\t)\n\n")
+   echo("\tkappa.result <- cohen.kappa("),
+  ite(kappa.var.data, echo("\n\t\tx=", kappa.var.data)),
+  ite(kappa.var.weights, echo(",\n\t\tw=", kappa.var.weights)),
+  ite(id(kappa.spin.nobs, " > 0"), echo(",\n\t\tn.obs=", kappa.spin.nobs)),
+  ite(id(kappa.spin.alpha, " != 0.05"), echo(",\n\t\talpha=", kappa.spin.alpha)),
+  echo("\n\t)\n\n")
 )
 
 kappa.js.print <- rk.paste.JS(
-	echo("\trk.header(\"Correlation coefficients and confidence boundaries\", level=3)\n"),
-	echo("\trk.print(kappa.result[[\"confid\"]])\n"),
-	echo("\trk.print(paste(\"<b>Alpha level:</b>\", kappa.result[[\"plevel\"]]))\n"),
-	echo("\trk.print(paste(\"<b>Number of subjects:</b>\", kappa.result[[\"n.obs\"]]))\n\n")
+  echo("\trk.header(\"Correlation coefficients and confidence boundaries\", level=3)\n"),
+  echo("\trk.print(kappa.result[[\"confid\"]])\n"),
+  echo("\trk.print(paste(\"<b>Alpha level:</b>\", kappa.result[[\"plevel\"]]))\n"),
+  echo("\trk.print(paste(\"<b>Number of subjects:</b>\", kappa.result[[\"n.obs\"]]))\n\n")
 )
 
 
@@ -75,22 +75,22 @@ kappa.js.print <- rk.paste.JS(
 # this is where it get's serious, that is, here all of the above is put together into one plugin
 
 rk.plugin.skeleton(
-	about.info,
-	path=output.dir,
-	guess.getter=guess.getter,
-	xml=list(
-		dialog=kappa.full.dialog),
-	js=list(results.header="\"Cohen's Kappa and weighted Kappa\"",
-		require="psych",
- 		calculate=kappa.js.calc,
- 		printout=kappa.js.print),
-	pluginmap=list(name="Cohen's Kappa", hierarchy=list("analysis")),
-	dependencies=dependencies.info,
-	create=c("pmap", "xml", "js", "desc"),
-	overwrite=overwrite,
-	tests=FALSE,
-#	edit=TRUE,
-	load=TRUE,
-#	show=TRUE,
-	hints=FALSE)
+  about.info,
+  path=output.dir,
+  guess.getter=guess.getter,
+  xml=list(
+    dialog=kappa.full.dialog),
+  js=list(results.header="\"Cohen's Kappa and weighted Kappa\"",
+    require="psych",
+     calculate=kappa.js.calc,
+     printout=kappa.js.print),
+  pluginmap=list(name="Cohen's Kappa", hierarchy=list("analysis")),
+  dependencies=dependencies.info,
+  create=c("pmap", "xml", "js", "desc"),
+  overwrite=overwrite,
+  tests=FALSE,
+#  edit=TRUE,
+  load=TRUE,
+#  show=TRUE,
+  hints=FALSE)
 })

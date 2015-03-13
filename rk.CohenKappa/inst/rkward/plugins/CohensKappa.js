@@ -10,11 +10,12 @@ function preprocess(){
 
 function calculate(){
 	// read in variables from dialog
-	var vrslDtmtrxr2 = getValue("vrsl_Dtmtrxr2");
-	var vrslWghtmtrx = getValue("vrsl_Wghtmtrx");
-	var spnNmbrfbsr = getValue("spn_Nmbrfbsr");
-	var spnAlphvlfr = getValue("spn_Alphvlfr");
-	var svbSvrsltst = getValue("svb_Svrsltst");
+
+	var vrslDtmtrxr2 = getString("vrsl_Dtmtrxr2");
+	var vrslWghtmtrx = getString("vrsl_Wghtmtrx");
+	var spnNmbrfbsr = getString("spn_Nmbrfbsr");
+	var spnAlphvlfr = getString("spn_Alphvlfr");
+	var svbSvrsltst = getString("svb_Svrsltst");
 
 	// the R code to be evaluated
 	echo("\tkappa.result <- cohen.kappa(");
@@ -35,7 +36,8 @@ function calculate(){
 
 function printout(){
 	// printout the results
-	echo("rk.header(\"Cohen's Kappa and weighted Kappa\")\n");
+	new Header(i18n(""Cohen's Kappa and weighted Kappa"")).print();
+
 
 	echo("\trk.header(\"Correlation coefficients and confidence boundaries\", level=3)\n");
 	echo("\trk.print(kappa.result[[\"confid\"]])\n");
