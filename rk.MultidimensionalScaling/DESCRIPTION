@@ -1,8 +1,8 @@
 Package: rk.MultidimensionalScaling
 Type: Package
 Title: RKWard GUI for multidimensional scaling
-Version: 0.01-8
-Date: 2015-03-13
+Version: 0.01-9
+Date: 2015-03-14
 Author: Meik Michalke
 Maintainer: Meik Michalke <meik.michalke@hhu.de>
 Depends: rkward (>= 0.6.0)
@@ -11,5 +11,5 @@ Enhances: rkward
 Description: RKWard GUI for multidimensional scaling
 License: GPL (>= 3)
 LazyLoad: yes
-URL: http://rkward.sf.net
+URL: https://rkward.kde.org
 Authors@R: person(given="Meik", family="Michalke", email="meik.michalke@hhu.de", role=c("aut", "cre"))

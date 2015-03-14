@@ -1,5 +1,12 @@
 \name{NEWS}
 \title{News for Package 'rk.CohenKappa'}
+\section{Changes in rk.CohenKappa version 0.01-7 (2015-03-14)}{
+  \subsection{fixed}{
+    \itemize{
+      \item replaced the outdated links to sourceforge with our new KDE URL
+    }
+  }
+}
 \section{Changes in rk.CohenKappa version 0.01-6 (2015-03-13)}{
   \subsection{changed}{
     \itemize{

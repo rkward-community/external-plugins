@@ -1,5 +1,12 @@
 \name{NEWS}
 \title{News for Package 'rk.FactorAnalysis'}
+\section{Changes in rk.FactorAnalysis version 0.01-13 (2015-03-14)}{
+  \subsection{fixed}{
+    \itemize{
+      \item replaced the outdated links to sourceforge with our new KDE URL
+    }
+  }
+}
 \section{Changes in rk.FactorAnalysis version 0.01-12 (2015-03-13)}{
   \subsection{changed}{
     \itemize{

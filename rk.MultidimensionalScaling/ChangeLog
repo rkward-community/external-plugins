@@ -1,5 +1,14 @@
 ChangeLog for package rk.MultidimensionalScaling
 
+changes in version 0.01-9 (2015-03-14)
+fixed:
+  - replaced the outdated links to sourceforge with our new KDE URL
+  - missing ChangeLog entry
+
+changes in version 0.01-8 (2015-03-13)
+changed:
+  - rebuilt using rkwarddev 0.07-1
+
 changes in version 0.01-7 (2013-04-14)
 fixed:
   - corrected logic section in main dialog

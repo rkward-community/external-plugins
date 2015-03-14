@@ -1,5 +1,20 @@
 \name{NEWS}
 \title{News for Package 'rk.MultidimensionalScaling'}
+\section{Changes in rk.MultidimensionalScaling version 0.01-9 (2015-03-14)}{
+  \subsection{fixed}{
+    \itemize{
+      \item replaced the outdated links to sourceforge with our new KDE URL
+      \item missing ChangeLog entry
+    }
+  }
+}
+\section{Changes in rk.MultidimensionalScaling version 0.01-8 (2015-03-13)}{
+  \subsection{changed}{
+    \itemize{
+      \item rebuilt using rkwarddev 0.07-1
+    }
+  }
+}
 \section{Changes in rk.MultidimensionalScaling version 0.01-7 (2013-04-14)}{
   \subsection{fixed}{
     \itemize{

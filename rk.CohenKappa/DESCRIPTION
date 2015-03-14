@@ -1,8 +1,8 @@
 Package: rk.CohenKappa
 Type: Package
 Title: RKWard GUI to calculate Cohen's Kappa
-Version: 0.01-6
-Date: 2015-03-13
+Version: 0.01-7
+Date: 2015-03-14
 Author: Meik Michalke
 Maintainer: Meik Michalke <meik.michalke@hhu.de>
 Depends: rkward (>= 0.6.0)
@@ -11,5 +11,5 @@ Enhances: rkward
 Description: RKWard GUI to calculate Cohen's Kappa, i.e., the agreement of two raters (using the psych package)
 License: GPL (>= 3)
 LazyLoad: yes
-URL: http://rkward.sf.net
+URL: https://rkward.kde.org
 Authors@R: person(given="Meik", family="Michalke", email="meik.michalke@hhu.de", role=c("aut", "cre"))
