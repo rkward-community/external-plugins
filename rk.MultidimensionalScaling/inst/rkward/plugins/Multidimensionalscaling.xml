@@ -14,27 +14,29 @@
 		<script>
 			<![CDATA[ 
 				gui.addChangeCommand("vrsl_Dtdtfrmm.available", "dataChanged()");
-									// this function is called whenever the data was changed
-									dataChanged = function(){
-											var prepareFrame = "true";
-											var selectFrame = "true";
-											var thisObject = makeRObject(gui.getValue("vrsl_Dtdtfrmm.available"));
-											if(thisObject.classes()){
-												if(!thisObject.isDataFrame()){
-													selectFrame = "false";
-													if(thisObject.classes().indexOf("dist") != -1){
-														prepareFrame = "false";
-													} else {}
-												} else {}
-											} else {}
-											gui.setValue("frm_Usnlysbs.enabled", selectFrame);
-											gui.setValue("frm_Dtprprtn.enabled", prepareFrame);
-										} 
+							      // this function is called whenever the data was changed
+							      dataChanged = function(){
+							          var prepareFrame = "true";
+							          var selectFrame = "true";
+							          var thisObject = makeRObject(gui.getValue("vrsl_Dtdtfrmm.available"));
+							          if(thisObject.classes()){
+							            if(!thisObject.isDataFrame()){
+							              selectFrame = "false";
+							              if(thisObject.classes().indexOf("dist") != -1){
+							                prepareFrame = "false";
+							              } else {}
+							            } else {}
+							          } else {}
+							          gui.setValue("frm_Usnlysbs.enabled", selectFrame);
+							          gui.setValue("frm_Dtprprtn.enabled", prepareFrame);
+							        } 
 			]]>
 		</script>
 		<convert id="lgc_drpCmptt" sources="drp_Cmpttnmt.string" mode="equals" standard="minkowski" />
 		<connect governor="lgc_drpCmptt" client="spn_PwrfMnkw.enabled" />
 		<connect governor="chc_Pltrslts.state" client="row_cPPGTT08TT.enabled" />
+		<convert id="lgc_drpSclng" sources="drp_Sclngmth.string" mode="notequals" standard="cmdscale" />
+		<connect governor="lgc_drpSclng" client="spn_Mxmmnmbr.enabled" />
 		<connect governor="frm_Dtprprtn.enabled" client="frm_Dstncmtr.enabled" />
 		<set id="emb_rkwrdclrchsG.color.string" to="red" />
 	</logic>
@@ -83,13 +85,8 @@
 								<option label="Kruskal (non-metric)" value="isoMDS" />
 								<option label="Sammon (non-linear)" value="sammon" />
 							</dropdown>
-							<row id="row_cMM101MM10">
-								<column id="clm_spnbxMM101">
-									<spinbox label="Maximum number of iterations" id="spn_Mxmmnmbr" initial="10" min="1" type="integer" />
-								</column>
-								<column id="clm_spnbxlII11">
-									<spinbox label="Initial random set of centers" id="spn_Intlrndm" initial="1" min="1" type="integer" />
-								</column>
+							<row id="row_spnbxMM501">
+								<spinbox label="Maximum number of iterations" id="spn_Mxmmnmbr" initial="50" min="1" type="integer" />
 							</row>
 							<checkbox id="chc_Pltrslts" label="Plot results" value="true" checked="true" />
 						</frame>

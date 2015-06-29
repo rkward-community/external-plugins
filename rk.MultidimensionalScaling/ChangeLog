@@ -1,5 +1,11 @@
 ChangeLog for package rk.MultidimensionalScaling
 
+changes in version 0.01-10 (2015-06-29)
+fixed:
+  - fixed issues reading the status of checkboxes in the dialog
+  - removed unused "Initial random set of centers" options and made
+    the "Maximum number of iterations" options actually work
+
 changes in version 0.01-9 (2015-03-14)
 fixed:
   - replaced the outdated links to sourceforge with our new KDE URL

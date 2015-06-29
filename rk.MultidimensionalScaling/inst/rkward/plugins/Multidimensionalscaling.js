@@ -22,7 +22,6 @@ function calculate(){
 	var spnPwrfMnkw = getString("spn_PwrfMnkw");
 	var drpSclngmth = getString("drp_Sclngmth");
 	var spnMxmmnmbr = getString("spn_Mxmmnmbr");
-	var spnIntlrndm = getString("spn_Intlrndm");
 	var spnTextsize = getString("spn_Textsize");
 	var drpTextpstn = getString("drp_Textpstn");
 	var chcRmvmssng = getBoolean("chc_Rmvmssng.state");
@@ -35,13 +34,13 @@ function calculate(){
 	if(frmUsnlysbsChecked && vrslSlctdvrbShortname != "") {
 		echo("\t# Use subset of variables\n\t" + vrslDtdtfrmm + " <- subset(" + vrslDtdtfrmm + ", select=c(\"" + vrslSlctdvrbShortname + "\"))\n");
 	}
-	if(frmDtprprtnEnabled == "true" && chcRmvmssng == "true") {
+	if(frmDtprprtnEnabled && chcRmvmssng) {
 		echo("\t# Listwise removal of missings\n\t" + vrslDtdtfrmm + " <- na.omit(" + vrslDtdtfrmm + ")\n");
 	}
-	if(frmDtprprtnEnabled == "true" && chcStdrdzvl == "true") {
+	if(frmDtprprtnEnabled && chcStdrdzvl) {
 		echo("\t# Standardizing values\n\t" + vrslDtdtfrmm + " <- scale(" + vrslDtdtfrmm + ")\n");
 	}
-	if(frmDtprprtnEnabled == "true") {
+	if(frmDtprprtnEnabled) {
 		echo("\t# Compute distance matrix\n\tmds.distances <- dist(");
 		if(vrslDtdtfrmm) {
 			echo("\n\t\tx=" + vrslDtdtfrmm);
@@ -56,6 +55,11 @@ function calculate(){
 			echo("\n\t\td=mds.distances");
 		}
 		echo(",\n\t\tk=" + spnMxmmdmns);
+		if(drpSclngmth == "isoMDS") {
+			echo(",\n\t\tmaxit=" + spnMxmmnmbr);
+		} else if(drpSclngmth == "sammon") {
+			echo(",\n\t\tniter=" + spnMxmmnmbr);
+		}
 		echo("\n\t)\n\n");
 	} else {
 		echo("\t# The actual multidimensional scaling\n\t\tmds.result <- " + drpSclngmth + "(");
@@ -63,6 +67,11 @@ function calculate(){
 			echo("\n\t\td=" + vrslDtdtfrmm);
 		}
 		echo(",\n\t\tk=" + spnMxmmdmns);
+		if(drpSclngmth == "isoMDS") {
+			echo(",\n\t\tmaxit=" + spnMxmmnmbr);
+		} else if(drpSclngmth == "sammon") {
+			echo(",\n\t\tniter=" + spnMxmmnmbr);
+		}
 		echo("\n\t)\n\n");
 	}
 }
@@ -90,7 +99,6 @@ function doPrintout(full){
 	var spnPwrfMnkw = getString("spn_PwrfMnkw");
 	var drpSclngmth = getString("drp_Sclngmth");
 	var spnMxmmnmbr = getString("spn_Mxmmnmbr");
-	var spnIntlrndm = getString("spn_Intlrndm");
 	var spnTextsize = getString("spn_Textsize");
 	var drpTextpstn = getString("drp_Textpstn");
 	var chcRmvmssng = getBoolean("chc_Rmvmssng.state");
