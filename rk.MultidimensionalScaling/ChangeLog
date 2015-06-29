@@ -1,5 +1,13 @@
 ChangeLog for package rk.MultidimensionalScaling
 
+changes in version 0.01-12 (2015-06-29)
+unreleased:
+  - this release is under devoplment
+
+changes in version 0.01-11 (2015-06-29)
+unreleased:
+  - this release is under devoplment
+
 changes in version 0.01-10 (2015-06-29)
 fixed:
   - fixed issues reading the status of checkboxes in the dialog

@@ -1,5 +1,14 @@
 \name{NEWS}
 \title{News for Package 'rk.MultidimensionalScaling'}
+\section{Changes in rk.MultidimensionalScaling version 0.01-10 (2015-06-29)}{
+  \subsection{fixed}{
+    \itemize{
+      \item fixed issues reading the status of checkboxes in the dialog
+      \item removed unused "Initial random set of centers" options and made
+        the "Maximum number of iterations" options actually work
+    }
+  }
+}
 \section{Changes in rk.MultidimensionalScaling version 0.01-9 (2015-03-14)}{
   \subsection{fixed}{
     \itemize{

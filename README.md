@@ -5,7 +5,7 @@ Provides a collaboration area for RKWard plugins that are not (yet) targetted
 for inclusion in the offical RKWard releases.
 
 See http://api.kde.org/doc/rkwardplugins/ for documentation on writing plugins for RKWard.
-Contact rkward-devel@lists.sourceforge.net for help and requests.
+Contact rkward-devel@kde.org for help and requests.
 
 Why use this repository?
 ========================
@@ -22,12 +22,16 @@ be useful additions to the RKWard official distribution.
 -- Making plugin packages available for download
 
 For plugins that are clearly targetted for inclusion in the official RKWard releases, or for patches to such plugins,
-refer to the main source repo (currently in the process of moving to git.kde.org), or contact us on rkward-devel@lists.sourceforge.net .
+refer to the main source repo (currently in the process of moving to git.kde.org), or contact us on rkward-devel@kde.org .
 
 Contributing
 ============
 - Submit pull requests or patches
 - Contact us to get write access
+
+Many of the plugins here are using the 'rkwarddev' package. This means that their development is mainly focussed on one
+script file, usually located at `<main dir>/inst/rkward/<script name>.R`. These scripts are written in `R` code and *generate*
+all of the other plugin files when run. Therefore, in case you'd like to add to any plugin, please add to these script files.
 
 Licence
 =======
